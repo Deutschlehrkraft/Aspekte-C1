@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lernfortschrittstest Kapitel 1 – Aspekte neu C1</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; font-size: 15px; background: #f2f2f2; color: #1a1a1a; padding-bottom: 60px; }
+
+/* HEADER */
+.page-header { background: #1a5c2e; color: #fff; padding: 22px 32px 18px; }
+.header-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; max-width: 880px; margin: 0 auto; }
+.header-left h1 { font-size: 22px; font-weight: 700; }
+.header-left p  { font-size: 13px; opacity: 0.85; margin-top: 4px; }
+.header-right { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+.badge { background: rgba(255,255,255,0.22); border-radius: 20px; padding: 4px 14px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+
+.test-banner { background: #f57f17; color: #fff; padding: 14px 32px; font-size: 17px; font-weight: 700; }
+.test-banner-inner { max-width: 880px; margin: 0 auto; }
+
+.content { max-width: 880px; margin: 0 auto; padding: 24px 20px; }
+
+/* AUFGABE CARD */
+.aufgabe { background: #fff; border-radius: 10px; padding: 22px 24px 20px; margin-bottom: 22px; border-left: 5px solid #1a5c2e; box-shadow: 0 1px 5px rgba(0,0,0,0.08); }
+.aufgabe-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+.aufgabe-nr { background: #1a5c2e; color: #fff; font-size: 16px; font-weight: 700; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.aufgabe-title { font-size: 15px; font-weight: 700; line-height: 1.4; padding-top: 2px; }
+.aufgabe-sub { font-size: 12.5px; color: #666; margin-top: 3px; font-weight: 400; }
+
+/* INPUTS */
+.fill-input { border: none; border-bottom: 2px solid #aaa; background: transparent; font-size: 14px; font-family: Arial, sans-serif; padding: 2px 6px; min-width: 170px; outline: none; }
+.fill-input:focus { border-bottom-color: #1a5c2e; }
+.fill-input.correct { border-bottom-color: #2e7d32 !important; background: #e8f5e9 !important; border-radius: 4px; }
+.fill-input.wrong   { border-bottom-color: #e65100 !important; background: #fff3e0 !important; border-radius: 4px; }
+.fill-input[readonly] { border-bottom-color: #2e7d32; background: #e8f5e9; border-radius: 4px; color: #2e7d32; font-weight: 700; }
+
+/* SATZ LIST */
+.satz-liste { list-style: none; }
+.satz-item { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; line-height: 2; }
+.satz-item:last-child { border-bottom: none; }
+
+/* HINT */
+.hint { display: none; font-size: 12px; color: #e65100; font-weight: 700; margin-left: 6px; }
+.hint.show { display: inline; }
+
+/* AUDIO */
+.audio-box { background: #fff8e1; border: 1.5px solid #f9a825; border-radius: 8px; padding: 12px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.audio-label { font-size: 13px; font-weight: 700; color: #e65100; white-space: nowrap; flex-shrink: 0; }
+audio { height: 38px; flex: 1; min-width: 200px; }
+
+/* MULTIPLE CHOICE */
+.mc-block { margin-bottom: 14px; }
+.mc-question { font-size: 14px; font-weight: 600; margin-bottom: 7px; }
+.mc-options { display: flex; gap: 8px; flex-wrap: wrap; }
+.mc-label { display: flex; align-items: center; gap: 6px; padding: 6px 14px; border: 1.5px solid #ccc; border-radius: 8px; cursor: pointer; font-size: 13.5px; transition: all 0.15s; user-select: none; }
+.mc-label:hover { border-color: #1a5c2e; background: #e8f5e9; }
+.mc-label input { accent-color: #1a5c2e; margin: 0; }
+.mc-label.correct-opt { border-color: #2e7d32 !important; background: #e8f5e9 !important; color: #2e7d32 !important; font-weight: 700; }
+.mc-label.wrong-opt   { border-color: #e65100 !important; background: #fff3e0 !important; color: #e65100 !important; }
+
+/* WORD BOX */
+.wortkasten { background: #fff8e1; border: 1.5px solid #f9a825; border-radius: 8px; padding: 10px 16px; margin-bottom: 16px; line-height: 2.2; }
+.wortkasten .w { display: inline-block; background: #fff; border: 1px solid #f9a825; border-radius: 5px; padding: 2px 10px; margin: 2px 4px; font-size: 13px; cursor: pointer; transition: all 0.15s; }
+.wortkasten .w:hover { background: #fff3cd; }
+.wortkasten .w.used { opacity: 0.3; text-decoration: line-through; cursor: default; }
+
+/* SELECT */
+.fill-select { border: none; border-bottom: 2px solid #aaa; background: transparent; font-size: 14px; font-family: Arial, sans-serif; padding: 2px 4px; outline: none; cursor: pointer; min-width: 160px; }
+.fill-select:focus { border-bottom-color: #1a5c2e; }
+.fill-select.correct { border-bottom-color: #2e7d32; background: #e8f5e9; border-radius: 4px; }
+.fill-select.wrong   { border-bottom-color: #e65100; background: #fff3e0; border-radius: 4px; }
+
+/* MATCHING */
+.match-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; flex-wrap: wrap; }
+.match-row:last-child { border-bottom: none; }
+.match-nr { font-weight: 700; color: #888; min-width: 20px; }
+.match-phrase { flex: 1; }
+.match-select { border: 1.5px solid #ccc; border-radius: 7px; padding: 6px 10px; font-family: Arial, sans-serif; font-size: 13.5px; outline: none; cursor: pointer; background: #fff; min-width: 200px; }
+.match-select:focus { border-color: #1a5c2e; }
+.match-select.correct { border-color: #2e7d32; background: #e8f5e9; color: #2e7d32; }
+.match-select.wrong   { border-color: #e65100; background: #fff3e0; color: #e65100; }
+
+/* SATZ BUILDER */
+.sb-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; flex-wrap: wrap; }
+.sb-row:last-child { border-bottom: none; }
+.sb-tag { font-size: 12px; color: #888; min-width: 170px; flex-shrink: 0; font-style: italic; }
+.sb-input { flex: 1; border: none; border-bottom: 2px solid #aaa; background: transparent; font-size: 14px; font-family: Arial, sans-serif; padding: 2px 6px; outline: none; min-width: 200px; }
+.sb-input:focus { border-bottom-color: #1a5c2e; }
+.sb-input.correct { border-bottom-color: #2e7d32; background: #e8f5e9; border-radius: 4px; }
+.sb-input.wrong   { border-bottom-color: #e65100; background: #fff3e0; border-radius: 4px; }
+.sb-input[readonly] { border-bottom-color: #2e7d32; background: #e8f5e9; border-radius: 4px; color: #2e7d32; font-style: italic; }
+
+/* AUFGABE 7 */
+.rw-row { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; line-height: 1.9; flex-wrap: wrap; }
+.rw-row:last-child { border-bottom: none; }
+.rw-nr { font-weight: 700; color: #888; min-width: 28px; flex-shrink: 0; padding-top: 2px; }
+.rw-content { flex: 1; }
+.pf-grp { display: flex; gap: 6px; flex-shrink: 0; padding-top: 4px; }
+.pf-label { display: flex; align-items: center; gap: 4px; padding: 4px 12px; border: 1.5px solid #ccc; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 700; user-select: none; }
+.pf-label input { accent-color: #1a5c2e; }
+.pf-label:hover { border-color: #f57f17; }
+.pf-label.correct-pf { border-color: #2e7d32; background: #e8f5e9; color: #2e7d32; }
+.pf-label.wrong-pf   { border-color: #e65100; background: #fff3e0; color: #e65100; }
+
+/* SCHREIBEN */
+.schreib-area { width: 100%; min-height: 220px; border: 1.5px solid #ccc; border-radius: 8px; padding: 12px; font-size: 14px; font-family: Arial, sans-serif; resize: vertical; outline: none; line-height: 1.9; }
+.schreib-area:focus { border-color: #1a5c2e; }
+.punkte-kriterien { background: #fff8e1; border: 1px solid #f9a825; border-radius: 7px; padding: 10px 14px; font-size: 13px; margin-top: 12px; line-height: 1.8; }
+
+.muster-btn { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; padding: 10px 18px; background: #1a5c2e; color: #fff; border-radius: 8px; font-size: 13.5px; font-weight: 700; margin-top: 14px; user-select: none; border: none; font-family: Arial, sans-serif; }
+.muster-btn:hover { background: #2e7d32; }
+.mustertext { display: none; background: #e8f5e9; border: 1.5px solid #2e7d32; border-radius: 8px; padding: 18px 20px; margin-top: 12px; font-size: 14px; line-height: 1.9; }
+.mustertext.show { display: block; }
+.mustertext .m-title { font-size: 13px; font-weight: 700; color: #1a5c2e; margin-bottom: 10px; }
+.mustertext em { color: #1a5c2e; }
+
+/* BUTTONS */
+.btn-row { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; align-items: center; }
+.btn { padding: 9px 22px; border-radius: 7px; border: none; font-size: 13.5px; font-weight: 700; cursor: pointer; font-family: Arial, sans-serif; }
+.btn:hover { opacity: 0.88; }
+.btn-check { background: #1a5c2e; color: #fff; }
+.btn-reset { background: #fff; color: #666; border: 1.5px solid #ccc; }
+.punkte-display { font-size: 13px; color: #888; margin-left: auto; }
+
+/* RESULT BAR */
+.result-bar { margin-top: 10px; padding: 9px 14px; border-radius: 7px; font-size: 13.5px; font-weight: 700; display: none; }
+.result-bar.show { display: block; }
+.result-bar.gut      { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+.result-bar.mittel   { background: #fff8e1; color: #f57f17; border: 1px solid #ffe082; }
+.result-bar.schlecht { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+
+/* TOTAL */
+.gesamt-box { background: #fff; border-radius: 10px; padding: 26px 24px; margin-top: 10px; border: 2px solid #1a5c2e; text-align: center; }
+.gesamt-title { font-size: 14px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+.gesamt-punkte { font-size: 42px; font-weight: 700; color: #1a5c2e; margin: 10px 0 6px; }
+.gesamt-sub { font-size: 13px; color: #888; margin-bottom: 18px; }
+.bewertung { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.bew { padding: 7px 16px; border-radius: 7px; font-size: 13px; font-weight: 700; border: 1.5px solid; }
+.bew-sg { background: #e8f5e9; color: #2e7d32; border-color: #2e7d32; }
+.bew-g  { background: #f1f8e9; color: #558b2f; border-color: #8bc34a; }
+.bew-b  { background: #fff8e1; color: #f57f17; border-color: #f9a825; }
+.bew-a  { background: #fff3e0; color: #e65100; border-color: #ff9800; }
+.bew-nb { background: #fbe9e7; color: #bf360c; border-color: #ff5722; }
+.bew.active { box-shadow: 0 0 0 3px currentColor; }
+
+hr.div { border: none; border-top: 1px solid #eee; margin: 14px 0; }
+
+/* LÖSUNGEN-BAR */
+.loes-bar { background: #fff8e1; border-bottom: 2px solid #f9a825; padding: 10px 32px; }
+.loes-bar-inner { max-width: 880px; margin: 0 auto; display: flex; align-items: center; gap: 14px; }
+.btn-loes { padding: 8px 20px; background: #e65100; color: #fff; border: none; border-radius: 7px; font-size: 13.5px; font-weight: 700; cursor: pointer; font-family: Arial, sans-serif; white-space: nowrap; }
+.btn-loes:hover { background: #f57f17; }
+.btn-loes.active { background: #1a5c2e; }
+.loes-hint { font-size: 12.5px; color: #888; }
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<div class="page-header">
+  <div class="header-inner">
+    <div class="header-left">
+      <h1>Lernfortschrittstest · Kapitel 1</h1>
+      <p>Aspekte neu C1 &nbsp;·&nbsp; Klett Verlag</p>
+    </div>
+    <div class="header-right">
+      <span class="badge">Niveau C1</span>
+      <span class="badge">40 Punkte gesamt</span>
+    </div>
+  </div>
+</div>
+<div class="test-banner">
+  <div class="test-banner-inner">Test zu Kapitel 1: Alltägliches</div>
+</div>
+
+<div class="loes-bar">
+  <div class="loes-bar-inner">
+    <button class="btn-loes" id="loes-btn" onclick="toggleLoesungen()">🔑 Lösungen anzeigen</button>
+    <span class="loes-hint">Alle richtigen Antworten auf einmal einblenden oder ausblenden</span>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ══ AUFGABE 1 ══ -->
+<div class="aufgabe" id="u1">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">1</div>
+    <div>
+      <div class="aufgabe-title">Wortschatz. Emotionen.</div>
+      <div class="aufgabe-sub">Notieren Sie das passende Wort aus der Wortfamilie.</div>
+    </div>
+  </div>
+  <ul class="satz-liste">
+    <li class="satz-item">1. &nbsp;die Scham &nbsp;&nbsp; Verb: <input class="fill-input" id="u1_1" data-ans="sich schämen|schämen|sich schaemen|schaemen" placeholder="_______________"> <span class="hint" id="h1_1"></span></li>
+    <li class="satz-item">2. &nbsp;die Zerstreuung &nbsp;&nbsp; Verb: <input class="fill-input" id="u1_2" data-ans="sich zerstreuen|zerstreuen" placeholder="_______________"> <span class="hint" id="h1_2"></span></li>
+    <li class="satz-item">3. &nbsp;die Empfindung &nbsp;&nbsp; Verb: <input class="fill-input" id="u1_3" data-ans="empfinden" placeholder="_______________"> <span class="hint" id="h1_3"></span></li>
+    <li class="satz-item">4. &nbsp;bewusst &nbsp;&nbsp; Nomen: <input class="fill-input" id="u1_4" data-ans="das bewusstsein|bewusstsein|das Bewusstsein" placeholder="_______________"> <span class="hint" id="h1_4"></span></li>
+    <li class="satz-item">5. &nbsp;enttäuscht &nbsp;&nbsp; Nomen: <input class="fill-input" id="u1_5" data-ans="die enttäuschung|enttäuschung|die Enttäuschung" placeholder="_______________"> <span class="hint" id="h1_5"></span></li>
+    <li class="satz-item">6. &nbsp;belastbar &nbsp;&nbsp; Nomen: <input class="fill-input" id="u1_6" data-ans="die belastbarkeit|belastbarkeit|die Belastbarkeit" placeholder="_______________"> <span class="hint" id="h1_6"></span></li>
+  </ul>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU1()">✔ Prüfen</button>
+    <button class="btn btn-reset" onclick="resetU1()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd1">/ 3 Punkte</span>
+  </div>
+  <div class="result-bar" id="res1"></div>
+</div>
+
+<!-- ══ AUFGABE 2 ══ -->
+<div class="aufgabe" id="u2">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">2</div>
+    <div>
+      <div class="aufgabe-title">Hören Sie ein Gespräch in der WG und kreuzen Sie an: a, b oder c.</div>
+      <div class="aufgabe-sub">LB 1.13</div>
+    </div>
+  </div>
+  <div class="audio-box">
+    <span class="audio-label">▶ LB 1.13</span>
+    <audio controls>
+      <source src="audio/Aspekte3neu_Test1_LB_1-13.mp3" type="audio/mpeg">
+      Audio nicht verfügbar.
+    </audio>
+  </div>
+  <div id="u2-items">
+    <div class="mc-block">
+      <div class="mc-question">1. Die WG-Bewohner sitzen gerade …</div>
+      <div class="mc-options" id="mc2_1">
+        <label class="mc-label"><input type="radio" name="mc2_1" value="a"> a &nbsp;im Wohnzimmer.</label>
+        <label class="mc-label"><input type="radio" name="mc2_1" value="b"> b &nbsp;in der Küche.</label>
+        <label class="mc-label"><input type="radio" name="mc2_1" value="c"> c &nbsp;in einem der WG-Zimmer.</label>
+      </div>
+    </div>
+    <div class="mc-block">
+      <div class="mc-question">2. Der Backofen sorgt in der Küche für …</div>
+      <div class="mc-options" id="mc2_2">
+        <label class="mc-label"><input type="radio" name="mc2_2" value="a"> a &nbsp;mehr Wärme.</label>
+        <label class="mc-label"><input type="radio" name="mc2_2" value="b"> b &nbsp;schlechte Luft.</label>
+        <label class="mc-label"><input type="radio" name="mc2_2" value="c"> c &nbsp;Streit mit dem Vermieter.</label>
+      </div>
+    </div>
+    <div class="mc-block">
+      <div class="mc-question">3. Das Problem ist …</div>
+      <div class="mc-options" id="mc2_3">
+        <label class="mc-label"><input type="radio" name="mc2_3" value="a"> a &nbsp;ein Wasserschaden.</label>
+        <label class="mc-label"><input type="radio" name="mc2_3" value="b"> b &nbsp;…, dass der Laptop weg ist.</label>
+        <label class="mc-label"><input type="radio" name="mc2_3" value="c"> c &nbsp;…, dass die Heizung defekt ist.</label>
+      </div>
+    </div>
+    <div class="mc-block">
+      <div class="mc-question">4. Der Hausmeister …</div>
+      <div class="mc-options" id="mc2_4">
+        <label class="mc-label"><input type="radio" name="mc2_4" value="a"> a &nbsp;wurde schon zwei Mal informiert.</label>
+        <label class="mc-label"><input type="radio" name="mc2_4" value="b"> b &nbsp;hat eine Frist gesetzt bekommen.</label>
+        <label class="mc-label"><input type="radio" name="mc2_4" value="c"> c &nbsp;kann nichts dagegen unternehmen.</label>
+      </div>
+    </div>
+    <div class="mc-block">
+      <div class="mc-question">5. Der Vermieter …</div>
+      <div class="mc-options" id="mc2_5">
+        <label class="mc-label"><input type="radio" name="mc2_5" value="a"> a &nbsp;hat auf zwei Schreiben nicht reagiert.</label>
+        <label class="mc-label"><input type="radio" name="mc2_5" value="b"> b &nbsp;soll auch die Wohnungstür reparieren.</label>
+        <label class="mc-label"><input type="radio" name="mc2_5" value="c"> c &nbsp;wird zum Essen eingeladen.</label>
+      </div>
+    </div>
+    <div class="mc-block">
+      <div class="mc-question">6. Die Fenster sind …</div>
+      <div class="mc-options" id="mc2_6">
+        <label class="mc-label"><input type="radio" name="mc2_6" value="a"> a &nbsp;undurchsichtig.</label>
+        <label class="mc-label"><input type="radio" name="mc2_6" value="b"> b &nbsp;undicht.</label>
+        <label class="mc-label"><input type="radio" name="mc2_6" value="c"> c &nbsp;nicht zu öffnen.</label>
+      </div>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU2()">✔ Prüfen</button>
+    <button class="btn btn-reset" onclick="resetU2()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd2">/ 6 Punkte</span>
+  </div>
+  <div class="result-bar" id="res2"></div>
+</div>
+
+<!-- ══ AUFGABE 3 ══ -->
+<div class="aufgabe" id="u3">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">3</div>
+    <div>
+      <div class="aufgabe-title">Wortschatz zum Thema „Zeitempfinden". Ergänzen Sie die Wörter.</div>
+      <div class="aufgabe-sub">Wählen Sie das passende Wort aus dem Kasten.</div>
+    </div>
+  </div>
+  <div class="wortkasten">
+    <span class="w" id="wb_entschleunigen" onclick="selectWord(this)">entschleunigen</span>
+    <span class="w" id="wb_zeitraubend" onclick="selectWord(this)">zeitraubend</span>
+    <span class="w" id="wb_zurückblicken" onclick="selectWord(this)">zurückblicken</span>
+    <span class="w" id="wb_Zeitraum" onclick="selectWord(this)">Zeitraum</span>
+    <span class="w" id="wb_zukunftsorientiert" onclick="selectWord(this)">zukunftsorientiert</span>
+    <span class="w" id="wb_Zeitdruck" onclick="selectWord(this)">Zeitdruck</span>
+  </div>
+  <ul class="satz-liste">
+    <li class="satz-item">1. Wenn Sie auf das letzte Jahr
+      <select class="fill-select" id="u3_1" data-ans="zurückblicken">
+        <option value="">— wählen —</option>
+        <option>entschleunigen</option><option>zeitraubend</option><option>zurückblicken</option>
+        <option>Zeitraum</option><option>zukunftsorientiert</option><option>Zeitdruck</option>
+      </select>, ist es schnell oder langsam vergangen?
+    </li>
+    <li class="satz-item">2.
+      <select class="fill-select" id="u3_2" data-ans="Zeitdruck">
+        <option value="">— wählen —</option>
+        <option>entschleunigen</option><option>zeitraubend</option><option>zurückblicken</option>
+        <option>Zeitraum</option><option>zukunftsorientiert</option><option>Zeitdruck</option>
+      </select> und Hektik sind ein großes Problem in unserer westlichen Gesellschaft.
+    </li>
+    <li class="satz-item">3. Wir sollten unseren Alltag dringend
+      <select class="fill-select" id="u3_3" data-ans="entschleunigen">
+        <option value="">— wählen —</option>
+        <option>entschleunigen</option><option>zeitraubend</option><option>zurückblicken</option>
+        <option>Zeitraum</option><option>zukunftsorientiert</option><option>Zeitdruck</option>
+      </select>, um gesund zu bleiben.
+    </li>
+    <li class="satz-item">4. Wir sind sehr
+      <select class="fill-select" id="u3_4" data-ans="zukunftsorientiert">
+        <option value="">— wählen —</option>
+        <option>entschleunigen</option><option>zeitraubend</option><option>zurückblicken</option>
+        <option>Zeitraum</option><option>zukunftsorientiert</option><option>Zeitdruck</option>
+      </select>, denn wir sind in Gedanken immer schon beim nächsten Punkt auf der To-do-Liste.
+    </li>
+    <li class="satz-item">5. Viele Menschen empfinden Haushaltstätigkeiten als
+      <select class="fill-select" id="u3_5" data-ans="zeitraubend">
+        <option value="">— wählen —</option>
+        <option>entschleunigen</option><option>zeitraubend</option><option>zurückblicken</option>
+        <option>Zeitraum</option><option>zukunftsorientiert</option><option>Zeitdruck</option>
+      </select>.
+    </li>
+    <li class="satz-item">6. In einem
+      <select class="fill-select" id="u3_6" data-ans="Zeitraum">
+        <option value="">— wählen —</option>
+        <option>entschleunigen</option><option>zeitraubend</option><option>zurückblicken</option>
+        <option>Zeitraum</option><option>zukunftsorientiert</option><option>Zeitdruck</option>
+      </select> von nur zwei Jahren hat sich mein Leben komplett verändert.
+    </li>
+  </ul>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU3()">✔ Prüfen</button>
+    <button class="btn btn-reset" onclick="resetU3()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd3">/ 3 Punkte</span>
+  </div>
+  <div class="result-bar" id="res3"></div>
+</div>
+
+<!-- ══ AUFGABE 4 ══ -->
+<div class="aufgabe" id="u4">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">4</div>
+    <div>
+      <div class="aufgabe-title">Grammatik. Konnektoren. Welcher Konnektor passt?</div>
+      <div class="aufgabe-sub">Kreuzen Sie an: a, b — oder kann man beide einsetzen? Dann c.</div>
+    </div>
+  </div>
+  <div id="u4-items">
+    <div class="mc-block">
+      <div class="mc-question">1. Du musst es immer weiter probieren, _____ wirst du es irgendwann schaffen.</div>
+      <div class="mc-options" id="mc4_1">
+        <label class="mc-label"><input type="radio" name="mc4_1" value="a"> a &nbsp;wenn</label>
+        <label class="mc-label"><input type="radio" name="mc4_1" value="b"> b &nbsp;dann</label>
+        <label class="mc-label"><input type="radio" name="mc4_1" value="c"> c &nbsp;= (beide)</label>
+      </div>
+    </div>
+    <div class="mc-block">
+      <div class="mc-question">2. Schade, dass du nicht mitkommst. _____ du es dir anders überlegst, ruf mich an.</div>
+      <div class="mc-options" id="mc4_2">
+        <label class="mc-label"><input type="radio" name="mc4_2" value="a"> a &nbsp;Falls</label>
+        <label class="mc-label"><input type="radio" name="mc4_2" value="b"> b &nbsp;Außer wenn</label>
+        <label class="mc-label"><input type="radio" name="mc4_2" value="c"> c &nbsp;= (beide)</label>
+      </div>
+    </div>
+    <div class="mc-block">
+      <div class="mc-question">3. Alle Menschen machen Fehler, _____ bin auch ich nicht perfekt.</div>
+      <div class="mc-options" id="mc4_3">
+        <label class="mc-label"><input type="radio" name="mc4_3" value="a"> a &nbsp;folglich</label>
+        <label class="mc-label"><input type="radio" name="mc4_3" value="b"> b &nbsp;andernfalls</label>
+        <label class="mc-label"><input type="radio" name="mc4_3" value="c"> c &nbsp;= (beide)</label>
+      </div>
+    </div>
+    <div class="mc-block">
+      <div class="mc-question">4. Wir müssen über unseren Zeitplan sprechen, _____ kommen wir wirklich in Schwierigkeiten.</div>
+      <div class="mc-options" id="mc4_4">
+        <label class="mc-label"><input type="radio" name="mc4_4" value="a"> a &nbsp;außer wenn</label>
+        <label class="mc-label"><input type="radio" name="mc4_4" value="b"> b &nbsp;sonst</label>
+        <label class="mc-label"><input type="radio" name="mc4_4" value="c"> c &nbsp;= (beide)</label>
+      </div>
+    </div>
+    <div class="mc-block">
+      <div class="mc-question">5. Die Marketingabteilung hat die Frist verlängert. _____ haben wir jetzt mehr Zeit.</div>
+      <div class="mc-options" id="mc4_5">
+        <label class="mc-label"><input type="radio" name="mc4_5" value="a"> a &nbsp;Demnach</label>
+        <label class="mc-label"><input type="radio" name="mc4_5" value="b"> b &nbsp;Somit</label>
+        <label class="mc-label"><input type="radio" name="mc4_5" value="c"> c &nbsp;= (beide)</label>
+      </div>
+    </div>
+    <div class="mc-block">
+      <div class="mc-question">6. Wir fahren am Wochenende nicht ans Meer, _____, das Wetter wird noch besser.</div>
+      <div class="mc-options" id="mc4_6">
+        <label class="mc-label"><input type="radio" name="mc4_6" value="a"> a &nbsp;es sei denn</label>
+        <label class="mc-label"><input type="radio" name="mc4_6" value="b"> b &nbsp;andernfalls</label>
+        <label class="mc-label"><input type="radio" name="mc4_6" value="c"> c &nbsp;= (beide)</label>
+      </div>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU4()">✔ Prüfen</button>
+    <button class="btn btn-reset" onclick="resetU4()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd4">/ 6 Punkte</span>
+  </div>
+  <div class="result-bar" id="res4"></div>
+</div>
+
+<!-- ══ AUFGABE 5 ══ -->
+<div class="aufgabe" id="u5">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">5</div>
+    <div>
+      <div class="aufgabe-title">Grammatik. Trennbare und untrennbare Verben. Was passt?</div>
+      <div class="aufgabe-sub">Verbinden Sie die Phrasen mit dem richtigen Verb.</div>
+    </div>
+  </div>
+  <div style="margin-bottom:12px; font-size:13px; color:#888;">
+    <strong>Verben:</strong> &nbsp;a durchfallen &nbsp;·&nbsp; b umsteigen &nbsp;·&nbsp; c überarbeiten &nbsp;·&nbsp; d unterbrechen &nbsp;·&nbsp; e durchführen &nbsp;·&nbsp; f widerlegen &nbsp;·&nbsp; g umziehen &nbsp;·&nbsp; h durchleben
+  </div>
+  <div class="match-row"><span class="match-nr">1.</span><span class="match-phrase">durch die Führerscheinprüfung …</span>
+    <select class="match-select" id="u5_1" data-ans="a"><option value="">— Verb wählen —</option><option value="a">a – durchfallen</option><option value="b">b – umsteigen</option><option value="c">c – überarbeiten</option><option value="d">d – unterbrechen</option><option value="e">e – durchführen</option><option value="f">f – widerlegen</option><option value="g">g – umziehen</option><option value="h">h – durchleben</option></select>
+  </div>
+  <div class="match-row"><span class="match-nr">2.</span><span class="match-phrase">gerade eine schwierige Zeit …</span>
+    <select class="match-select" id="u5_2" data-ans="h"><option value="">— Verb wählen —</option><option value="a">a – durchfallen</option><option value="b">b – umsteigen</option><option value="c">c – überarbeiten</option><option value="d">d – unterbrechen</option><option value="e">e – durchführen</option><option value="f">f – widerlegen</option><option value="g">g – umziehen</option><option value="h">h – durchleben</option></select>
+  </div>
+  <div class="match-row"><span class="match-nr">3.</span><span class="match-phrase">eine Behauptung …</span>
+    <select class="match-select" id="u5_3" data-ans="f"><option value="">— Verb wählen —</option><option value="a">a – durchfallen</option><option value="b">b – umsteigen</option><option value="c">c – überarbeiten</option><option value="d">d – unterbrechen</option><option value="e">e – durchführen</option><option value="f">f – widerlegen</option><option value="g">g – umziehen</option><option value="h">h – durchleben</option></select>
+  </div>
+  <div class="match-row"><span class="match-nr">4.</span><span class="match-phrase">in einen anderen Zug …</span>
+    <select class="match-select" id="u5_4" data-ans="b"><option value="">— Verb wählen —</option><option value="a">a – durchfallen</option><option value="b">b – umsteigen</option><option value="c">c – überarbeiten</option><option value="d">d – unterbrechen</option><option value="e">e – durchführen</option><option value="f">f – widerlegen</option><option value="g">g – umziehen</option><option value="h">h – durchleben</option></select>
+  </div>
+  <div class="match-row"><span class="match-nr">5.</span><span class="match-phrase">einen Text …</span>
+    <select class="match-select" id="u5_5" data-ans="c"><option value="">— Verb wählen —</option><option value="a">a – durchfallen</option><option value="b">b – umsteigen</option><option value="c">c – überarbeiten</option><option value="d">d – unterbrechen</option><option value="e">e – durchführen</option><option value="f">f – widerlegen</option><option value="g">g – umziehen</option><option value="h">h – durchleben</option></select>
+  </div>
+  <div class="match-row"><span class="match-nr">6.</span><span class="match-phrase">im Juli nach Frankfurt …</span>
+    <select class="match-select" id="u5_6" data-ans="g"><option value="">— Verb wählen —</option><option value="a">a – durchfallen</option><option value="b">b – umsteigen</option><option value="c">c – überarbeiten</option><option value="d">d – unterbrechen</option><option value="e">e – durchführen</option><option value="f">f – widerlegen</option><option value="g">g – umziehen</option><option value="h">h – durchleben</option></select>
+  </div>
+  <div class="match-row"><span class="match-nr">7.</span><span class="match-phrase">seinen Gesprächspartner ständig …</span>
+    <select class="match-select" id="u5_7" data-ans="d"><option value="">— Verb wählen —</option><option value="a">a – durchfallen</option><option value="b">b – umsteigen</option><option value="c">c – überarbeiten</option><option value="d">d – unterbrechen</option><option value="e">e – durchführen</option><option value="f">f – widerlegen</option><option value="g">g – umziehen</option><option value="h">h – durchleben</option></select>
+  </div>
+  <div class="match-row"><span class="match-nr">8.</span><span class="match-phrase">ein Experiment …</span>
+    <select class="match-select" id="u5_8" data-ans="e"><option value="">— Verb wählen —</option><option value="a">a – durchfallen</option><option value="b">b – umsteigen</option><option value="c">c – überarbeiten</option><option value="d">d – unterbrechen</option><option value="e">e – durchführen</option><option value="f">f – widerlegen</option><option value="g">g – umziehen</option><option value="h">h – durchleben</option></select>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU5()">✔ Prüfen</button>
+    <button class="btn btn-reset" onclick="resetU5()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd5">/ 4 Punkte</span>
+  </div>
+  <div class="result-bar" id="res5"></div>
+</div>
+
+<!-- ══ AUFGABE 6 ══ -->
+<div class="aufgabe" id="u6">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">6</div>
+    <div>
+      <div class="aufgabe-title">Grammatik. Bilden Sie Sätze mit den Verben aus Aufgabe 5.</div>
+      <div class="aufgabe-sub">Benutzen Sie das angegebene Tempus und das angegebene Personalpronomen.</div>
+    </div>
+  </div>
+  <div class="sb-row"><span class="sb-tag">1. Perfekt, <em>ich</em></span><input class="sb-input" id="u6_1" value="Ich bin durch die Führerscheinprüfung durchgefallen." readonly></div>
+  <div class="sb-row"><span class="sb-tag">2. Präsens, <em>er</em></span><input class="sb-input" id="u6_2" data-ans="er durchlebt gerade eine schwierige zeit" placeholder="Bilden Sie den Satz …"><span class="hint" id="h6_2"></span></div>
+  <div class="sb-row"><span class="sb-tag">3. Präteritum, <em>sie</em></span><input class="sb-input" id="u6_3" data-ans="sie widerlegte eine behauptung" placeholder="Bilden Sie den Satz …"><span class="hint" id="h6_3"></span></div>
+  <div class="sb-row"><span class="sb-tag">4. Perfekt, <em>wir</em></span><input class="sb-input" id="u6_4" data-ans="wir sind in einen anderen zug umgestiegen" placeholder="Bilden Sie den Satz …"><span class="hint" id="h6_4"></span></div>
+  <div class="sb-row"><span class="sb-tag">5. Perfekt, <em>er</em></span><input class="sb-input" id="u6_5" data-ans="er hat einen text überarbeitet|er hat einen text ueberarbeitet" placeholder="Bilden Sie den Satz …"><span class="hint" id="h6_5"></span></div>
+  <div class="sb-row"><span class="sb-tag">6. Perfekt, <em>wir</em></span><input class="sb-input" id="u6_6" data-ans="wir sind im juli nach frankfurt umgezogen" placeholder="Bilden Sie den Satz …"><span class="hint" id="h6_6"></span></div>
+  <div class="sb-row"><span class="sb-tag">7. Präsens, <em>er</em></span><input class="sb-input" id="u6_7" data-ans="er unterbricht seinen gesprächspartner ständig|er unterbricht seinen gesprächspartner standig|er unterbricht seinen gesprachspartner standig" placeholder="Bilden Sie den Satz …"><span class="hint" id="h6_7"></span></div>
+  <div class="sb-row"><span class="sb-tag">8. Präteritum, <em>die Forscher</em></span><input class="sb-input" id="u6_8" data-ans="die forscher führten ein experiment durch|die forscher fuhrten ein experiment durch" placeholder="Bilden Sie den Satz …"><span class="hint" id="h6_8"></span></div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU6()">✔ Prüfen</button>
+    <button class="btn btn-reset" onclick="resetU6()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd6">/ 8 Punkte</span>
+  </div>
+  <div class="result-bar" id="res6"></div>
+</div>
+
+<!-- ══ AUFGABE 7 ══ -->
+<div class="aufgabe" id="u7">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">7</div>
+    <div>
+      <div class="aufgabe-title">Redemittel. Beschwerdebrief.</div>
+      <div class="aufgabe-sub">Ergänzen Sie die Wörter und notieren Sie: Problem geschildert (P) oder Forderung gestellt (F)?</div>
+    </div>
+  </div>
+  <div class="wortkasten" style="margin-bottom:16px;">
+    <span class="w">Erachtens</span><span class="w">beschweren</span><span class="w">Mängel</span>
+    <span class="w">feststellen</span><span class="w">erwarte</span>
+    <span class="w" style="text-decoration:line-through;opacity:0.4;">informieren</span>
+    <span class="w">beseitigen</span>
+  </div>
+  <div class="rw-row">
+    <span class="rw-nr">1.</span>
+    <span class="rw-content">Ich muss Sie darüber <strong style="color:#2e7d32;">informieren</strong>, dass … <em style="font-size:12px;color:#2e7d32;">(gegeben)</em></span>
+    <div class="pf-grp"><label class="pf-label correct-pf"><input type="radio" name="pf1" value="P" checked disabled> P</label></div>
+  </div>
+  <div class="rw-row">
+    <span class="rw-nr">2.</span>
+    <span class="rw-content">Leider musste ich <input class="fill-input" id="u7_2w" data-ans="feststellen" placeholder="_______________" style="min-width:150px;">, dass …</span>
+    <div class="pf-grp"><label class="pf-label" id="pf2P"><input type="radio" name="pf2" value="P"> P</label><label class="pf-label" id="pf2F"><input type="radio" name="pf2" value="F"> F</label></div>
+  </div>
+  <div class="rw-row">
+    <span class="rw-nr">3.</span>
+    <span class="rw-content">Meines <input class="fill-input" id="u7_3w" data-ans="erachtens" placeholder="_______________" style="min-width:120px;"> ist es dringend notwendig, …</span>
+    <div class="pf-grp"><label class="pf-label" id="pf3P"><input type="radio" name="pf3" value="P"> P</label><label class="pf-label" id="pf3F"><input type="radio" name="pf3" value="F"> F</label></div>
+  </div>
+  <div class="rw-row">
+    <span class="rw-nr">4.</span>
+    <span class="rw-content">Ich muss Sie auffordern, die <input class="fill-input" id="u7_4w" data-ans="mängel|mangel" placeholder="_______________" style="min-width:110px;"> bis zum … zu beheben.</span>
+    <div class="pf-grp"><label class="pf-label" id="pf4P"><input type="radio" name="pf4" value="P"> P</label><label class="pf-label" id="pf4F"><input type="radio" name="pf4" value="F"> F</label></div>
+  </div>
+  <div class="rw-row">
+    <span class="rw-nr">5.</span>
+    <span class="rw-content">Ich <input class="fill-input" id="u7_5a" data-ans="erwarte" placeholder="_________" style="min-width:100px;">, dass Sie die Mängel bis zum … <input class="fill-input" id="u7_5b" data-ans="beseitigen" placeholder="_______________" style="min-width:140px;">.</span>
+    <div class="pf-grp"><label class="pf-label" id="pf5P"><input type="radio" name="pf5" value="P"> P</label><label class="pf-label" id="pf5F"><input type="radio" name="pf5" value="F"> F</label></div>
+  </div>
+  <div class="rw-row">
+    <span class="rw-nr">6.</span>
+    <span class="rw-content">Ich möchte mich darüber <input class="fill-input" id="u7_6w" data-ans="beschweren" placeholder="_______________" style="min-width:140px;">, dass …</span>
+    <div class="pf-grp"><label class="pf-label" id="pf6P"><input type="radio" name="pf6" value="P"> P</label><label class="pf-label" id="pf6F"><input type="radio" name="pf6" value="F"> F</label></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU7()">✔ Prüfen</button>
+    <button class="btn btn-reset" onclick="resetU7()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd7">/ 3 Punkte</span>
+  </div>
+  <div class="result-bar" id="res7"></div>
+</div>
+
+<!-- ══ AUFGABE 8 ══ -->
+<div class="aufgabe" id="u8">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">8</div>
+    <div>
+      <div class="aufgabe-title">Schreiben.</div>
+      <div class="aufgabe-sub">In Ihrer Mietwohnung haben Sie einen Wasserschaden an der Decke. Die Waschmaschine Ihres Nachbarn war ausgelaufen. Schreiben Sie an Ihren Vermieter (ca. 150 Wörter).</div>
+    </div>
+  </div>
+  <p style="font-size:14px; margin-bottom:12px; line-height:1.8;">
+    Schreiben Sie, …<br>
+    <strong>– was das Problem ist</strong><br>
+    <strong>– was Sie jetzt von Ihrem Vermieter erwarten.</strong><br>
+    Verwenden Sie Redemittel aus Aufgabe 7.
+  </p>
+  <textarea class="schreib-area" id="u8_text" placeholder="Schreiben Sie hier Ihren Brief …"></textarea>
+  <div class="punkte-kriterien">
+    <strong>Bewertungskriterien (7 Punkte):</strong><br>
+    Inhalt: 2 Punkte &nbsp;·&nbsp; Ausdrucksfähigkeit (Wortschatz &amp; Kohärenz): 3 Punkte &nbsp;·&nbsp; Korrektheit: 2 Punkte
+  </div>
+  <button class="muster-btn" onclick="toggleMuster()">
+    <span id="muster-arrow">▶</span> Mustertext anzeigen (C1-Niveau)
+  </button>
+  <div class="mustertext" id="mustertext">
+    <div class="m-title">Mustertext – Beschwerdebrief (ca. 155 Wörter, Niveau C1)</div>
+    <p>Sehr geehrte Damen und Herren,</p><br>
+    <p>ich muss Sie darüber <em>informieren</em>, dass es in meiner Wohnung seit einigen Tagen einen erheblichen Wasserschaden an der Decke gibt. Leider musste ich <em>feststellen</em>, dass die Waschmaschine meines Nachbarn ausgelaufen war und das Wasser in mein Wohnzimmer eingedrungen ist. Infolgedessen sind sowohl der Putz als auch die Tapete stark beschädigt worden.</p><br>
+    <p>Meines <em>Erachtens</em> ist es dringend notwendig, umgehend Maßnahmen zu ergreifen, um weitere Schäden zu verhindern. Ich muss Sie daher auffordern, die <em>Mängel</em> bis zum 10. Juni zu beheben. Ich <em>erwarte</em>, dass Sie einen Fachbetrieb beauftragen und die beschädigten Stellen an Decke und Wand vollständig <em>beseitigen</em>.</p><br>
+    <p>Ich möchte mich außerdem darüber <em>beschweren</em>, dass meine bisherigen telefonischen Anfragen unbeantwortet geblieben sind. Ich bitte Sie, umgehend Kontakt mit mir aufzunehmen.</p><br>
+    <p>Mit freundlichen Grüßen</p>
+  </div>
+</div>
+
+<!-- ══ GESAMTERGEBNIS ══ -->
+<div class="gesamt-box" id="gesamt">
+  <div class="gesamt-title">Gesamtergebnis (Aufgaben 1–7)</div>
+  <div class="gesamt-punkte" id="gesamt-punkte">–</div>
+  <div class="gesamt-sub">von 33 Punkten (ohne Schreiben) &nbsp;·&nbsp; inkl. Schreiben: 40 Punkte</div>
+  <div class="bewertung">
+    <span class="bew bew-sg" id="bew-sg">40–37 sehr gut</span>
+    <span class="bew bew-g"  id="bew-g">36–33 gut</span>
+    <span class="bew bew-b"  id="bew-b">32–28 befriedigend</span>
+    <span class="bew bew-a"  id="bew-a">27–24 ausreichend</span>
+    <span class="bew bew-nb" id="bew-nb">&lt; 24 nicht bestanden</span>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+const scores = {1:0,2:0,3:0,4:0,5:0,6:0,7:0};
+const maxS   = {1:3,2:6,3:3,4:6,5:4,6:8,7:3};
+
+function norm(s){ return s.trim().toLowerCase().replace(/[.!?]$/,'').replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss'); }
+function matchAns(val,data){ const v=norm(val); return data.split('|').some(a=>norm(a)===v); }
+
+function showResult(id,correct,total,nr){
+  const el=document.getElementById('res'+id);
+  el.classList.add('show');
+  const pct=total>0?Math.round(correct/total*100):0;
+  el.className='result-bar show '+(pct===100?'gut':pct>=60?'mittel':'schlecht');
+  const emoji=pct===100?'🎉':pct>=60?'👍':'❌';
+  el.textContent=emoji+' '+correct+' von '+total+' richtig';
+  document.getElementById('pd'+id).textContent=correct+' / '+maxS[nr]+' Punkte';
+  scores[nr]=correct*(maxS[nr]/total);
+  updateTotal();
+}
+function updateTotal(){
+  let t=0; for(let k in scores) t+=scores[k];
+  const disp=(t%1===0)?t:t.toFixed(1);
+  document.getElementById('gesamt-punkte').textContent=disp+' / 33';
+}
+
+function checkU1(){
+  const ids=['u1_1','u1_2','u1_3','u1_4','u1_5','u1_6']; let ok=0;
+  ids.forEach((id,i)=>{ const inp=document.getElementById(id); const hint=document.getElementById('h1_'+(i+1)); inp.classList.remove('correct','wrong');
+    if(matchAns(inp.value,inp.dataset.ans)){ inp.classList.add('correct'); ok++; if(hint) hint.classList.remove('show'); }
+    else { inp.classList.add('wrong'); if(hint){ hint.textContent='→ '+inp.dataset.ans.split('|')[0]; hint.classList.add('show'); } }
+  }); showResult(1,ok,6,1);
+}
+function resetU1(){
+  ['u1_1','u1_2','u1_3','u1_4','u1_5','u1_6'].forEach(id=>{const e=document.getElementById(id);e.value='';e.className='fill-input';});
+  ['h1_1','h1_2','h1_3','h1_4','h1_5','h1_6'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.remove('show');});
+  document.getElementById('res1').className='result-bar'; document.getElementById('pd1').textContent='/ 3 Punkte';
+}
+
+const ans2={mc2_1:'b',mc2_2:'a',mc2_3:'c',mc2_4:'a',mc2_5:'b',mc2_6:'b'};
+function checkU2(){
+  let ok=0;
+  for(let k in ans2){ const opts=document.querySelectorAll('#'+k+' .mc-label'); const sel=document.querySelector('input[name="'+k+'"]:checked');
+    opts.forEach(l=>l.classList.remove('correct-opt','wrong-opt'));
+    if(sel){ if(sel.value===ans2[k]){sel.parentElement.classList.add('correct-opt');ok++;}
+      else{sel.parentElement.classList.add('wrong-opt');opts.forEach(l=>{if(l.querySelector('input').value===ans2[k])l.classList.add('correct-opt');});}
+    } else { opts.forEach(l=>{if(l.querySelector('input').value===ans2[k])l.classList.add('correct-opt');}); }
+  } showResult(2,ok,6,2);
+}
+function resetU2(){
+  document.querySelectorAll('#u2-items .mc-label').forEach(l=>l.classList.remove('correct-opt','wrong-opt'));
+  document.querySelectorAll('#u2-items input[type=radio]').forEach(r=>r.checked=false);
+  document.getElementById('res2').className='result-bar'; document.getElementById('pd2').textContent='/ 6 Punkte';
+}
+
+function checkU3(){
+  const ids=['u3_1','u3_2','u3_3','u3_4','u3_5','u3_6']; let ok=0;
+  ids.forEach(id=>{const s=document.getElementById(id);s.classList.remove('correct','wrong');
+    if(s.value.toLowerCase()===s.dataset.ans.toLowerCase()){s.classList.add('correct');ok++;}else s.classList.add('wrong');
+  }); showResult(3,ok,6,3);
+}
+function resetU3(){
+  ['u3_1','u3_2','u3_3','u3_4','u3_5','u3_6'].forEach(id=>{const s=document.getElementById(id);s.value='';s.className='fill-select';});
+  document.getElementById('res3').className='result-bar'; document.getElementById('pd3').textContent='/ 3 Punkte';
+}
+function selectWord(el){}
+
+const ans4={mc4_1:'b',mc4_2:'a',mc4_3:'a',mc4_4:'b',mc4_5:'c',mc4_6:'a'};
+function checkU4(){
+  let ok=0;
+  for(let k in ans4){ const opts=document.querySelectorAll('#'+k+' .mc-label'); const sel=document.querySelector('input[name="'+k+'"]:checked');
+    opts.forEach(l=>l.classList.remove('correct-opt','wrong-opt'));
+    if(sel){ if(sel.value===ans4[k]){sel.parentElement.classList.add('correct-opt');ok++;}
+      else{sel.parentElement.classList.add('wrong-opt');opts.forEach(l=>{if(l.querySelector('input').value===ans4[k])l.classList.add('correct-opt');});}
+    } else { opts.forEach(l=>{if(l.querySelector('input').value===ans4[k])l.classList.add('correct-opt');}); }
+  } showResult(4,ok,6,4);
+}
+function resetU4(){
+  document.querySelectorAll('#u4-items .mc-label').forEach(l=>l.classList.remove('correct-opt','wrong-opt'));
+  document.querySelectorAll('#u4-items input[type=radio]').forEach(r=>r.checked=false);
+  document.getElementById('res4').className='result-bar'; document.getElementById('pd4').textContent='/ 6 Punkte';
+}
+
+function checkU5(){
+  let ok=0;
+  for(let i=1;i<=8;i++){const s=document.getElementById('u5_'+i);s.classList.remove('correct','wrong');
+    if(s.value===s.dataset.ans){s.classList.add('correct');ok++;}else s.classList.add('wrong');
+  } showResult(5,ok,8,5);
+}
+function resetU5(){
+  for(let i=1;i<=8;i++){const s=document.getElementById('u5_'+i);s.value='';s.className='match-select';}
+  document.getElementById('res5').className='result-bar'; document.getElementById('pd5').textContent='/ 4 Punkte';
+}
+
+function checkU6(){
+  let ok=0;
+  for(let i=2;i<=8;i++){const inp=document.getElementById('u6_'+i);const hint=document.getElementById('h6_'+i);inp.classList.remove('correct','wrong');
+    if(matchAns(inp.value,inp.dataset.ans)){inp.classList.add('correct');ok++;if(hint)hint.classList.remove('show');}
+    else{inp.classList.add('wrong');if(hint){hint.textContent='→ '+inp.dataset.ans.split('|')[0];hint.classList.add('show');}}
+  } showResult(6,ok,7,6);
+}
+function resetU6(){
+  for(let i=2;i<=8;i++){const inp=document.getElementById('u6_'+i);inp.value='';inp.className='sb-input';const h=document.getElementById('h6_'+i);if(h)h.classList.remove('show');}
+  document.getElementById('res6').className='result-bar'; document.getElementById('pd6').textContent='/ 8 Punkte';
+}
+
+const pfAns={2:'P',3:'F',4:'F',5:'F',6:'P'};
+function checkU7(){
+  let ok=0;
+  const w2=document.getElementById('u7_2w'); w2.classList.remove('correct','wrong');
+  if(matchAns(w2.value,w2.dataset.ans)){w2.classList.add('correct');ok+=0.5;}else w2.classList.add('wrong'); checkPF(2);
+  const w3=document.getElementById('u7_3w'); w3.classList.remove('correct','wrong');
+  if(matchAns(w3.value,w3.dataset.ans)){w3.classList.add('correct');ok+=0.5;}else w3.classList.add('wrong'); checkPF(3);
+  const w4=document.getElementById('u7_4w'); w4.classList.remove('correct','wrong');
+  if(matchAns(w4.value,w4.dataset.ans)){w4.classList.add('correct');ok+=0.5;}else w4.classList.add('wrong'); checkPF(4);
+  const w5a=document.getElementById('u7_5a'),w5b=document.getElementById('u7_5b');
+  w5a.classList.remove('correct','wrong'); w5b.classList.remove('correct','wrong');
+  if(matchAns(w5a.value,w5a.dataset.ans)){w5a.classList.add('correct');ok+=0.5;}else w5a.classList.add('wrong');
+  if(matchAns(w5b.value,w5b.dataset.ans)){w5b.classList.add('correct');ok+=0.5;}else w5b.classList.add('wrong'); checkPF(5);
+  const w6=document.getElementById('u7_6w'); w6.classList.remove('correct','wrong');
+  if(matchAns(w6.value,w6.dataset.ans)){w6.classList.add('correct');ok+=0.5;}else w6.classList.add('wrong'); checkPF(6);
+  showResult(7,ok,3,7);
+}
+function checkPF(nr){
+  const sel=document.querySelector('input[name="pf'+nr+'"]:checked');
+  ['P','F'].forEach(v=>{const el=document.getElementById('pf'+nr+v);if(el)el.classList.remove('correct-pf','wrong-pf');});
+  if(sel){const id='pf'+nr+sel.value;const el=document.getElementById(id);
+    if(sel.value===pfAns[nr]){if(el)el.classList.add('correct-pf');}
+    else{if(el)el.classList.add('wrong-pf');const corrEl=document.getElementById('pf'+nr+pfAns[nr]);if(corrEl)corrEl.classList.add('correct-pf');}
+  }
+}
+function resetU7(){
+  ['u7_2w','u7_3w','u7_4w','u7_5a','u7_5b','u7_6w'].forEach(id=>{const e=document.getElementById(id);if(e){e.value='';e.className='fill-input';}});
+  for(let i=2;i<=6;i++){document.querySelectorAll('input[name="pf'+i+'"]').forEach(r=>r.checked=false);
+    ['P','F'].forEach(v=>{const el=document.getElementById('pf'+i+v);if(el)el.classList.remove('correct-pf','wrong-pf');});}
+  document.getElementById('res7').className='result-bar'; document.getElementById('pd7').textContent='/ 3 Punkte';
+}
+
+let loesungenSichtbar=false;
+function toggleLoesungen(){
+  const btn=document.getElementById('loes-btn');
+  if(!loesungenSichtbar){showAllLoesungen();loesungenSichtbar=true;btn.textContent='🔒 Lösungen verbergen';btn.classList.add('active');}
+  else{resetAll();loesungenSichtbar=false;btn.textContent='🔑 Lösungen anzeigen';btn.classList.remove('active');}
+}
+function showAllLoesungen(){
+  const a1={u1_1:'sich schämen',u1_2:'sich zerstreuen',u1_3:'empfinden',u1_4:'das Bewusstsein',u1_5:'die Enttäuschung',u1_6:'die Belastbarkeit'};
+  for(let id in a1)document.getElementById(id).value=a1[id]; checkU1();
+  const a2={mc2_1:'b',mc2_2:'a',mc2_3:'c',mc2_4:'a',mc2_5:'b',mc2_6:'b'};
+  for(let k in a2){const r=document.querySelector('input[name="'+k+'"][value="'+a2[k]+'"]');if(r)r.checked=true;} checkU2();
+  const a3={u3_1:'zurückblicken',u3_2:'Zeitdruck',u3_3:'entschleunigen',u3_4:'zukunftsorientiert',u3_5:'zeitraubend',u3_6:'Zeitraum'};
+  for(let id in a3)document.getElementById(id).value=a3[id]; checkU3();
+  const a4={mc4_1:'b',mc4_2:'a',mc4_3:'a',mc4_4:'b',mc4_5:'c',mc4_6:'a'};
+  for(let k in a4){const r=document.querySelector('input[name="'+k+'"][value="'+a4[k]+'"]');if(r)r.checked=true;} checkU4();
+  const a5={u5_1:'a',u5_2:'h',u5_3:'f',u5_4:'b',u5_5:'c',u5_6:'g',u5_7:'d',u5_8:'e'};
+  for(let id in a5)document.getElementById(id).value=a5[id]; checkU5();
+  const a6={u6_2:'Er durchlebt gerade eine schwierige Zeit.',u6_3:'Sie widerlegte eine Behauptung.',u6_4:'Wir sind in einen anderen Zug umgestiegen.',u6_5:'Er hat einen Text überarbeitet.',u6_6:'Wir sind im Juli nach Frankfurt umgezogen.',u6_7:'Er unterbricht seinen Gesprächspartner ständig.',u6_8:'Die Forscher führten ein Experiment durch.'};
+  for(let id in a6)document.getElementById(id).value=a6[id]; checkU6();
+  document.getElementById('u7_2w').value='feststellen'; document.getElementById('u7_3w').value='Erachtens';
+  document.getElementById('u7_4w').value='Mängel'; document.getElementById('u7_5a').value='erwarte';
+  document.getElementById('u7_5b').value='beseitigen'; document.getElementById('u7_6w').value='beschweren';
+  const pfC={2:'P',3:'F',4:'F',5:'F',6:'P'};
+  for(let nr in pfC){const r=document.querySelector('input[name="pf'+nr+'"][value="'+pfC[nr]+'"]');if(r)r.checked=true;} checkU7();
+}
+function resetAll(){
+  resetU1();resetU2();resetU3();resetU4();resetU5();resetU6();resetU7();
+  for(let k in scores)scores[k]=0;
+  document.getElementById('gesamt-punkte').textContent='–';
+  document.querySelectorAll('.bew').forEach(b=>b.classList.remove('active'));
+}
+function toggleMuster(){
+  const m=document.getElementById('mustertext');const btn=document.querySelector('.muster-btn');
+  if(m.classList.contains('show')){m.classList.remove('show');btn.innerHTML='<span id="muster-arrow">▶</span> Mustertext anzeigen (C1-Niveau)';}
+  else{m.classList.add('show');btn.innerHTML='<span id="muster-arrow">▼</span> Mustertext verbergen';}
+}
+</script>
+</body>
+</html>
