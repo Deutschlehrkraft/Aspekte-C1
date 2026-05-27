@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aspekte neu C1 – Lehrmaterialien</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  background: #f5f5f5;
+  color: #1a1a1a;
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+
+/* HEADER */
+.page-header {
+  background: #2e7d32;
+  color: #fff;
+  padding: 28px 32px 24px;
+}
+.header-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+.header-left h1 { font-size: 28px; font-weight: 700; line-height: 1.2; }
+.header-left p  { font-size: 15px; opacity: 0.88; margin-top: 6px; }
+.header-right {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+.badge {
+  background: rgba(255,255,255,0.22);
+  border-radius: 20px;
+  padding: 5px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* BANNER */
+.sub-banner {
+  background: #e65100;
+  color: #fff;
+  padding: 14px 32px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.sub-banner-inner { max-width: 860px; margin: 0 auto; }
+
+/* CONTENT */
+.content { max-width: 860px; margin: 0 auto; padding: 36px 20px; }
+
+/* CHAPTER SECTIONS */
+.kapitel-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #888;
+  margin-bottom: 14px;
+  margin-top: 36px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ddd;
+}
+.kapitel-title:first-child { margin-top: 0; }
+
+/* MATERIAL CARDS */
+.mat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.mat-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1.5px solid #e0e0e0;
+  padding: 22px 24px;
+  text-decoration: none;
+  color: #1a1a1a;
+  display: block;
+  transition: all 0.18s;
+  position: relative;
+  overflow: hidden;
+}
+.mat-card::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 5px;
+  background: #ccc;
+  transition: background 0.18s;
+}
+.mat-card:hover {
+  border-color: #81c784;
+  box-shadow: 0 4px 16px rgba(46,125,50,0.12);
+  transform: translateY(-2px);
+}
+.mat-card:hover::before { background: #2e7d32; }
+
+.mat-card.test::before  { background: #e65100; }
+.mat-card.test:hover    { border-color: #ffb74d; box-shadow: 0 4px 16px rgba(230,81,0,0.12); }
+
+.mat-card.wort::before  { background: #f9a825; }
+.mat-card.wort:hover    { border-color: #ffe082; box-shadow: 0 4px 16px rgba(249,168,37,0.12); }
+
+.mat-type {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #aaa;
+  margin-bottom: 8px;
+}
+.mat-card.test .mat-type  { color: #e65100; }
+.mat-card.wort .mat-type  { color: #f9a825; }
+.mat-card:hover .mat-type { color: #2e7d32; }
+.mat-card.test:hover .mat-type { color: #e65100; }
+.mat-card.wort:hover .mat-type { color: #f9a825; }
+
+.mat-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.mat-desc {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.mat-arrow {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 22px;
+  color: #ccc;
+  transition: color 0.18s, right 0.18s;
+}
+.mat-card:hover .mat-arrow { color: #2e7d32; right: 16px; }
+.mat-card.test:hover .mat-arrow { color: #e65100; }
+.mat-card.wort:hover .mat-arrow { color: #f9a825; }
+
+/* FOOTER */
+.page-footer {
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 13px;
+  color: #aaa;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="header-inner">
+    <div class="header-left">
+      <h1>Aspekte neu C1</h1>
+      <p>Klett Verlag</p>
+    </div>
+    <div class="header-right">
+      <span class="badge">Niveau C1</span>
+      <span class="badge">Interaktive Materialien</span>
+    </div>
+  </div>
+</div>
+<div class="sub-banner">
+  <div class="sub-banner-inner">Übersicht aller Lernmaterialien</div>
+</div>
+
+<div class="content">
+
+  <!-- KAPITEL 1 -->
+  <div class="kapitel-title">Kapitel 1 · Alltägliches</div>
+  <div class="mat-grid">
+
+    <a class="mat-card test" href="K1_Lernfortschrittstest_Interaktiv.html">
+      <div class="mat-type">Test · 40 Punkte</div>
+      <div class="mat-title">Lernfortschrittstest Kapitel 1</div>
+      <div class="mat-desc">Interaktiver Test mit Hören, Wortschatz, Grammatik und Schreiben. Automatische Auswertung.</div>
+      <span class="mat-arrow">›</span>
+    </a>
+
+  </div>
+
+  <!-- KAPITEL 2 -->
+  <div class="kapitel-title">Kapitel 2 · Kommunikation</div>
+  <div class="mat-grid">
+
+    <a class="mat-card" href="K2_Verben_Sprechen_4a.html">
+      <div class="mat-type">Wortschatz · Übung 4a</div>
+      <div class="mat-title">Verben zum Thema „Sprechen"</div>
+      <div class="mat-desc">15 Verben mit drei Formen, Erklärung auf Deutsch und versteckter Übersetzung.</div>
+      <span class="mat-arrow">›</span>
+    </a>
+
+    <a class="mat-card wort" href="K2_Wortschatz_Uebung1.html">
+      <div class="mat-type">Wortschatz · Übung 1</div>
+      <div class="mat-title">Wörter rund um „Wort"</div>
+      <div class="mat-desc">10 Wörter und Redewendungen mit Formen, Erklärung und versteckter Übersetzung.</div>
+      <span class="mat-arrow">›</span>
+    </a>
+
+  </div>
+
+</div><!-- /content -->
+
+<div class="page-footer">
+  Aspekte neu C1 · Klett Verlag
+</div>
+
+</body>
+</html>
