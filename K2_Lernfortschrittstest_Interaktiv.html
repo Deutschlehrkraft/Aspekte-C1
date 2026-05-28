@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lernfortschrittstest Kapitel 2 – Aspekte neu C1</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; font-size: 15px; background: #f2f2f2; color: #1a1a1a; padding-bottom: 60px; }
+
+/* HEADER */
+.page-header { background: #1a5c2e; color: #fff; padding: 22px 32px 18px; }
+.header-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; max-width: 880px; margin: 0 auto; }
+.header-left h1 { font-size: 22px; font-weight: 700; }
+.header-left p  { font-size: 13px; opacity: 0.85; margin-top: 4px; }
+.header-right { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+.badge { background: rgba(255,255,255,0.22); border-radius: 20px; padding: 4px 14px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+
+.test-banner { background: #f57f17; color: #fff; padding: 14px 32px; font-size: 17px; font-weight: 700; }
+.test-banner-inner { max-width: 880px; margin: 0 auto; }
+
+.content { max-width: 880px; margin: 0 auto; padding: 24px 20px; }
+
+/* AUFGABE CARD */
+.aufgabe { background: #fff; border-radius: 10px; padding: 22px 24px 20px; margin-bottom: 22px; border-left: 5px solid #1a5c2e; box-shadow: 0 1px 5px rgba(0,0,0,0.08); }
+.aufgabe-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+.aufgabe-nr { background: #1a5c2e; color: #fff; font-size: 16px; font-weight: 700; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.aufgabe-title { font-size: 15px; font-weight: 700; line-height: 1.4; padding-top: 2px; }
+.aufgabe-sub { font-size: 12.5px; color: #666; margin-top: 3px; font-weight: 400; }
+
+/* INPUTS */
+.fill-input { border: none; border-bottom: 2px solid #aaa; background: transparent; font-size: 14px; font-family: Arial, sans-serif; padding: 2px 6px; min-width: 170px; outline: none; }
+.fill-input:focus { border-bottom-color: #1a5c2e; }
+.fill-input.correct { border-bottom-color: #2e7d32 !important; background: #e8f5e9 !important; border-radius: 4px; }
+.fill-input.wrong   { border-bottom-color: #e65100 !important; background: #fff3e0 !important; border-radius: 4px; }
+.fill-input[readonly] { border-bottom-color: #2e7d32; background: #e8f5e9; border-radius: 4px; color: #2e7d32; font-weight: 700; }
+
+/* SATZ LIST */
+.satz-liste { list-style: none; }
+.satz-item { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; line-height: 2; }
+.satz-item:last-child { border-bottom: none; }
+.example-satz { font-size: 13px; color: #2e7d32; font-style: italic; margin-top: 4px; display: block; }
+
+/* HINT */
+.hint { display: none; font-size: 12px; color: #e65100; font-weight: 700; margin-left: 6px; }
+.hint.show { display: inline; }
+.hint-block { display: none; font-size: 12px; color: #e65100; font-weight: 700; margin-top: 4px; }
+.hint-block.show { display: block; }
+
+/* MULTIPLE CHOICE */
+.mc-block { margin-bottom: 14px; }
+.mc-question { font-size: 14px; font-weight: 600; margin-bottom: 7px; }
+.mc-options { display: flex; gap: 8px; flex-wrap: wrap; }
+.mc-label { display: flex; align-items: center; gap: 6px; padding: 6px 14px; border: 1.5px solid #ccc; border-radius: 8px; cursor: pointer; font-size: 13.5px; transition: all 0.15s; user-select: none; }
+.mc-label:hover { border-color: #1a5c2e; background: #e8f5e9; }
+.mc-label input { accent-color: #1a5c2e; margin: 0; }
+.mc-label.correct-opt { border-color: #2e7d32 !important; background: #e8f5e9 !important; color: #2e7d32 !important; font-weight: 700; }
+.mc-label.wrong-opt   { border-color: #e65100 !important; background: #fff3e0 !important; color: #e65100 !important; }
+
+/* WORD BOX */
+.wortkasten { background: #fff8e1; border: 1.5px solid #f9a825; border-radius: 8px; padding: 10px 16px; margin-bottom: 16px; line-height: 2.2; }
+.wortkasten .w { display: inline-block; background: #fff; border: 1px solid #f9a825; border-radius: 5px; padding: 2px 10px; margin: 2px 4px; font-size: 13px; }
+
+/* SELECT */
+.fill-select { border: none; border-bottom: 2px solid #aaa; background: transparent; font-size: 14px; font-family: Arial, sans-serif; padding: 2px 4px; outline: none; cursor: pointer; min-width: 120px; }
+.fill-select:focus { border-bottom-color: #1a5c2e; }
+.fill-select.correct { border-bottom-color: #2e7d32; background: #e8f5e9; border-radius: 4px; }
+.fill-select.wrong   { border-bottom-color: #e65100; background: #fff3e0; border-radius: 4px; }
+
+/* MATCHING */
+.match-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; flex-wrap: wrap; }
+.match-row:last-child { border-bottom: none; }
+.match-nr { font-weight: 700; color: #888; min-width: 20px; }
+.match-phrase { flex: 1; }
+.match-select { border: 1.5px solid #ccc; border-radius: 7px; padding: 6px 10px; font-family: Arial, sans-serif; font-size: 13.5px; outline: none; cursor: pointer; background: #fff; min-width: 200px; }
+.match-select:focus { border-color: #1a5c2e; }
+.match-select.correct { border-color: #2e7d32; background: #e8f5e9; color: #2e7d32; }
+.match-select.wrong   { border-color: #e65100; background: #fff3e0; color: #e65100; }
+
+/* SB ROW */
+.sb-row { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; line-height: 2; }
+.sb-row:last-child { border-bottom: none; }
+.sb-tag { font-size: 12px; color: #888; font-style: italic; display: block; margin-bottom: 2px; }
+.sb-input { width: 100%; border: none; border-bottom: 2px solid #aaa; background: transparent; font-size: 14px; font-family: Arial, sans-serif; padding: 2px 6px; outline: none; }
+.sb-input:focus { border-bottom-color: #1a5c2e; }
+.sb-input.correct { border-bottom-color: #2e7d32; background: #e8f5e9; border-radius: 4px; }
+.sb-input.wrong   { border-bottom-color: #e65100; background: #fff3e0; border-radius: 4px; }
+.sb-input[readonly] { border-bottom-color: #2e7d32; background: #e8f5e9; border-radius: 4px; color: #2e7d32; }
+
+/* RICHTIG/FALSCH */
+.rf-row { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; flex-wrap: wrap; }
+.rf-row:last-child { border-bottom: none; }
+.rf-text { flex: 1; min-width: 200px; }
+.rf-grp { display: flex; gap: 6px; flex-shrink: 0; }
+.rf-label { display: flex; align-items: center; gap: 4px; padding: 5px 14px; border: 1.5px solid #ccc; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 700; user-select: none; }
+.rf-label input { accent-color: #1a5c2e; }
+.rf-label:hover { border-color: #f57f17; }
+.rf-label.correct-rf { border-color: #2e7d32; background: #e8f5e9; color: #2e7d32; }
+.rf-label.wrong-rf   { border-color: #e65100; background: #fff3e0; color: #e65100; }
+
+/* RADIO WRONG WORD */
+.ww-row { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+.ww-row:last-child { border-bottom: none; }
+.ww-nr { font-weight: 700; color: #888; display: inline; margin-right: 4px; }
+.ww-prefix { margin-right: 4px; }
+.ww-opts { display: inline-flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+.ww-label { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border: 1.5px solid #ccc; border-radius: 7px; cursor: pointer; font-size: 13.5px; user-select: none; font-style: italic; color: #555; }
+.ww-label input { accent-color: #e65100; }
+.ww-label:hover { border-color: #f57f17; background: #fff8e1; }
+.ww-label.correct-ww { border-color: #2e7d32; background: #e8f5e9; color: #2e7d32; font-weight: 700; text-decoration: line-through; font-style: normal; }
+.ww-label.wrong-ww   { border-color: #e65100; background: #fff3e0; color: #e65100; }
+
+/* LESE-TEXT */
+.lese-box { background: #f8fdf9; border: 1.5px solid #a5d6a7; border-radius: 8px; padding: 16px 20px; margin-bottom: 18px; font-size: 13.5px; line-height: 1.85; }
+.lese-box h3 { font-size: 14px; font-weight: 700; color: #1a5c2e; margin-bottom: 8px; }
+
+/* SCHREIBEN */
+.schreib-area { width: 100%; min-height: 220px; border: 1.5px solid #ccc; border-radius: 8px; padding: 12px; font-size: 14px; font-family: Arial, sans-serif; resize: vertical; outline: none; line-height: 1.9; }
+.schreib-area:focus { border-color: #1a5c2e; }
+.punkte-kriterien { background: #fff8e1; border: 1px solid #f9a825; border-radius: 7px; padding: 10px 14px; font-size: 13px; margin-top: 12px; line-height: 1.8; }
+
+.muster-btn { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; padding: 10px 18px; background: #1a5c2e; color: #fff; border-radius: 8px; font-size: 13.5px; font-weight: 700; margin-top: 14px; user-select: none; border: none; font-family: Arial, sans-serif; }
+.muster-btn:hover { background: #2e7d32; }
+.mustertext { display: none; background: #e8f5e9; border: 1.5px solid #2e7d32; border-radius: 8px; padding: 18px 20px; margin-top: 12px; font-size: 14px; line-height: 1.9; }
+.mustertext.show { display: block; }
+.mustertext .m-title { font-size: 13px; font-weight: 700; color: #1a5c2e; margin-bottom: 10px; }
+.mustertext em { color: #1a5c2e; }
+
+/* BUTTONS */
+.btn-row { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; align-items: center; }
+.btn { padding: 9px 22px; border-radius: 7px; border: none; font-size: 13.5px; font-weight: 700; cursor: pointer; font-family: Arial, sans-serif; }
+.btn:hover { opacity: 0.88; }
+.btn-check { background: #1a5c2e; color: #fff; }
+.btn-reset { background: #fff; color: #666; border: 1.5px solid #ccc; }
+.punkte-display { font-size: 13px; color: #888; margin-left: auto; }
+
+/* RESULT BAR */
+.result-bar { margin-top: 10px; padding: 9px 14px; border-radius: 7px; font-size: 13.5px; font-weight: 700; display: none; }
+.result-bar.show { display: block; }
+.result-bar.gut      { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+.result-bar.mittel   { background: #fff8e1; color: #f57f17; border: 1px solid #ffe082; }
+.result-bar.schlecht { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+
+/* TOTAL */
+.gesamt-box { background: #fff; border-radius: 10px; padding: 26px 24px; margin-top: 10px; border: 2px solid #1a5c2e; text-align: center; }
+.gesamt-title { font-size: 14px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+.gesamt-punkte { font-size: 42px; font-weight: 700; color: #1a5c2e; margin: 10px 0 6px; }
+.gesamt-sub { font-size: 13px; color: #888; margin-bottom: 18px; }
+.bewertung { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.bew { padding: 7px 16px; border-radius: 7px; font-size: 13px; font-weight: 700; border: 1.5px solid; }
+.bew-sg { background: #e8f5e9; color: #2e7d32; border-color: #2e7d32; }
+.bew-g  { background: #f1f8e9; color: #558b2f; border-color: #8bc34a; }
+.bew-b  { background: #fff8e1; color: #f57f17; border-color: #f9a825; }
+.bew-a  { background: #fff3e0; color: #e65100; border-color: #ff9800; }
+.bew-nb { background: #fbe9e7; color: #bf360c; border-color: #ff5722; }
+.bew.active { box-shadow: 0 0 0 3px currentColor; }
+
+/* LÖSUNGEN-BAR */
+.loes-bar { background: #fff8e1; border-bottom: 2px solid #f9a825; padding: 10px 32px; }
+.loes-bar-inner { max-width: 880px; margin: 0 auto; display: flex; align-items: center; gap: 14px; }
+.btn-loes { padding: 8px 20px; background: #e65100; color: #fff; border: none; border-radius: 7px; font-size: 13.5px; font-weight: 700; cursor: pointer; font-family: Arial, sans-serif; white-space: nowrap; }
+.btn-loes:hover { background: #f57f17; }
+.btn-loes.active { background: #1a5c2e; }
+.loes-hint { font-size: 12.5px; color: #888; }
+
+.inline-flex { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<div class="page-header">
+  <div class="header-inner">
+    <div class="header-left">
+      <h1>Lernfortschrittstest · Kapitel 2</h1>
+      <p>Aspekte neu C1 &nbsp;·&nbsp; Klett Verlag</p>
+    </div>
+    <div class="header-right">
+      <span class="badge">Niveau C1</span>
+      <span class="badge">40 Punkte gesamt</span>
+    </div>
+  </div>
+</div>
+<div class="test-banner">
+  <div class="test-banner-inner">Test zu Kapitel 2: Hast du Worte?</div>
+</div>
+
+<div class="loes-bar">
+  <div class="loes-bar-inner">
+    <button class="btn-loes" id="loes-btn" onclick="toggleLoesungen()">🔑 Lösungen anzeigen</button>
+    <span class="loes-hint">Alle richtigen Antworten auf einmal einblenden oder ausblenden</span>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ══════════════════════════════
+     AUFGABE 1
+══════════════════════════════ -->
+<div class="aufgabe" id="u1">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">1</div>
+    <div>
+      <div class="aufgabe-title">Wortschatz zum Thema „Auseinandersetzung". Ordnen Sie die Verben zu.</div>
+      <div class="aufgabe-sub">Wählen Sie das passende Verb (A–F) für jede Phrase.</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:12px; font-size:13px; color:#555; background:#f5f5f5; padding:8px 12px; border-radius:6px;">
+    <strong>A</strong> reagieren &nbsp;·&nbsp; <strong>B</strong> wehren &nbsp;·&nbsp; <strong>C</strong> aufgreifen &nbsp;·&nbsp; <strong>D</strong> bieten &nbsp;·&nbsp; <strong>E</strong> unterschätzen &nbsp;·&nbsp; <strong>F</strong> verlieren
+  </div>
+
+  <div class="match-row">
+    <span class="match-nr">1.</span>
+    <span class="match-phrase">jmd. Paroli ___</span>
+    <select class="match-select" id="u1_1" data-ans="D">
+      <option value="">— wählen —</option>
+      <option value="A">A – reagieren</option><option value="B">B – wehren</option>
+      <option value="C">C – aufgreifen</option><option value="D">D – bieten</option>
+      <option value="E">E – unterschätzen</option><option value="F">F – verlieren</option>
+    </select>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">2.</span>
+    <span class="match-phrase">auf eine Provokation ___</span>
+    <select class="match-select" id="u1_2" data-ans="A">
+      <option value="">— wählen —</option>
+      <option value="A">A – reagieren</option><option value="B">B – wehren</option>
+      <option value="C">C – aufgreifen</option><option value="D">D – bieten</option>
+      <option value="E">E – unterschätzen</option><option value="F">F – verlieren</option>
+    </select>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">3.</span>
+    <span class="match-phrase">den Überblick ___</span>
+    <select class="match-select" id="u1_3" data-ans="F">
+      <option value="">— wählen —</option>
+      <option value="A">A – reagieren</option><option value="B">B – wehren</option>
+      <option value="C">C – aufgreifen</option><option value="D">D – bieten</option>
+      <option value="E">E – unterschätzen</option><option value="F">F – verlieren</option>
+    </select>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">4.</span>
+    <span class="match-phrase">ein Thema ___</span>
+    <select class="match-select" id="u1_4" data-ans="C">
+      <option value="">— wählen —</option>
+      <option value="A">A – reagieren</option><option value="B">B – wehren</option>
+      <option value="C">C – aufgreifen</option><option value="D">D – bieten</option>
+      <option value="E">E – unterschätzen</option><option value="F">F – verlieren</option>
+    </select>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">5.</span>
+    <span class="match-phrase">sich gegen einen Angriff ___</span>
+    <select class="match-select" id="u1_5" data-ans="B">
+      <option value="">— wählen —</option>
+      <option value="A">A – reagieren</option><option value="B">B – wehren</option>
+      <option value="C">C – aufgreifen</option><option value="D">D – bieten</option>
+      <option value="E">E – unterschätzen</option><option value="F">F – verlieren</option>
+    </select>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">6.</span>
+    <span class="match-phrase">den Gegner ___</span>
+    <select class="match-select" id="u1_6" data-ans="E">
+      <option value="">— wählen —</option>
+      <option value="A">A – reagieren</option><option value="B">B – wehren</option>
+      <option value="C">C – aufgreifen</option><option value="D">D – bieten</option>
+      <option value="E">E – unterschätzen</option><option value="F">F – verlieren</option>
+    </select>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU1()">✔ Auswerten</button>
+    <button class="btn btn-reset" onclick="resetU1()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd1">/ 3 Punkte</span>
+  </div>
+  <div class="result-bar" id="res1"></div>
+</div>
+
+
+<!-- ══════════════════════════════
+     AUFGABE 2
+══════════════════════════════ -->
+<div class="aufgabe" id="u2">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">2</div>
+    <div>
+      <div class="aufgabe-title">Was bedeuten die Ausdrücke aus Aufgabe 1? Ordnen Sie die Erklärungen zu.</div>
+    </div>
+  </div>
+
+  <div class="wortkasten">
+    <span class="w">einer Unverschämtheit etw. entgegnen</span>
+    <span class="w">das große Ganze nicht mehr sehen</span>
+    <span class="w">auf einen zuvor genannten Punkt näher eingehen</span>
+    <span class="w">eine starke Antwort geben</span>
+    <span class="w">die Stärke des Gegners zu gering beurteilen</span>
+    <span class="w">sich verteidigen</span>
+  </div>
+
+  <div class="match-row">
+    <span class="match-nr">1.</span>
+    <span class="match-phrase">jmd. Paroli bieten</span>
+    <select class="match-select" id="u2_1" data-ans="1">
+      <option value="">— Erklärung wählen —</option>
+      <option value="1">eine starke Antwort geben</option>
+      <option value="2">einer Unverschämtheit etw. entgegnen</option>
+      <option value="3">das große Ganze nicht mehr sehen</option>
+      <option value="4">auf einen zuvor genannten Punkt näher eingehen</option>
+      <option value="5">sich verteidigen</option>
+      <option value="6">die Stärke des Gegners zu gering beurteilen</option>
+    </select>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">2.</span>
+    <span class="match-phrase">auf eine Provokation reagieren</span>
+    <select class="match-select" id="u2_2" data-ans="2">
+      <option value="">— Erklärung wählen —</option>
+      <option value="1">eine starke Antwort geben</option>
+      <option value="2">einer Unverschämtheit etw. entgegnen</option>
+      <option value="3">das große Ganze nicht mehr sehen</option>
+      <option value="4">auf einen zuvor genannten Punkt näher eingehen</option>
+      <option value="5">sich verteidigen</option>
+      <option value="6">die Stärke des Gegners zu gering beurteilen</option>
+    </select>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">3.</span>
+    <span class="match-phrase">den Überblick verlieren</span>
+    <select class="match-select" id="u2_3" data-ans="3">
+      <option value="">— Erklärung wählen —</option>
+      <option value="1">eine starke Antwort geben</option>
+      <option value="2">einer Unverschämtheit etw. entgegnen</option>
+      <option value="3">das große Ganze nicht mehr sehen</option>
+      <option value="4">auf einen zuvor genannten Punkt näher eingehen</option>
+      <option value="5">sich verteidigen</option>
+      <option value="6">die Stärke des Gegners zu gering beurteilen</option>
+    </select>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">4.</span>
+    <span class="match-phrase">ein Thema aufgreifen</span>
+    <select class="match-select" id="u2_4" data-ans="4">
+      <option value="">— Erklärung wählen —</option>
+      <option value="1">eine starke Antwort geben</option>
+      <option value="2">einer Unverschämtheit etw. entgegnen</option>
+      <option value="3">das große Ganze nicht mehr sehen</option>
+      <option value="4">auf einen zuvor genannten Punkt näher eingehen</option>
+      <option value="5">sich verteidigen</option>
+      <option value="6">die Stärke des Gegners zu gering beurteilen</option>
+    </select>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">5.</span>
+    <span class="match-phrase">sich gegen einen Angriff wehren</span>
+    <select class="match-select" id="u2_5" data-ans="5">
+      <option value="">— Erklärung wählen —</option>
+      <option value="1">eine starke Antwort geben</option>
+      <option value="2">einer Unverschämtheit etw. entgegnen</option>
+      <option value="3">das große Ganze nicht mehr sehen</option>
+      <option value="4">auf einen zuvor genannten Punkt näher eingehen</option>
+      <option value="5">sich verteidigen</option>
+      <option value="6">die Stärke des Gegners zu gering beurteilen</option>
+    </select>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">6.</span>
+    <span class="match-phrase">den Gegner unterschätzen</span>
+    <select class="match-select" id="u2_6" data-ans="6">
+      <option value="">— Erklärung wählen —</option>
+      <option value="1">eine starke Antwort geben</option>
+      <option value="2">einer Unverschämtheit etw. entgegnen</option>
+      <option value="3">das große Ganze nicht mehr sehen</option>
+      <option value="4">auf einen zuvor genannten Punkt näher eingehen</option>
+      <option value="5">sich verteidigen</option>
+      <option value="6">die Stärke des Gegners zu gering beurteilen</option>
+    </select>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU2()">✔ Auswerten</button>
+    <button class="btn btn-reset" onclick="resetU2()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd2">/ 3 Punkte</span>
+  </div>
+  <div class="result-bar" id="res2"></div>
+</div>
+
+
+<!-- ══════════════════════════════
+     AUFGABE 3
+══════════════════════════════ -->
+<div class="aufgabe" id="u3">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">3</div>
+    <div>
+      <div class="aufgabe-title">Grammatik. Redewiedergabe. Geben Sie die Aussagen mithilfe der präpositionalen Ausdrücke wieder.</div>
+    </div>
+  </div>
+
+  <ul class="satz-liste">
+    <li class="satz-item">
+      <strong>1.</strong> Wirtschaftsexperten: „Die Arbeitszeiten werden immer flexibler." <em>(nach, Prognosen)</em>
+      <span class="example-satz">→ <u>Nach Prognosen von Wirtschaftsexperten werden die Arbeitszeiten immer flexibler.</u> <em style="color:#1a5c2e; font-size:12px;">(Beispiel)</em></span>
+    </li>
+    <li class="satz-item">
+      <strong>2.</strong> anerkannte Psychologen: „Ständige Erreichbarkeit verursacht Stress und kann zu Burnout führen." <em>(zufolge)</em>
+      <div style="margin-top:6px;">
+        <input class="sb-input" id="u3_2" data-ans="Anerkannten Psychologen zufolge verursacht ständige Erreichbarkeit Stress und kann zu Burnout führen." placeholder="Schreiben Sie den Satz …">
+        <span class="hint-block" id="h3_2"></span>
+      </div>
+    </li>
+    <li class="satz-item">
+      <strong>3.</strong> dieser Text: „Die Menschen waren noch nie so gut vernetzt wie heute." <em>(laut)</em>
+      <div style="margin-top:6px;">
+        <input class="sb-input" id="u3_3" data-ans="Laut diesem Text waren die Menschen noch nie so gut vernetzt wie heute." placeholder="Schreiben Sie den Satz …">
+        <span class="hint-block" id="h3_3"></span>
+      </div>
+    </li>
+    <li class="satz-item">
+      <strong>4.</strong> die Geschäftsführung: „Die Möglichkeiten von mobilen Büros sollen ausgebaut werden." <em>(nach, Angaben)</em>
+      <div style="margin-top:6px;">
+        <input class="sb-input" id="u3_4" data-ans="Nach Angaben der Geschäftsführung sollen die Möglichkeiten von mobilen Büros ausgebaut werden." placeholder="Schreiben Sie den Satz …">
+        <span class="hint-block" id="h3_4"></span>
+      </div>
+    </li>
+    <li class="satz-item">
+      <strong>5.</strong> Er: „Wir sollten unsere Mobiltelefone öfter ausschalten." <em>(nach, Meinung)</em>
+      <div style="margin-top:6px;">
+        <input class="sb-input" id="u3_5" data-ans="Seiner Meinung nach sollten wir unsere Mobiltelefone öfter ausschalten." placeholder="Schreiben Sie den Satz …">
+        <span class="hint-block" id="h3_5"></span>
+      </div>
+    </li>
+  </ul>
+
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU3()">✔ Auswerten</button>
+    <button class="btn btn-reset" onclick="resetU3()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd3">/ 4 Punkte</span>
+  </div>
+  <div class="result-bar" id="res3"></div>
+</div>
+
+
+<!-- ══════════════════════════════
+     AUFGABE 4
+══════════════════════════════ -->
+<div class="aufgabe" id="u4">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">4</div>
+    <div>
+      <div class="aufgabe-title">Grammatik. Redewiedergabe. Bilden Sie Nebensätze mit <em>wie</em> im Präteritum.</div>
+    </div>
+  </div>
+
+  <ul class="satz-liste">
+    <li class="satz-item">
+      <strong>1.</strong> Angaben des statistischen Bundesamtes: Die Zahl der Arbeitsunfälle ist zurückgegangen.
+      <span class="example-satz">→ <u>Wie das statistische Bundesamt angab, ist die Zahl der Arbeitsunfälle zurückgegangen.</u> <em style="color:#1a5c2e; font-size:12px;">(Beispiel)</em></span>
+    </li>
+    <li class="satz-item">
+      <strong>2.</strong> Bestätigung des Arbeitsministers: Die Arbeitslosenzahlen sind gesunken.
+      <div style="margin-top:6px;">
+        <input class="sb-input" id="u4_2" data-ans="Wie der Arbeitsminister bestätigte, sind die Arbeitslosenzahlen gesunken." placeholder="Wie … bestätigte, …">
+        <span class="hint-block" id="h4_2"></span>
+      </div>
+    </li>
+    <li class="satz-item">
+      <strong>3.</strong> Mitteilung der Gewerkschaft: Die Piloten streiken ab Montag.
+      <div style="margin-top:6px;">
+        <input class="sb-input" id="u4_3" data-ans="Wie die Gewerkschaft mitteilte, streiken die Piloten ab Montag." placeholder="Wie … mitteilte, …">
+        <span class="hint-block" id="h4_3"></span>
+      </div>
+    </li>
+    <li class="satz-item">
+      <strong>4.</strong> Erklärung des Trainers: Im Februar kommt ein neuer Spieler.
+      <div style="margin-top:6px;">
+        <input class="sb-input" id="u4_4" data-ans="Wie der Trainer erklärte, kommt im Februar ein neuer Spieler." placeholder="Wie … erklärte, …">
+        <span class="hint-block" id="h4_4"></span>
+      </div>
+    </li>
+    <li class="satz-item">
+      <strong>5.</strong> Bericht des Managements: Der Umsatz hat sich im letzten Jahr erhöht.
+      <div style="margin-top:6px;">
+        <input class="sb-input" id="u4_5" data-ans="Wie das Management berichtete, hat sich der Umsatz im letzten Jahr erhöht." placeholder="Wie … berichtete, …">
+        <span class="hint-block" id="h4_5"></span>
+      </div>
+    </li>
+  </ul>
+
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU4()">✔ Auswerten</button>
+    <button class="btn btn-reset" onclick="resetU4()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd4">/ 4 Punkte</span>
+  </div>
+  <div class="result-bar" id="res4"></div>
+</div>
+
+
+<!-- ══════════════════════════════
+     AUFGABE 5
+══════════════════════════════ -->
+<div class="aufgabe" id="u5">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">5</div>
+    <div>
+      <div class="aufgabe-title">Grammatik. Setzen Sie die markierten Verben aus Aufgabe 4 in den Konjunktiv I oder, wenn nötig, in den Konjunktiv II.</div>
+    </div>
+  </div>
+
+  <ul class="satz-liste">
+    <li class="satz-item">
+      <strong>1.</strong> <u>ist zurückgegangen</u> → <input class="fill-input" id="u5_1" value="sei zurückgegangen" readonly style="min-width:190px;"> <em style="font-size:12px; color:#2e7d32;">(Beispiel)</em>
+    </li>
+    <li class="satz-item">
+      <strong>2.</strong> <u>sind gesunken</u> →
+      <input class="fill-input" id="u5_2" data-ans="seien gesunken" placeholder="Konjunktiv I / II …" style="min-width:190px;">
+      <span class="hint" id="h5_2"></span>
+    </li>
+    <li class="satz-item">
+      <strong>3.</strong> <u>streiken</u> →
+      <input class="fill-input" id="u5_3" data-ans="würden streiken" placeholder="Konjunktiv I / II …" style="min-width:190px;">
+      <span class="hint" id="h5_3"></span>
+    </li>
+    <li class="satz-item">
+      <strong>4.</strong> <u>kommt</u> →
+      <input class="fill-input" id="u5_4" data-ans="komme" placeholder="Konjunktiv I / II …" style="min-width:190px;">
+      <span class="hint" id="h5_4"></span>
+    </li>
+    <li class="satz-item">
+      <strong>5.</strong> <u>hat sich erhöht</u> →
+      <input class="fill-input" id="u5_5" data-ans="habe sich erhöht" placeholder="Konjunktiv I / II …" style="min-width:190px;">
+      <span class="hint" id="h5_5"></span>
+    </li>
+  </ul>
+
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU5()">✔ Auswerten</button>
+    <button class="btn btn-reset" onclick="resetU5()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd5">/ 2 Punkte</span>
+  </div>
+  <div class="result-bar" id="res5"></div>
+</div>
+
+
+<!-- ══════════════════════════════
+     AUFGABE 6
+══════════════════════════════ -->
+<div class="aufgabe" id="u6">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">6</div>
+    <div>
+      <div class="aufgabe-title">Grammatik. Formen Sie die markierten Satzteile von der Verbalform in die Nominalform um und umgekehrt.</div>
+    </div>
+  </div>
+
+  <ul class="satz-liste">
+    <li class="satz-item">
+      <strong>1.</strong> Bis sie etwa 12 Jahre <u>alt</u> sind, können Kinder eine Fremdsprache <u>akzentfrei erwerben</u>.<br>
+      <span style="font-size:13.5px; line-height:2.3;">→ Bis zum <input class="fill-input" id="u6_1a" data-ans="alter|Alter" placeholder="___" style="min-width:80px;"> von etwa 12 Jahren gibt es die Möglichkeit des <input class="fill-input" id="u6_1b" data-ans="akzentfreien Erwerbs|akzentfreien erwerbs" placeholder="_______________" style="min-width:200px;"> einer Fremdsprache.</span>
+      <span class="hint-block" id="h6_1"></span>
+    </li>
+    <li class="satz-item">
+      <strong>2.</strong> Ihre <u>Lernmethode</u> ist die der <u>Imitation</u>.<br>
+      <span style="font-size:13.5px; line-height:2.3;">→ <input class="fill-input" id="u6_2a" data-ans="Sie lernen|sie lernen" placeholder="_______________" style="min-width:160px;">, indem sie andere <input class="fill-input" id="u6_2b" data-ans="imitieren" placeholder="___________" style="min-width:130px;">.</span>
+      <span class="hint-block" id="h6_2"></span>
+    </li>
+    <li class="satz-item">
+      <strong>3.</strong> Die <u>Aneignung</u> einer Fremdsprache bei Erwachsenen erfolgt am schnellsten durch <u>gesteuertes Lernen</u>.<br>
+      <span style="font-size:13.5px; line-height:2.3;">→ Erwachsene <input class="fill-input" id="u6_3a" data-ans="eignen|eignen" placeholder="______" style="min-width:90px;"> sich eine Fremdsprache am schnellsten dadurch <input class="fill-input" id="u6_3b" data-ans="an" placeholder="__" style="min-width:50px;">, dass sie sie <input class="fill-input" id="u6_3c" data-ans="gesteuert lernen" placeholder="_______________" style="min-width:170px;">.</span>
+      <span class="hint-block" id="h6_3"></span>
+    </li>
+    <li class="satz-item">
+      <strong>4.</strong> Um eine Fremdsprache <u>gut auszusprechen</u>, muss man sich an die fremden Laute <u>anpassen</u>.<br>
+      <span style="font-size:13.5px; line-height:2.3;">→ Eine <input class="fill-input" id="u6_4a" data-ans="gute Aussprache|gute aussprache" placeholder="_______________" style="min-width:165px;"> erfordert <input class="fill-input" id="u6_4b" data-ans="die Anpassung|eine Anpassung|die anpassung|eine anpassung" placeholder="_______________" style="min-width:170px;"> an die fremden Laute.</span>
+      <span class="hint-block" id="h6_4"></span>
+    </li>
+  </ul>
+
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU6()">✔ Auswerten</button>
+    <button class="btn btn-reset" onclick="resetU6()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd6">/ 4 Punkte</span>
+  </div>
+  <div class="result-bar" id="res6"></div>
+</div>
+
+
+<!-- ══════════════════════════════
+     AUFGABE 7
+══════════════════════════════ -->
+<div class="aufgabe" id="u7">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">7</div>
+    <div>
+      <div class="aufgabe-title">Redemittel zur Diskussion. Welcher Ausdruck passt nicht? Markieren Sie ihn.</div>
+    </div>
+  </div>
+
+  <!-- 1 -->
+  <div class="ww-row">
+    <span class="ww-nr">1.</span> <span class="ww-prefix">Meiner</span>
+    <div class="ww-opts">
+      <label class="ww-label"><input type="radio" name="ww1" value="Auffassung"> Auffassung</label>
+      <label class="ww-label"><input type="radio" name="ww1" value="Ansicht"> Ansicht</label>
+      <label class="ww-label"><input type="radio" name="ww1" value="Verfassung"> Verfassung</label>
+    </div>
+    <span style="font-size:14px;"> nach …</span>
+  </div>
+  <!-- 2 -->
+  <div class="ww-row">
+    <span class="ww-nr">2.</span> <span class="ww-prefix">Dazu möchte ich folgende</span>
+    <div class="ww-opts">
+      <label class="ww-label"><input type="radio" name="ww2" value="Beispiele"> Beispiele</label>
+      <label class="ww-label"><input type="radio" name="ww2" value="Gründe"> Gründe</label>
+      <label class="ww-label"><input type="radio" name="ww2" value="Botschaften"> Botschaften</label>
+    </div>
+    <span style="font-size:14px;"> anführen: …</span>
+  </div>
+  <!-- 3 -->
+  <div class="ww-row">
+    <span class="ww-nr">3.</span> <span class="ww-prefix">Ich vertrete die</span>
+    <div class="ww-opts">
+      <label class="ww-label"><input type="radio" name="ww3" value="Ansicht"> Ansicht</label>
+      <label class="ww-label"><input type="radio" name="ww3" value="Überzeugung"> Überzeugung</label>
+      <label class="ww-label"><input type="radio" name="ww3" value="Aussicht"> Aussicht</label>
+    </div>
+    <span style="font-size:14px;">, dass …</span>
+  </div>
+  <!-- 4 -->
+  <div class="ww-row">
+    <span class="ww-nr">4.</span> <span class="ww-prefix">Dem kann ich mich nur</span>
+    <div class="ww-opts">
+      <label class="ww-label"><input type="radio" name="ww4" value="ausschließen"> ausschließen</label>
+      <label class="ww-label"><input type="radio" name="ww4" value="anschließen"> anschließen</label>
+    </div>
+    <span style="font-size:14px;">.</span>
+  </div>
+  <!-- 5 -->
+  <div class="ww-row">
+    <span class="ww-nr">5.</span> <span class="ww-prefix">Dieser Aussage muss ich</span>
+    <div class="ww-opts">
+      <label class="ww-label"><input type="radio" name="ww5" value="zustimmen"> zustimmen</label>
+      <label class="ww-label"><input type="radio" name="ww5" value="abstimmen"> abstimmen</label>
+      <label class="ww-label"><input type="radio" name="ww5" value="widersprechen"> widersprechen</label>
+    </div>
+    <span style="font-size:14px;">.</span>
+  </div>
+  <!-- 6 -->
+  <div class="ww-row">
+    <span class="ww-nr">6.</span> <span class="ww-prefix">Für mich klingt</span>
+    <div class="ww-opts">
+      <label class="ww-label"><input type="radio" name="ww6" value="einleuchtend"> einleuchtend</label>
+      <label class="ww-label"><input type="radio" name="ww6" value="überzeugend"> überzeugend</label>
+      <label class="ww-label"><input type="radio" name="ww6" value="überredend"> überredend</label>
+    </div>
+    <span style="font-size:14px;">, wie …</span>
+  </div>
+  <!-- 7 -->
+  <div class="ww-row">
+    <span class="ww-nr">7.</span> <span class="ww-prefix">Man muss hierbei</span>
+    <div class="ww-opts">
+      <label class="ww-label"><input type="radio" name="ww7" value="bereden"> bereden</label>
+      <label class="ww-label"><input type="radio" name="ww7" value="berücksichtigen"> berücksichtigen</label>
+      <label class="ww-label"><input type="radio" name="ww7" value="beachten"> beachten</label>
+    </div>
+    <span style="font-size:14px;">, …</span>
+  </div>
+  <!-- 8 -->
+  <div class="ww-row">
+    <span class="ww-nr">8.</span> <span class="ww-prefix">Meines</span>
+    <div class="ww-opts">
+      <label class="ww-label"><input type="radio" name="ww8" value="Erachtens"> Erachtens</label>
+      <label class="ww-label"><input type="radio" name="ww8" value="Erlebens"> Erlebens</label>
+    </div>
+    <span style="font-size:14px;"> …</span>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU7()">✔ Auswerten</button>
+    <button class="btn btn-reset" onclick="resetU7()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd7">/ 4 Punkte</span>
+  </div>
+  <div class="result-bar" id="res7"></div>
+</div>
+
+
+<!-- ══════════════════════════════
+     AUFGABE 8
+══════════════════════════════ -->
+<div class="aufgabe" id="u8">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">8</div>
+    <div>
+      <div class="aufgabe-title">Lesen. Lesen Sie den Text und kreuzen Sie an: richtig oder falsch?</div>
+    </div>
+  </div>
+
+  <div class="lese-box">
+    <h3>Friedlicher kommunizieren</h3>
+    <p><strong>Wäre es nicht schön, wenn Kommunikation zwischen den Menschen friedlich verlaufen könnte, statt in Streit zu enden? Der amerikanische Psychologe Marshall B. Rosenberg hat mit seinem Konzept der gewaltfreien Kommunikation daran gearbeitet.</strong></p>
+    <p style="margin-top:10px;">Auch wenn es nicht zu körperlicher Gewalt kommt: Worte sind oft verletzend, und verletzende Worte provozieren neue Verletzungen. Auf diese Weise können Konflikte eskalieren. Doch eigentlich ist Kommunikation anders gedacht und dahin kann man wieder zurückkehren.</p>
+    <p style="margin-top:10px;">Vier Komponenten sind dafür laut Rosenberg entscheidend. Erstens: Man soll beobachten und beschreiben statt beurteilen und verallgemeinern, denn Verurteilungen machen das Gegenüber immer wütend und provozieren Gegenwehr. Ein verlorenes Tennisspiel heißt nicht, dass jemand nicht Tennis spielen kann.</p>
+    <p style="margin-top:10px;">Zweitens: Man soll sagen, wie man sich fühlt, wenn der andere etwas sagt oder tut, auch wenn das negative Gefühle sind. Dabei soll man aber nicht das Gegenüber für die eigenen Gefühle verantwortlich machen, denn er oder sie ist nur der Auslöser, aber nicht der Grund für diese Emotionen. Also helfen Formulierungen wie „Ich bin traurig, weil …" und nicht „Du bist …". Gefühle resultieren nämlich aus Bedürfnissen und das ist die dritte Komponente: Die eigenen Bedürfnisse klar benennen. Sagen Sie nicht: „Du sollst weniger arbeiten.", sondern „Ich möchte mehr Zeit mit dir verbringen." Oft reicht das nicht aus und man muss – viertens – konkreter werden und eine Bitte formulieren, damit der/die andere damit etwas anfangen kann.</p>
+    <p style="margin-top:10px;">Die Anwendung dieser Kommunikationsleitlinien muss man natürlich üben und entscheidend dafür ist Empathie: Einfühlung für sich selbst und für die anderen.</p>
+    <p style="margin-top:10px;">Rosenberg entwickelte sein Konzept ab Anfang der 1960er Jahre für Bürgerrechtler, die die Rassentrennung an amerikanischen Schulen überwinden wollten. Seither wird es weltweit unter anderem in Familien, Schulen, Beratungszentren und bei geschäftlichen und diplomatischen Verhandlungen angewendet, z. B. auch in Krisengebieten.</p>
+  </div>
+
+  <div id="u8-items">
+    <div class="rf-row">
+      <span class="rf-text">1. Das erste Prinzip gewaltfreier Kommunikation ist das der Beobachtung.</span>
+      <div class="rf-grp" id="rf8_1">
+        <label class="rf-label"><input type="radio" name="rf8_1" value="r"> richtig</label>
+        <label class="rf-label"><input type="radio" name="rf8_1" value="f"> falsch</label>
+      </div>
+    </div>
+    <div class="rf-row">
+      <span class="rf-text">2. Das Verhalten anderer ist die wahre Ursache für die eigenen Gefühle.</span>
+      <div class="rf-grp" id="rf8_2">
+        <label class="rf-label"><input type="radio" name="rf8_2" value="r"> richtig</label>
+        <label class="rf-label"><input type="radio" name="rf8_2" value="f"> falsch</label>
+      </div>
+    </div>
+    <div class="rf-row">
+      <span class="rf-text">3. Die dritte Komponente bedeutet, dass man klar sagt, was man braucht.</span>
+      <div class="rf-grp" id="rf8_3">
+        <label class="rf-label"><input type="radio" name="rf8_3" value="r"> richtig</label>
+        <label class="rf-label"><input type="radio" name="rf8_3" value="f"> falsch</label>
+      </div>
+    </div>
+    <div class="rf-row">
+      <span class="rf-text">4. Bitten werden oft zu allgemein formuliert.</span>
+      <div class="rf-grp" id="rf8_4">
+        <label class="rf-label"><input type="radio" name="rf8_4" value="r"> richtig</label>
+        <label class="rf-label"><input type="radio" name="rf8_4" value="f"> falsch</label>
+      </div>
+    </div>
+    <div class="rf-row">
+      <span class="rf-text">5. Gewaltfreie Kommunikation gelingt sofort.</span>
+      <div class="rf-grp" id="rf8_5">
+        <label class="rf-label"><input type="radio" name="rf8_5" value="r"> richtig</label>
+        <label class="rf-label"><input type="radio" name="rf8_5" value="f"> falsch</label>
+      </div>
+    </div>
+    <div class="rf-row">
+      <span class="rf-text">6. Das Konzept ist heute vor allem in den USA verbreitet.</span>
+      <div class="rf-grp" id="rf8_6">
+        <label class="rf-label"><input type="radio" name="rf8_6" value="r"> richtig</label>
+        <label class="rf-label"><input type="radio" name="rf8_6" value="f"> falsch</label>
+      </div>
+    </div>
+    <div class="rf-row">
+      <span class="rf-text">7. Es kommt sowohl auf privater als auch auf politischer Ebene zum Einsatz.</span>
+      <div class="rf-grp" id="rf8_7">
+        <label class="rf-label"><input type="radio" name="rf8_7" value="r"> richtig</label>
+        <label class="rf-label"><input type="radio" name="rf8_7" value="f"> falsch</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU8()">✔ Auswerten</button>
+    <button class="btn btn-reset" onclick="resetU8()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd8">/ 7 Punkte</span>
+  </div>
+  <div class="result-bar" id="res8"></div>
+</div>
+
+
+<!-- ══════════════════════════════
+     AUFGABE 9
+══════════════════════════════ -->
+<div class="aufgabe" id="u9">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">9</div>
+    <div>
+      <div class="aufgabe-title">Schreiben. Schreiben Sie einen Leserbrief zum Text in Aufgabe 8 (ca. 150 Wörter).</div>
+    </div>
+  </div>
+
+  <p style="font-size:14px; margin-bottom:14px; line-height:1.85;">
+    Gehen Sie dabei darauf ein:<br>
+    <strong>– ob Sie das Konzept überzeugend und umsetzbar finden und warum (nicht).</strong><br>
+    <strong>– in welchen Situationen Sie eine besonders aggressive bzw. eine besonders friedliche Kommunikation erlebt haben.</strong><br>
+    <strong>– was für Sie das Wichtigste bei einer gelungenen Kommunikation ist.</strong>
+  </p>
+
+  <textarea class="schreib-area" id="u9_text" placeholder="Schreiben Sie hier Ihren Leserbrief …"></textarea>
+
+  <div class="punkte-kriterien">
+    <strong>Bewertungskriterien (9 Punkte):</strong><br>
+    Inhalt: 4 Punkte &nbsp;·&nbsp; Ausdrucksfähigkeit (Wortschatz &amp; Kohärenz): 3 Punkte &nbsp;·&nbsp; Korrektheit: 2 Punkte
+  </div>
+
+  <button class="muster-btn" id="muster-btn" onclick="toggleMuster()">
+    ▶ Mustertext anzeigen (C1-Niveau)
+  </button>
+
+  <div class="mustertext" id="mustertext">
+    <div class="m-title">Mustertext – Leserbrief (ca. 155 Wörter, Niveau C1)</div>
+    <p>Sehr geehrte Redaktion,</p>
+    <br>
+    <p>mit großem Interesse habe ich den Artikel über die gewaltfreie Kommunikation nach Rosenberg gelesen. Das Konzept finde ich grundsätzlich überzeugend, denn es rückt die eigene Verantwortung für Emotionen in den Mittelpunkt – ein Ansatz, der mir einleuchtet. Ob es jedoch in der Praxis immer umsetzbar ist, bezweifle ich: In hitzigen Diskussionen gelingt es kaum, so besonnen zu bleiben.</p>
+    <br>
+    <p>Aus eigener Erfahrung kenne ich beide Extremfälle. Bei einem Streit im Team wurde jede Aussage sofort als Vorwurf gedeutet – die Situation eskalierte, weil niemand zuhören wollte. Im Gegensatz dazu habe ich bei einem Mediationsgespräch erlebt, wie ruhiges, respektvolles Kommunizieren selbst tief verwurzelte Konflikte lösen kann.</p>
+    <br>
+    <p>Für mich persönlich ist <em>aktives Zuhören</em> das Wichtigste bei einer gelungenen Kommunikation: Wer wirklich zuhört, versteht – und versteht, statt zu urteilen.</p>
+    <br>
+    <p>Mit freundlichen Grüßen</p>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════
+     GESAMTERGEBNIS
+══════════════════════════════ -->
+<div class="gesamt-box" id="gesamt">
+  <div class="gesamt-title">Gesamtergebnis (Aufgaben 1–8)</div>
+  <div class="gesamt-punkte" id="gesamt-punkte">–</div>
+  <div class="gesamt-sub">von 31 Punkten (ohne Schreiben) &nbsp;·&nbsp; inkl. Schreiben (A9): 40 Punkte</div>
+  <div class="bewertung">
+    <span class="bew bew-sg" id="bew-sg">40–37 sehr gut</span>
+    <span class="bew bew-g"  id="bew-g">36–33 gut</span>
+    <span class="bew bew-b"  id="bew-b">32–28 befriedigend</span>
+    <span class="bew bew-a"  id="bew-a">27–24 ausreichend</span>
+    <span class="bew bew-nb" id="bew-nb">&lt; 24 nicht bestanden</span>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+// ─────────────────────────────────────────
+// HELPER
+// ─────────────────────────────────────────
+const scores = {1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0};
+const maxS   = {1:3, 2:3, 3:4, 4:4, 5:2, 6:4, 7:4, 8:7};
+
+function norm(s){
+  return s.trim().toLowerCase()
+    .replace(/[.!?]$/,'')
+    .replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss')
+    .replace(/\s+/g,' ');
+}
+
+function matchAns(val, data){
+  const v = norm(val);
+  return data.split('|').some(a => norm(a) === v);
+}
+
+function showResult(id, correct, total, nr){
+  const el = document.getElementById('res'+id);
+  el.classList.add('show');
+  const pct = total>0 ? Math.round(correct/total*100) : 0;
+  el.className = 'result-bar show ' + (pct===100?'gut': pct>=60?'mittel':'schlecht');
+  const emoji = pct===100?'🎉': pct>=60?'👍':'❌';
+  el.textContent = emoji+' '+correct+' von '+total+' richtig';
+  const pts = correct * (maxS[nr]/total);
+  document.getElementById('pd'+id).textContent = (Number.isInteger(pts)?pts:pts.toFixed(1)) + ' / '+maxS[nr]+' Punkte';
+  scores[nr] = pts;
+  updateTotal();
+}
+
+function updateTotal(){
+  let t=0; for(let k in scores) t+=scores[k];
+  const disp = Number.isInteger(t)?t:t.toFixed(1);
+  document.getElementById('gesamt-punkte').textContent = disp+' / 31';
+}
+
+// ─────────────────────────────────────────
+// AUFGABE 1 – Verben zuordnen
+// ─────────────────────────────────────────
+function checkU1(){
+  let ok=0;
+  for(let i=1;i<=6;i++){
+    const s=document.getElementById('u1_'+i);
+    s.classList.remove('correct','wrong');
+    if(s.value===s.dataset.ans){ s.classList.add('correct'); ok++; }
+    else s.classList.add('wrong');
+  }
+  showResult(1,ok,6,1);
+}
+function resetU1(){
+  for(let i=1;i<=6;i++){ const s=document.getElementById('u1_'+i); s.value=''; s.className='match-select'; }
+  document.getElementById('res1').className='result-bar';
+  document.getElementById('pd1').textContent='/ 3 Punkte';
+}
+
+// ─────────────────────────────────────────
+// AUFGABE 2 – Bedeutungen zuordnen
+// ─────────────────────────────────────────
+function checkU2(){
+  let ok=0;
+  for(let i=1;i<=6;i++){
+    const s=document.getElementById('u2_'+i);
+    s.classList.remove('correct','wrong');
+    if(s.value===s.dataset.ans){ s.classList.add('correct'); ok++; }
+    else s.classList.add('wrong');
+  }
+  showResult(2,ok,6,2);
+}
+function resetU2(){
+  for(let i=1;i<=6;i++){ const s=document.getElementById('u2_'+i); s.value=''; s.className='match-select'; }
+  document.getElementById('res2').className='result-bar';
+  document.getElementById('pd2').textContent='/ 3 Punkte';
+}
+
+// ─────────────────────────────────────────
+// AUFGABE 3 – Präpositionale Ausdrücke
+// ─────────────────────────────────────────
+function checkU3(){
+  let ok=0;
+  for(let i=2;i<=5;i++){
+    const inp=document.getElementById('u3_'+i);
+    const hint=document.getElementById('h3_'+i);
+    inp.classList.remove('correct','wrong');
+    if(matchAns(inp.value, inp.dataset.ans)){ inp.classList.add('correct'); ok++; hint.classList.remove('show'); }
+    else {
+      inp.classList.add('wrong');
+      hint.textContent='→ '+inp.dataset.ans.split('|')[0];
+      hint.classList.add('show');
+    }
+  }
+  showResult(3,ok,4,3);
+}
+function resetU3(){
+  for(let i=2;i<=5;i++){
+    const inp=document.getElementById('u3_'+i); inp.value=''; inp.className='sb-input';
+    const h=document.getElementById('h3_'+i); h.classList.remove('show');
+  }
+  document.getElementById('res3').className='result-bar';
+  document.getElementById('pd3').textContent='/ 4 Punkte';
+}
+
+// ─────────────────────────────────────────
+// AUFGABE 4 – Nebensätze mit "wie"
+// ─────────────────────────────────────────
+function checkU4(){
+  let ok=0;
+  for(let i=2;i<=5;i++){
+    const inp=document.getElementById('u4_'+i);
+    const hint=document.getElementById('h4_'+i);
+    inp.classList.remove('correct','wrong');
+    if(matchAns(inp.value, inp.dataset.ans)){ inp.classList.add('correct'); ok++; hint.classList.remove('show'); }
+    else {
+      inp.classList.add('wrong');
+      hint.textContent='→ '+inp.dataset.ans.split('|')[0];
+      hint.classList.add('show');
+    }
+  }
+  showResult(4,ok,4,4);
+}
+function resetU4(){
+  for(let i=2;i<=5;i++){
+    const inp=document.getElementById('u4_'+i); inp.value=''; inp.className='sb-input';
+    const h=document.getElementById('h4_'+i); h.classList.remove('show');
+  }
+  document.getElementById('res4').className='result-bar';
+  document.getElementById('pd4').textContent='/ 4 Punkte';
+}
+
+// ─────────────────────────────────────────
+// AUFGABE 5 – Konjunktiv I/II
+// ─────────────────────────────────────────
+function checkU5(){
+  let ok=0;
+  for(let i=2;i<=5;i++){
+    const inp=document.getElementById('u5_'+i);
+    const hint=document.getElementById('h5_'+i);
+    inp.classList.remove('correct','wrong');
+    if(matchAns(inp.value, inp.dataset.ans)){ inp.classList.add('correct'); ok++; hint.classList.remove('show'); }
+    else {
+      inp.classList.add('wrong');
+      hint.textContent='→ '+inp.dataset.ans.split('|')[0];
+      hint.classList.add('show');
+    }
+  }
+  showResult(5,ok,4,5);
+}
+function resetU5(){
+  for(let i=2;i<=5;i++){
+    const inp=document.getElementById('u5_'+i); inp.value=''; inp.className='fill-input';
+    const h=document.getElementById('h5_'+i); h.classList.remove('show');
+  }
+  document.getElementById('res5').className='result-bar';
+  document.getElementById('pd5').textContent='/ 2 Punkte';
+}
+
+// ─────────────────────────────────────────
+// AUFGABE 6 – Nominal-/Verbalform
+// ─────────────────────────────────────────
+function checkU6(){
+  // 4 items, each with sub-inputs; scoring: each item = 1 point (all blanks correct)
+  let ok=0;
+  // Item 1: 1a + 1b
+  const i1a=document.getElementById('u6_1a'), i1b=document.getElementById('u6_1b');
+  const ok1 = matchAns(i1a.value, i1a.dataset.ans) && matchAns(i1b.value, i1b.dataset.ans);
+  i1a.classList.remove('correct','wrong'); i1b.classList.remove('correct','wrong');
+  i1a.classList.add(matchAns(i1a.value,i1a.dataset.ans)?'correct':'wrong');
+  i1b.classList.add(matchAns(i1b.value,i1b.dataset.ans)?'correct':'wrong');
+  const h1=document.getElementById('h6_1');
+  if(ok1){ ok++; h1.classList.remove('show'); } else { h1.textContent='→ Alter / akzentfreien Erwerbs'; h1.classList.add('show'); }
+
+  // Item 2: 2a + 2b
+  const i2a=document.getElementById('u6_2a'), i2b=document.getElementById('u6_2b');
+  const ok2 = matchAns(i2a.value, i2a.dataset.ans) && matchAns(i2b.value, i2b.dataset.ans);
+  i2a.classList.remove('correct','wrong'); i2b.classList.remove('correct','wrong');
+  i2a.classList.add(matchAns(i2a.value,i2a.dataset.ans)?'correct':'wrong');
+  i2b.classList.add(matchAns(i2b.value,i2b.dataset.ans)?'correct':'wrong');
+  const h2=document.getElementById('h6_2');
+  if(ok2){ ok++; h2.classList.remove('show'); } else { h2.textContent='→ Sie lernen / imitieren'; h2.classList.add('show'); }
+
+  // Item 3: 3a + 3b + 3c
+  const i3a=document.getElementById('u6_3a'), i3b=document.getElementById('u6_3b'), i3c=document.getElementById('u6_3c');
+  const ok3 = matchAns(i3a.value,i3a.dataset.ans) && matchAns(i3b.value,i3b.dataset.ans) && matchAns(i3c.value,i3c.dataset.ans);
+  [i3a,i3b,i3c].forEach(el=>{ el.classList.remove('correct','wrong'); el.classList.add(matchAns(el.value,el.dataset.ans)?'correct':'wrong'); });
+  const h3=document.getElementById('h6_3');
+  if(ok3){ ok++; h3.classList.remove('show'); } else { h3.textContent='→ eignen … an / gesteuert lernen'; h3.classList.add('show'); }
+
+  // Item 4: 4a + 4b
+  const i4a=document.getElementById('u6_4a'), i4b=document.getElementById('u6_4b');
+  const ok4 = matchAns(i4a.value,i4a.dataset.ans) && matchAns(i4b.value,i4b.dataset.ans);
+  i4a.classList.remove('correct','wrong'); i4b.classList.remove('correct','wrong');
+  i4a.classList.add(matchAns(i4a.value,i4a.dataset.ans)?'correct':'wrong');
+  i4b.classList.add(matchAns(i4b.value,i4b.dataset.ans)?'correct':'wrong');
+  const h4=document.getElementById('h6_4');
+  if(ok4){ ok++; h4.classList.remove('show'); } else { h4.textContent='→ gute Aussprache / die/eine Anpassung'; h4.classList.add('show'); }
+
+  showResult(6,ok,4,6);
+}
+function resetU6(){
+  ['u6_1a','u6_1b','u6_2a','u6_2b','u6_3a','u6_3b','u6_3c','u6_4a','u6_4b'].forEach(id=>{
+    const e=document.getElementById(id); if(e){ e.value=''; e.classList.remove('correct','wrong'); }
+  });
+  ['h6_1','h6_2','h6_3','h6_4'].forEach(id=>{ document.getElementById(id).classList.remove('show'); });
+  document.getElementById('res6').className='result-bar';
+  document.getElementById('pd6').textContent='/ 4 Punkte';
+}
+
+// ─────────────────────────────────────────
+// AUFGABE 7 – Welcher Ausdruck passt nicht?
+// ─────────────────────────────────────────
+const wwAns = {ww1:'Verfassung', ww2:'Botschaften', ww3:'Aussicht', ww4:'ausschließen', ww5:'abstimmen', ww6:'überredend', ww7:'bereden', ww8:'Erlebens'};
+
+function checkU7(){
+  let ok=0;
+  for(let k in wwAns){
+    const labels = document.querySelectorAll('input[name="'+k+'"]');
+    const sel = document.querySelector('input[name="'+k+'"]:checked');
+    labels.forEach(r=>r.parentElement.classList.remove('correct-ww','wrong-ww'));
+    if(sel){
+      if(sel.value===wwAns[k]){ sel.parentElement.classList.add('correct-ww'); ok++; }
+      else {
+        sel.parentElement.classList.add('wrong-ww');
+        labels.forEach(r=>{ if(r.value===wwAns[k]) r.parentElement.classList.add('correct-ww'); });
+      }
+    } else {
+      labels.forEach(r=>{ if(r.value===wwAns[k]) r.parentElement.classList.add('correct-ww'); });
+    }
+  }
+  showResult(7,ok,8,7);
+}
+function resetU7(){
+  for(let k in wwAns){
+    document.querySelectorAll('input[name="'+k+'"]').forEach(r=>{ r.checked=false; r.parentElement.classList.remove('correct-ww','wrong-ww'); });
+  }
+  document.getElementById('res7').className='result-bar';
+  document.getElementById('pd7').textContent='/ 4 Punkte';
+}
+
+// ─────────────────────────────────────────
+// AUFGABE 8 – Richtig / Falsch
+// ─────────────────────────────────────────
+const rfAns8 = {rf8_1:'r', rf8_2:'f', rf8_3:'r', rf8_4:'r', rf8_5:'f', rf8_6:'f', rf8_7:'r'};
+
+function checkU8(){
+  let ok=0;
+  for(let k in rfAns8){
+    const labels=document.querySelectorAll('input[name="'+k+'"]');
+    const sel=document.querySelector('input[name="'+k+'"]:checked');
+    labels.forEach(l=>l.parentElement.classList.remove('correct-rf','wrong-rf'));
+    if(sel){
+      if(sel.value===rfAns8[k]){ sel.parentElement.classList.add('correct-rf'); ok++; }
+      else {
+        sel.parentElement.classList.add('wrong-rf');
+        labels.forEach(l=>{ if(l.value===rfAns8[k]) l.parentElement.classList.add('correct-rf'); });
+      }
+    } else {
+      labels.forEach(l=>{ if(l.value===rfAns8[k]) l.parentElement.classList.add('correct-rf'); });
+    }
+  }
+  showResult(8,ok,7,8);
+}
+function resetU8(){
+  document.querySelectorAll('#u8-items input[type=radio]').forEach(r=>{ r.checked=false; r.parentElement.classList.remove('correct-rf','wrong-rf'); });
+  document.getElementById('res8').className='result-bar';
+  document.getElementById('pd8').textContent='/ 7 Punkte';
+}
+
+// ─────────────────────────────────────────
+// LÖSUNGEN ANZEIGEN / VERBERGEN
+// ─────────────────────────────────────────
+let loesungenSichtbar = false;
+
+function toggleLoesungen(){
+  const btn=document.getElementById('loes-btn');
+  if(!loesungenSichtbar){
+    showAllLoesungen();
+    loesungenSichtbar=true;
+    btn.textContent='🔒 Lösungen verbergen';
+    btn.classList.add('active');
+  } else {
+    resetAll();
+    loesungenSichtbar=false;
+    btn.textContent='🔑 Lösungen anzeigen';
+    btn.classList.remove('active');
+  }
+}
+
+function showAllLoesungen(){
+  // A1
+  const a1 = {u1_1:'D', u1_2:'A', u1_3:'F', u1_4:'C', u1_5:'B', u1_6:'E'};
+  for(let id in a1) document.getElementById(id).value=a1[id];
+  checkU1();
+
+  // A2
+  const a2 = {u2_1:'1', u2_2:'2', u2_3:'3', u2_4:'4', u2_5:'5', u2_6:'6'};
+  for(let id in a2) document.getElementById(id).value=a2[id];
+  checkU2();
+
+  // A3
+  const a3 = {
+    u3_2:'Anerkannten Psychologen zufolge verursacht ständige Erreichbarkeit Stress und kann zu Burnout führen.',
+    u3_3:'Laut diesem Text waren die Menschen noch nie so gut vernetzt wie heute.',
+    u3_4:'Nach Angaben der Geschäftsführung sollen die Möglichkeiten von mobilen Büros ausgebaut werden.',
+    u3_5:'Seiner Meinung nach sollten wir unsere Mobiltelefone öfter ausschalten.'
+  };
+  for(let id in a3) document.getElementById(id).value=a3[id];
+  checkU3();
+
+  // A4
+  const a4 = {
+    u4_2:'Wie der Arbeitsminister bestätigte, sind die Arbeitslosenzahlen gesunken.',
+    u4_3:'Wie die Gewerkschaft mitteilte, streiken die Piloten ab Montag.',
+    u4_4:'Wie der Trainer erklärte, kommt im Februar ein neuer Spieler.',
+    u4_5:'Wie das Management berichtete, hat sich der Umsatz im letzten Jahr erhöht.'
+  };
+  for(let id in a4) document.getElementById(id).value=a4[id];
+  checkU4();
+
+  // A5
+  const a5 = {u5_2:'seien gesunken', u5_3:'würden streiken', u5_4:'komme', u5_5:'habe sich erhöht'};
+  for(let id in a5) document.getElementById(id).value=a5[id];
+  checkU5();
+
+  // A6
+  document.getElementById('u6_1a').value='Alter';
+  document.getElementById('u6_1b').value='akzentfreien Erwerbs';
+  document.getElementById('u6_2a').value='Sie lernen';
+  document.getElementById('u6_2b').value='imitieren';
+  document.getElementById('u6_3a').value='eignen';
+  document.getElementById('u6_3b').value='an';
+  document.getElementById('u6_3c').value='gesteuert lernen';
+  document.getElementById('u6_4a').value='gute Aussprache';
+  document.getElementById('u6_4b').value='die Anpassung';
+  checkU6();
+
+  // A7
+  for(let k in wwAns){
+    const r=document.querySelector('input[name="'+k+'"][value="'+wwAns[k]+'"]');
+    if(r) r.checked=true;
+  }
+  checkU7();
+
+  // A8
+  for(let k in rfAns8){
+    const r=document.querySelector('input[name="'+k+'"][value="'+rfAns8[k]+'"]');
+    if(r) r.checked=true;
+  }
+  checkU8();
+}
+
+function resetAll(){
+  resetU1(); resetU2(); resetU3(); resetU4(); resetU5(); resetU6(); resetU7(); resetU8();
+  for(let k in scores) scores[k]=0;
+  document.getElementById('gesamt-punkte').textContent='–';
+}
+
+// ─────────────────────────────────────────
+// MUSTERTEXT
+// ─────────────────────────────────────────
+function toggleMuster(){
+  const m=document.getElementById('mustertext');
+  const btn=document.getElementById('muster-btn');
+  if(m.classList.contains('show')){
+    m.classList.remove('show');
+    btn.innerHTML='▶ Mustertext anzeigen (C1-Niveau)';
+  } else {
+    m.classList.add('show');
+    btn.innerHTML='▼ Mustertext verbergen';
+  }
+}
+</script>
+</body>
+</html>
