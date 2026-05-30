@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lernfortschrittstest Kapitel 4 – Aspekte neu C1</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; font-size: 15px; background: #f2f2f2; color: #1a1a1a; padding-bottom: 60px; }
+.page-header { background: #1a5c2e; color: #fff; padding: 22px 32px 18px; }
+.header-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; max-width: 880px; margin: 0 auto; }
+.header-left h1 { font-size: 22px; font-weight: 700; }
+.header-left p  { font-size: 13px; opacity: 0.85; margin-top: 4px; }
+.header-right { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+.badge { background: rgba(255,255,255,0.22); border-radius: 20px; padding: 4px 14px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.test-banner { background: #f57f17; color: #fff; padding: 14px 32px; font-size: 17px; font-weight: 700; }
+.test-banner-inner { max-width: 880px; margin: 0 auto; }
+.content { max-width: 880px; margin: 0 auto; padding: 24px 20px; }
+.aufgabe { background: #fff; border-radius: 10px; padding: 22px 24px 20px; margin-bottom: 22px; border-left: 5px solid #1a5c2e; box-shadow: 0 1px 5px rgba(0,0,0,0.08); }
+.aufgabe-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+.aufgabe-nr { background: #1a5c2e; color: #fff; font-size: 16px; font-weight: 700; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.aufgabe-title { font-size: 15px; font-weight: 700; line-height: 1.4; padding-top: 2px; }
+.aufgabe-sub { font-size: 12.5px; color: #666; margin-top: 3px; }
+.fill-input { border: none; border-bottom: 2px solid #aaa; background: transparent; font-size: 14px; font-family: Arial, sans-serif; padding: 2px 6px; min-width: 170px; outline: none; }
+.fill-input:focus { border-bottom-color: #1a5c2e; }
+.fill-input.correct { border-bottom-color: #2e7d32 !important; background: #e8f5e9 !important; border-radius: 4px; }
+.fill-input.wrong   { border-bottom-color: #e65100 !important; background: #fff3e0 !important; border-radius: 4px; }
+.fill-input[readonly] { border-bottom-color: #2e7d32; background: #e8f5e9; border-radius: 4px; color: #2e7d32; font-weight: 700; }
+.satz-liste { list-style: none; }
+.satz-item { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; line-height: 2; }
+.satz-item:last-child { border-bottom: none; }
+.hint { display: none; font-size: 12px; color: #e65100; font-weight: 700; margin-left: 6px; }
+.hint.show { display: inline; }
+.mc-block { margin-bottom: 14px; }
+.mc-question { font-size: 14px; font-weight: 600; margin-bottom: 7px; }
+.mc-options { display: flex; gap: 8px; flex-wrap: wrap; }
+.mc-label { display: flex; align-items: center; gap: 6px; padding: 6px 14px; border: 1.5px solid #ccc; border-radius: 8px; cursor: pointer; font-size: 13.5px; transition: all 0.15s; user-select: none; }
+.mc-label:hover { border-color: #1a5c2e; background: #e8f5e9; }
+.mc-label input { accent-color: #1a5c2e; margin: 0; }
+.mc-label.correct-opt { border-color: #2e7d32 !important; background: #e8f5e9 !important; color: #2e7d32 !important; font-weight: 700; }
+.mc-label.wrong-opt   { border-color: #e65100 !important; background: #fff3e0 !important; color: #e65100 !important; }
+.wortkasten { background: #fff8e1; border: 1.5px solid #f9a825; border-radius: 8px; padding: 10px 16px; margin-bottom: 16px; line-height: 2.2; font-size: 13.5px; }
+.fill-select { border: none; border-bottom: 2px solid #aaa; background: transparent; font-size: 14px; font-family: Arial, sans-serif; padding: 2px 4px; outline: none; cursor: pointer; }
+.fill-select:focus { border-bottom-color: #1a5c2e; }
+.fill-select.correct { border-bottom-color: #2e7d32; background: #e8f5e9; border-radius: 4px; }
+.fill-select.wrong   { border-bottom-color: #e65100; background: #fff3e0; border-radius: 4px; }
+.match-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; flex-wrap: wrap; }
+.match-row:last-child { border-bottom: none; }
+.match-nr { font-weight: 700; color: #555; min-width: 130px; flex-shrink: 0; }
+.match-select { border: 1.5px solid #ccc; border-radius: 7px; padding: 6px 10px; font-family: Arial, sans-serif; font-size: 13.5px; outline: none; cursor: pointer; background: #fff; min-width: 220px; }
+.match-select:focus { border-color: #1a5c2e; }
+.match-select.correct { border-color: #2e7d32; background: #e8f5e9; color: #2e7d32; }
+.match-select.wrong   { border-color: #e65100; background: #fff3e0; color: #e65100; }
+.sb-row { display: flex; flex-direction: column; gap: 4px; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+.sb-row:last-child { border-bottom: none; }
+.sb-tag { font-size: 12px; color: #888; font-style: italic; }
+.orig-satz { font-size: 13.5px; color: #444; background: #f5f5f5; border-left: 3px solid #1a5c2e; border-radius: 4px; padding: 5px 10px; line-height: 1.6; }
+.sb-input { width: 100%; border: none; border-bottom: 2px solid #aaa; background: transparent; font-size: 14px; font-family: Arial, sans-serif; padding: 2px 6px; outline: none; }
+.sb-input:focus { border-bottom-color: #1a5c2e; }
+.sb-input.correct { border-bottom-color: #2e7d32; background: #e8f5e9; border-radius: 4px; }
+.sb-input.wrong   { border-bottom-color: #e65100; background: #fff3e0; border-radius: 4px; }
+.sb-input[readonly] { border-bottom-color: #2e7d32; background: #e8f5e9; border-radius: 4px; color: #2e7d32; font-style: italic; }
+.news-box { background: #f5f5f5; border-left: 4px solid #1a5c2e; border-radius: 6px; padding: 14px 18px; margin-bottom: 16px; font-size: 13.5px; line-height: 1.8; color: #333; font-style: italic; }
+.news-author { text-align: right; font-size: 12px; font-style: normal; font-weight: 700; color: #555; margin-top: 6px; }
+.lesetext { background: #f9f9f9; border: 1.5px solid #ddd; border-radius: 8px; padding: 16px 20px; margin-bottom: 18px; font-size: 13.5px; line-height: 1.85; color: #333; }
+.lesetext h3 { font-size: 14.5px; font-weight: 700; color: #1a5c2e; margin-bottom: 4px; }
+.lesetext h4 { font-size: 13px; font-weight: 700; color: #555; margin-bottom: 10px; }
+.schreib-area { width: 100%; min-height: 220px; border: 1.5px solid #ccc; border-radius: 8px; padding: 12px; font-size: 14px; font-family: Arial, sans-serif; resize: vertical; outline: none; line-height: 1.9; }
+.schreib-area:focus { border-color: #1a5c2e; }
+.punkte-kriterien { background: #fff8e1; border: 1px solid #f9a825; border-radius: 7px; padding: 10px 14px; font-size: 13px; margin-top: 12px; line-height: 1.8; }
+.muster-btn { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; padding: 10px 18px; background: #1a5c2e; color: #fff; border-radius: 8px; font-size: 13.5px; font-weight: 700; margin-top: 14px; border: none; font-family: Arial, sans-serif; }
+.muster-btn:hover { background: #2e7d32; }
+.mustertext { display: none; background: #e8f5e9; border: 1.5px solid #2e7d32; border-radius: 8px; padding: 18px 20px; margin-top: 12px; font-size: 14px; line-height: 1.9; }
+.mustertext.show { display: block; }
+.mustertext .m-title { font-size: 13px; font-weight: 700; color: #1a5c2e; margin-bottom: 10px; }
+.mustertext em { color: #1a5c2e; }
+.btn-row { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; align-items: center; }
+.btn { padding: 9px 22px; border-radius: 7px; border: none; font-size: 13.5px; font-weight: 700; cursor: pointer; font-family: Arial, sans-serif; }
+.btn:hover { opacity: 0.88; }
+.btn-check { background: #1a5c2e; color: #fff; }
+.btn-reset { background: #fff; color: #666; border: 1.5px solid #ccc; }
+.punkte-display { font-size: 13px; color: #888; margin-left: auto; }
+.result-bar { margin-top: 10px; padding: 9px 14px; border-radius: 7px; font-size: 13.5px; font-weight: 700; display: none; }
+.result-bar.show { display: block; }
+.result-bar.gut      { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+.result-bar.mittel   { background: #fff8e1; color: #f57f17; border: 1px solid #ffe082; }
+.result-bar.schlecht { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+.gesamt-box { background: #fff; border-radius: 10px; padding: 26px 24px; margin-top: 10px; border: 2px solid #1a5c2e; text-align: center; }
+.gesamt-title { font-size: 14px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+.gesamt-punkte { font-size: 42px; font-weight: 700; color: #1a5c2e; margin: 10px 0 6px; }
+.gesamt-sub { font-size: 13px; color: #888; margin-bottom: 18px; }
+.bewertung { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.bew { padding: 7px 16px; border-radius: 7px; font-size: 13px; font-weight: 700; border: 1.5px solid; }
+.bew-sg { background: #e8f5e9; color: #2e7d32; border-color: #2e7d32; }
+.bew-g  { background: #f1f8e9; color: #558b2f; border-color: #8bc34a; }
+.bew-b  { background: #fff8e1; color: #f57f17; border-color: #f9a825; }
+.bew-a  { background: #fff3e0; color: #e65100; border-color: #ff9800; }
+.bew-nb { background: #fbe9e7; color: #bf360c; border-color: #ff5722; }
+.loes-bar { background: #fff8e1; border-bottom: 2px solid #f9a825; padding: 10px 32px; }
+.loes-bar-inner { max-width: 880px; margin: 0 auto; display: flex; align-items: center; gap: 14px; }
+.btn-loes { padding: 8px 20px; background: #e65100; color: #fff; border: none; border-radius: 7px; font-size: 13.5px; font-weight: 700; cursor: pointer; font-family: Arial, sans-serif; white-space: nowrap; }
+.btn-loes:hover { background: #f57f17; }
+.btn-loes.active { background: #1a5c2e; }
+.loes-hint { font-size: 12.5px; color: #888; }
+.kompositum-result { font-size: 13px; color: #1a5c2e; font-weight: 700; margin-left: 8px; display: none; }
+.kompositum-result.show { display: inline; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="header-inner">
+    <div class="header-left">
+      <h1>Lernfortschrittstest · Kapitel 4</h1>
+      <p>Aspekte neu C1 &nbsp;·&nbsp; Klett Verlag</p>
+    </div>
+    <div class="header-right">
+      <span class="badge">Niveau C1</span>
+      <span class="badge">40 Punkte gesamt</span>
+    </div>
+  </div>
+</div>
+<div class="test-banner">
+  <div class="test-banner-inner">Test zu Kapitel 4: Wirtschaftsgipfel</div>
+</div>
+
+<div class="loes-bar">
+  <div class="loes-bar-inner">
+    <button class="btn-loes" id="loes-btn" onclick="toggleLoesungen()">🔑 Lösungen anzeigen</button>
+    <span class="loes-hint">Alle richtigen Antworten auf einmal einblenden oder ausblenden</span>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- AUFGABE 1 -->
+<div class="aufgabe" id="u1">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">1</div>
+    <div>
+      <div class="aufgabe-title">Wortschatz: „Wirtschaft und Crowdfunding". Kombinieren Sie die Komposita und notieren Sie sie mit Artikel.</div>
+      <div class="aufgabe-sub">Wählen Sie die richtige Endung (A–K) für jedes Wort. Satz 1 ist als Beispiel gegeben.</div>
+    </div>
+  </div>
+
+  <div class="wortkasten">
+    <strong>Endungen:</strong> &nbsp;
+    A -geber &nbsp;·&nbsp; B -beteiligung &nbsp;·&nbsp; C -stätte &nbsp;·&nbsp; D -gründung &nbsp;·&nbsp; E -merkmal &nbsp;·&nbsp;
+    F -kalkulation &nbsp;·&nbsp; G -sektor &nbsp;·&nbsp; H -kapital &nbsp;·&nbsp; I -unfähigkeit &nbsp;·&nbsp; J -idee &nbsp;·&nbsp; K -plan
+  </div>
+
+  <div class="match-row">
+    <span class="match-nr">1. Firmen<strong>gründung</strong></span>
+    <span style="font-size:13px; color:#2e7d32; font-weight:700;">✔ die Firmengründung (Beispiel)</span>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">2. Geschäfts…</span>
+    <select class="match-select" id="u1_2" data-ans="J" onchange="showKompositum(this, 'die Geschäftsidee')">
+      <option value="">— Endung wählen —</option>
+      <option value="A">A – -geber → der Geschäftsgeber</option>
+      <option value="B">B – -beteiligung → die Geschäftsbeteiligung</option>
+      <option value="C">C – -stätte → die Geschäftsstätte</option>
+      <option value="E">E – -merkmal → das Geschäftsmerkmal</option>
+      <option value="F">F – -kalkulation → die Geschäftskalkulation</option>
+      <option value="G">G – -sektor → der Geschäftssektor</option>
+      <option value="H">H – -kapital → das Geschäftskapital</option>
+      <option value="I">I – -unfähigkeit → die Geschäftsunfähigkeit</option>
+      <option value="J">J – -idee → die Geschäftsidee</option>
+      <option value="K">K – -plan → der Geschäftsplan</option>
+    </select>
+    <span class="kompositum-result" id="kr_2"></span>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">3. Kapital…</span>
+    <select class="match-select" id="u1_3" data-ans="A" onchange="showKompositum(this, 'der Kapitalgeber')">
+      <option value="">— Endung wählen —</option>
+      <option value="A">A – -geber → der Kapitalgeber</option>
+      <option value="B">B – -beteiligung → die Kapitalbeteiligung</option>
+      <option value="C">C – -stätte → die Kapitalstätte</option>
+      <option value="E">E – -merkmal → das Kapitalmerkmal</option>
+      <option value="F">F – -kalkulation → die Kapitalkalkulation</option>
+      <option value="G">G – -sektor → der Kapitalsektor</option>
+      <option value="H">H – -kapital → das Kapitalkapital</option>
+      <option value="I">I – -unfähigkeit → die Kapitalunfähigkeit</option>
+      <option value="J">J – -idee → die Kapitalidee</option>
+      <option value="K">K – -plan → der Kapitalplan</option>
+    </select>
+    <span class="kompositum-result" id="kr_3"></span>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">4. Dienstleistungs…</span>
+    <select class="match-select" id="u1_4" data-ans="G" onchange="showKompositum(this, 'der Dienstleistungssektor')">
+      <option value="">— Endung wählen —</option>
+      <option value="A">A – -geber → der Dienstleistungsgeber</option>
+      <option value="B">B – -beteiligung → die Dienstleistungsbeteiligung</option>
+      <option value="C">C – -stätte → die Dienstleistungsstätte</option>
+      <option value="E">E – -merkmal → das Dienstleistungsmerkmal</option>
+      <option value="F">F – -kalkulation → die Dienstleistungskalkulation</option>
+      <option value="G">G – -sektor → der Dienstleistungssektor</option>
+      <option value="H">H – -kapital → das Dienstleistungskapital</option>
+      <option value="I">I – -unfähigkeit → die Dienstleistungsunfähigkeit</option>
+      <option value="J">J – -idee → die Dienstleistungsidee</option>
+      <option value="K">K – -plan → der Dienstleistungsplan</option>
+    </select>
+    <span class="kompositum-result" id="kr_4"></span>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">5. Alleinstellungs…</span>
+    <select class="match-select" id="u1_5" data-ans="E" onchange="showKompositum(this, 'das Alleinstellungsmerkmal')">
+      <option value="">— Endung wählen —</option>
+      <option value="A">A – -geber → der Alleinstellungsgeber</option>
+      <option value="B">B – -beteiligung → die Alleinstellungsbeteiligung</option>
+      <option value="C">C – -stätte → die Alleinstellungsstätte</option>
+      <option value="E">E – -merkmal → das Alleinstellungsmerkmal</option>
+      <option value="F">F – -kalkulation → die Alleinstellungskalkulation</option>
+      <option value="G">G – -sektor → der Alleinstellungssektor</option>
+      <option value="H">H – -kapital → das Alleinstellungskapital</option>
+      <option value="I">I – -unfähigkeit → die Alleinstellungsunfähigkeit</option>
+      <option value="J">J – -idee → die Alleinstellungsidee</option>
+      <option value="K">K – -plan → der Alleinstellungsplan</option>
+    </select>
+    <span class="kompositum-result" id="kr_5"></span>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">6. Gewinn…</span>
+    <select class="match-select" id="u1_6" data-ans="B" onchange="showKompositum(this, 'die Gewinnbeteiligung')">
+      <option value="">— Endung wählen —</option>
+      <option value="A">A – -geber → der Gewinngeber</option>
+      <option value="B">B – -beteiligung → die Gewinnbeteiligung</option>
+      <option value="C">C – -stätte → die Gewinnstätte</option>
+      <option value="E">E – -merkmal → das Gewinnmerkmal</option>
+      <option value="F">F – -kalkulation → die Gewinnkalkulation</option>
+      <option value="G">G – -sektor → der Gewinnsektor</option>
+      <option value="H">H – -kapital → das Gewinnkapital</option>
+      <option value="I">I – -unfähigkeit → die Gewinnunfähigkeit</option>
+      <option value="J">J – -idee → die Gewinnidee</option>
+      <option value="K">K – -plan → der Gewinnplan</option>
+    </select>
+    <span class="kompositum-result" id="kr_6"></span>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">7. Fehl…</span>
+    <select class="match-select" id="u1_7" data-ans="F" onchange="showKompositum(this, 'die Fehlkalkulation')">
+      <option value="">— Endung wählen —</option>
+      <option value="A">A – -geber → der Fehlgeber</option>
+      <option value="B">B – -beteiligung → die Fehlbeteiligung</option>
+      <option value="C">C – -stätte → die Fehlstätte</option>
+      <option value="E">E – -merkmal → das Fehlmerkmal</option>
+      <option value="F">F – -kalkulation → die Fehlkalkulation</option>
+      <option value="G">G – -sektor → der Fehlsektor</option>
+      <option value="H">H – -kapital → das Fehlkapital</option>
+      <option value="I">I – -unfähigkeit → die Fehlunfähigkeit</option>
+      <option value="J">J – -idee → die Fehlidee</option>
+      <option value="K">K – -plan → der Fehlplan</option>
+    </select>
+    <span class="kompositum-result" id="kr_7"></span>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">8. Produktions…</span>
+    <select class="match-select" id="u1_8" data-ans="C" onchange="showKompositum(this, 'die Produktionsstätte')">
+      <option value="">— Endung wählen —</option>
+      <option value="A">A – -geber → der Produktionsgeber</option>
+      <option value="B">B – -beteiligung → die Produktionsbeteiligung</option>
+      <option value="C">C – -stätte → die Produktionsstätte</option>
+      <option value="E">E – -merkmal → das Produktionsmerkmal</option>
+      <option value="F">F – -kalkulation → die Produktionskalkulation</option>
+      <option value="G">G – -sektor → der Produktionssektor</option>
+      <option value="H">H – -kapital → das Produktionskapital</option>
+      <option value="I">I – -unfähigkeit → die Produktionsunfähigkeit</option>
+      <option value="J">J – -idee → die Produktionsidee</option>
+      <option value="K">K – -plan → der Produktionsplan</option>
+    </select>
+    <span class="kompositum-result" id="kr_8"></span>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">9. Mindest…</span>
+    <select class="match-select" id="u1_9" data-ans="H" onchange="showKompositum(this, 'das Mindestkapital')">
+      <option value="">— Endung wählen —</option>
+      <option value="A">A – -geber → der Mindestgeber</option>
+      <option value="B">B – -beteiligung → die Mindestbeteiligung</option>
+      <option value="C">C – -stätte → die Mindeststätte</option>
+      <option value="E">E – -merkmal → das Mindestmerkmal</option>
+      <option value="F">F – -kalkulation → die Mindestkalkulation</option>
+      <option value="G">G – -sektor → der Mindestsektor</option>
+      <option value="H">H – -kapital → das Mindestkapital</option>
+      <option value="I">I – -unfähigkeit → die Mindestunfähigkeit</option>
+      <option value="J">J – -idee → die Mindestidee</option>
+      <option value="K">K – -plan → der Mindestplan</option>
+    </select>
+    <span class="kompositum-result" id="kr_9"></span>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">10. Zahlungs…</span>
+    <select class="match-select" id="u1_10" data-ans="I" onchange="showKompositum(this, 'die Zahlungsunfähigkeit')">
+      <option value="">— Endung wählen —</option>
+      <option value="A">A – -geber → der Zahlungsgeber</option>
+      <option value="B">B – -beteiligung → die Zahlungsbeteiligung</option>
+      <option value="C">C – -stätte → die Zahlungsstätte</option>
+      <option value="E">E – -merkmal → das Zahlungsmerkmal</option>
+      <option value="F">F – -kalkulation → die Zahlungskalkulation</option>
+      <option value="G">G – -sektor → der Zahlungssektor</option>
+      <option value="H">H – -kapital → das Zahlungskapital</option>
+      <option value="I">I – -unfähigkeit → die Zahlungsunfähigkeit</option>
+      <option value="J">J – -idee → die Zahlungsidee</option>
+      <option value="K">K – -plan → der Zahlungsplan</option>
+    </select>
+    <span class="kompositum-result" id="kr_10"></span>
+  </div>
+  <div class="match-row">
+    <span class="match-nr">11. Business…</span>
+    <select class="match-select" id="u1_11" data-ans="K" onchange="showKompositum(this, 'der Businessplan')">
+      <option value="">— Endung wählen —</option>
+      <option value="A">A – -geber → der Businessgeber</option>
+      <option value="B">B – -beteiligung → die Businessbeteiligung</option>
+      <option value="C">C – -stätte → die Businessstätte</option>
+      <option value="E">E – -merkmal → das Businessmerkmal</option>
+      <option value="F">F – -kalkulation → die Businesskalkulation</option>
+      <option value="G">G – -sektor → der Businesssektor</option>
+      <option value="H">H – -kapital → das Businesskapital</option>
+      <option value="I">I – -unfähigkeit → die Businessunfähigkeit</option>
+      <option value="J">J – -idee → die Businessidee</option>
+      <option value="K">K – -plan → der Businessplan</option>
+    </select>
+    <span class="kompositum-result" id="kr_11"></span>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU1()">✔ Prüfen</button>
+    <button class="btn btn-reset" onclick="resetU1()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd1">/ 5 Punkte</span>
+  </div>
+  <div class="result-bar" id="res1"></div>
+</div>
+
+
+<!-- AUFGABE 2 -->
+<div class="aufgabe" id="u2">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">2</div>
+    <div>
+      <div class="aufgabe-title">Wortschatz zur globalisierten Wirtschaft. Ergänzen Sie die Verben in der richtigen Form.</div>
+    </div>
+  </div>
+
+  <div class="wortkasten">
+    <strong>verlegen &nbsp;·&nbsp; einführen &nbsp;·&nbsp; investieren &nbsp;·&nbsp; senken &nbsp;·&nbsp; erwirtschaften &nbsp;·&nbsp; nutzen</strong>
+  </div>
+
+  <ul class="satz-liste">
+    <li class="satz-item">1. Das Unternehmen
+      <input class="fill-input" id="u2_1" data-ans="erwirtschaftet" placeholder="_______________" style="min-width:160px;">
+      heute 20 Prozent mehr Gewinn als vor 5 Jahren.
+    </li>
+    <li class="satz-item">2. Sind Sie sicher, dass Sie Ihr Geld in dieses Vorhaben
+      <input class="fill-input" id="u2_2" data-ans="investieren" placeholder="_______________" style="min-width:140px;">
+      wollen?
+    </li>
+    <li class="satz-item">3. Der Konzern hat seine Lohnkosten
+      <input class="fill-input" id="u2_3" data-ans="gesenkt" placeholder="_______________" style="min-width:120px;">, …
+    </li>
+    <li class="satz-item">4. …, indem er seine Produktionsstätten ins Ausland
+      <input class="fill-input" id="u2_4" data-ans="verlegt" placeholder="_______________" style="min-width:110px;">
+      hat.
+    </li>
+    <li class="satz-item">5. Sparen Sie Geld und
+      <input class="fill-input" id="u2_5" data-ans="nutzen" placeholder="_______________" style="min-width:110px;">
+      Sie Ihre Steuervorteile!
+    </li>
+    <li class="satz-item">6. Vergangenen Dezember wurden Güter im Wert von 73,1 Milliarden Euro nach Deutschland
+      <input class="fill-input" id="u2_6" data-ans="eingeführt" placeholder="_______________" style="min-width:130px;">.
+    </li>
+  </ul>
+
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU2()">✔ Prüfen</button>
+    <button class="btn btn-reset" onclick="resetU2()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd2">/ 3 Punkte</span>
+  </div>
+  <div class="result-bar" id="res2"></div>
+</div>
+
+
+<!-- AUFGABE 3 -->
+<div class="aufgabe" id="u3">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">3</div>
+    <div>
+      <div class="aufgabe-title">Redemittel: Verhalten bewerten. Welches Wort passt nicht?</div>
+      <div class="aufgabe-sub">Wählen Sie das Wort, das nicht in den Satz passt.</div>
+    </div>
+  </div>
+
+  <p style="font-size:13px; font-weight:700; color:#1a5c2e; margin-bottom:10px;">Verhalten positiv bewerten:</p>
+  <div class="mc-block">
+    <div class="mc-question">1. Ich finde es _____ / lobenswert / anerkennenswert, dass …</div>
+    <div class="mc-options" id="mc3_1">
+      <label class="mc-label"><input type="radio" name="mc3_1" value="anständig"> anständig</label>
+      <label class="mc-label"><input type="radio" name="mc3_1" value="merkwürdig"> merkwürdig</label>
+      <label class="mc-label"><input type="radio" name="mc3_1" value="lobenswert"> lobenswert</label>
+      <label class="mc-label"><input type="radio" name="mc3_1" value="anerkennenswert"> anerkennenswert</label>
+    </div>
+  </div>
+  <div class="mc-block">
+    <div class="mc-question">2. Ich _____ / schätze es / erkenne es an, wenn …</div>
+    <div class="mc-options" id="mc3_2">
+      <label class="mc-label"><input type="radio" name="mc3_2" value="bemerke es"> bemerke es</label>
+      <label class="mc-label"><input type="radio" name="mc3_2" value="schätze es"> schätze es</label>
+      <label class="mc-label"><input type="radio" name="mc3_2" value="erkenne es an"> erkenne es an</label>
+    </div>
+  </div>
+  <div class="mc-block">
+    <div class="mc-question">3. Ich heiße dieses Verhalten / _____ / diese Einstellung / diese Haltung gut, denn …</div>
+    <div class="mc-options" id="mc3_3">
+      <label class="mc-label"><input type="radio" name="mc3_3" value="dieses Verhalten"> dieses Verhalten</label>
+      <label class="mc-label"><input type="radio" name="mc3_3" value="dieses Vernehmen"> dieses Vernehmen</label>
+      <label class="mc-label"><input type="radio" name="mc3_3" value="diese Einstellung"> diese Einstellung</label>
+      <label class="mc-label"><input type="radio" name="mc3_3" value="diese Haltung"> diese Haltung</label>
+    </div>
+  </div>
+  <div class="mc-block">
+    <div class="mc-question">4. Ich finde es nicht unmoralisch / problematisch / _____, wenn …</div>
+    <div class="mc-options" id="mc3_4">
+      <label class="mc-label"><input type="radio" name="mc3_4" value="nicht unmoralisch"> nicht unmoralisch</label>
+      <label class="mc-label"><input type="radio" name="mc3_4" value="problematisch"> problematisch</label>
+      <label class="mc-label"><input type="radio" name="mc3_4" value="unbedenklich"> unbedenklich</label>
+    </div>
+  </div>
+
+  <p style="font-size:13px; font-weight:700; color:#e65100; margin: 14px 0 10px;">Verhalten negativ bewerten:</p>
+  <div class="mc-block">
+    <div class="mc-question">5. Ich finde es falsch / nicht in Ordnung / _____, dass …</div>
+    <div class="mc-options" id="mc3_5">
+      <label class="mc-label"><input type="radio" name="mc3_5" value="falsch"> falsch</label>
+      <label class="mc-label"><input type="radio" name="mc3_5" value="nicht in Ordnung"> nicht in Ordnung</label>
+      <label class="mc-label"><input type="radio" name="mc3_5" value="nicht unangemessen"> nicht unangemessen</label>
+    </div>
+  </div>
+  <div class="mc-block">
+    <div class="mc-question">6. … wäre für mich untragbar / undenkbar / _____.</div>
+    <div class="mc-options" id="mc3_6">
+      <label class="mc-label"><input type="radio" name="mc3_6" value="untragbar"> untragbar</label>
+      <label class="mc-label"><input type="radio" name="mc3_6" value="undenkbar"> undenkbar</label>
+      <label class="mc-label"><input type="radio" name="mc3_6" value="unbenutzbar"> unbenutzbar</label>
+    </div>
+  </div>
+  <div class="mc-block">
+    <div class="mc-question">7. Ich lehne es ab / _____ / missbillige es, wenn …</div>
+    <div class="mc-options" id="mc3_7">
+      <label class="mc-label"><input type="radio" name="mc3_7" value="lehne es ab"> lehne es ab</label>
+      <label class="mc-label"><input type="radio" name="mc3_7" value="missverstehe es"> missverstehe es</label>
+      <label class="mc-label"><input type="radio" name="mc3_7" value="missbillige es"> missbillige es</label>
+    </div>
+  </div>
+  <div class="mc-block">
+    <div class="mc-question">8. Ich halte nichts / gar nichts / _____ davon, wenn …</div>
+    <div class="mc-options" id="mc3_8">
+      <label class="mc-label"><input type="radio" name="mc3_8" value="nichts"> nichts</label>
+      <label class="mc-label"><input type="radio" name="mc3_8" value="gar nichts"> gar nichts</label>
+      <label class="mc-label"><input type="radio" name="mc3_8" value="überhaupt nirgends"> überhaupt nirgends</label>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU3()">✔ Prüfen</button>
+    <button class="btn btn-reset" onclick="resetU3()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd3">/ 4 Punkte</span>
+  </div>
+  <div class="result-bar" id="res3"></div>
+</div>
+
+
+<!-- AUFGABE 4 -->
+<div class="aufgabe" id="u4">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">4</div>
+    <div>
+      <div class="aufgabe-title">Grammatik. Bilden Sie aus den Vortragsnotizen zum Thema „Ruhrgebiet" ganze Sätze.</div>
+      <div class="aufgabe-sub">Benutzen Sie das Präteritum. Satz 1 ist als Beispiel gegeben.</div>
+    </div>
+  </div>
+
+  <div class="sb-row">
+    <span class="sb-tag">Notiz: Entdeckung der Steinkohle im Mittelalter – vorher: nur wenig Besiedlung</span>
+    <span class="sb-tag">1. (Beispiel)</span>
+    <input class="sb-input" value="Vor der Entdeckung der Steinkohle im Mittelalter besiedelten nur wenige das Ruhrgebiet." readonly>
+  </div>
+  <div class="sb-row">
+    <span class="sb-tag">Notiz: Entdeckung der Steinkohle im Mittelalter – seitdem: rasante Entwicklung des Ruhrgebiets</span>
+    <span class="sb-tag">2.</span>
+    <input class="sb-input" id="u4_2" data-ans="seit der entdeckung der steinkohle im mittelalter entwickelte sich das ruhrgebiet rasant" placeholder="Formulieren Sie Satz 2 …">
+    <span class="hint" id="h4_2"></span>
+  </div>
+  <div class="sb-row">
+    <span class="sb-tag">Notiz: Ende des Zweiten Weltkriegs – danach: rascher Anstieg der Bevölkerungszahl</span>
+    <span class="sb-tag">3.</span>
+    <input class="sb-input" id="u4_3" data-ans="nach dem ende des zweiten weltkriegs stieg die bevölkerungszahl rasch an|nach dem ende des zweiten weltkriegs stieg die bevolkerungszahl rasch an" placeholder="Formulieren Sie Satz 3 …">
+    <span class="hint" id="h4_3"></span>
+  </div>
+  <div class="sb-row">
+    <span class="sb-tag">Notiz: Ende des Zweiten Weltkriegs – seitdem: drastische Veränderung des Ruhrgebiets</span>
+    <span class="sb-tag">4.</span>
+    <input class="sb-input" id="u4_4" data-ans="seit dem ende des zweiten weltkriegs veränderte sich das ruhrgebiet drastisch|seit dem ende des zweiten weltkriegs veranderte sich das ruhrgebiet drastisch" placeholder="Formulieren Sie Satz 4 …">
+    <span class="hint" id="h4_4"></span>
+  </div>
+  <div class="sb-row">
+    <span class="sb-tag">Notiz: 1957 – seitdem: Rückgang des Kohleanteils an der Weltproduktion</span>
+    <span class="sb-tag">5.</span>
+    <input class="sb-input" id="u4_5" data-ans="seit 1957 ging der kohleanteil aus dem ruhrgebiet an der weltproduktion zurück|seit 1957 ging der kohleanteil aus dem ruhrgebiet an der weltproduktion zuruck" placeholder="Formulieren Sie Satz 5 …">
+    <span class="hint" id="h4_5"></span>
+  </div>
+  <div class="sb-row">
+    <span class="sb-tag">Notiz: Kohlekrise – währenddessen: Verlust des Arbeitsplatzes vieler Bergarbeiter</span>
+    <span class="sb-tag">6.</span>
+    <input class="sb-input" id="u4_6" data-ans="während der kohlekrise verloren viele bergarbeiter den arbeitsplatz" placeholder="Formulieren Sie Satz 6 …">
+    <span class="hint" id="h4_6"></span>
+  </div>
+  <div class="sb-row">
+    <span class="sb-tag">Notiz: Kohlekrise – nachher: Ausbau des Dienstleistungssektors durch die Regierung</span>
+    <span class="sb-tag">7.</span>
+    <input class="sb-input" id="u4_7" data-ans="nach der kohlekrise baute die regierung den dienstleistungssektor aus" placeholder="Formulieren Sie Satz 7 …">
+    <span class="hint" id="h4_7"></span>
+  </div>
+  <div class="sb-row">
+    <span class="sb-tag">Notiz: Anfang der 60er-Jahre – seither: Gründung von Universitäten im Ruhrgebiet</span>
+    <span class="sb-tag">8.</span>
+    <input class="sb-input" id="u4_8" data-ans="seit dem anfang der 60er-jahre wurden universitäten im ruhrgebiet gegründet|seit anfang der 60er-jahre wurden universitäten im ruhrgebiet gegründet|seit dem anfang der 60er-jahre gründete man universitäten im ruhrgebiet|seit anfang der 60er-jahre gründete man universitäten im ruhrgebiet|seit dem anfang der 60er-jahre wurden universitaten im ruhrgebiet gegrundet|seit anfang der 60er-jahre wurden universitaten im ruhrgebiet gegrundet" placeholder="Formulieren Sie Satz 8 …">
+    <span class="hint" id="h4_8"></span>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU4()">✔ Prüfen</button>
+    <button class="btn btn-reset" onclick="resetU4()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd4">/ 7 Punkte</span>
+  </div>
+  <div class="result-bar" id="res4"></div>
+</div>
+
+
+<!-- AUFGABE 5 -->
+<div class="aufgabe" id="u5">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">5</div>
+    <div>
+      <div class="aufgabe-title">Grammatik. Kausal- und Modalsätze. Verbinden Sie die Sätze mit den Konnektoren / Präpositionen.</div>
+      <div class="aufgabe-sub">Achten Sie auf Aktiv und Passiv. Satz 1 ist als Beispiel gegeben.</div>
+    </div>
+  </div>
+
+  <div class="sb-row">
+    <span class="sb-tag">1. dadurch, dass: starke Verbundenheit der Märkte – Es gibt weltweite Konkurrenz. (Beispiel)</span>
+    <input class="sb-input" value="Dadurch, dass die Märkte stark miteinander verbunden sind, gibt es weltweite Konkurrenz." readonly>
+  </div>
+  <div class="sb-row">
+    <span class="sb-tag">2. wegen: Die Unternehmen konkurrieren stark miteinander. – Die Produktionskosten müssen möglichst niedrig sein.</span>
+    <input class="sb-input" id="u5_2" data-ans="wegen der starken konkurrenz der unternehmen müssen die produktionskosten möglichst niedrig sein|wegen der starken konkurrenz der unternehmen mussen die produktionskosten moglichst niedrig sein" placeholder="Formulieren Sie Satz 2 …">
+    <span class="hint" id="h5_2"></span>
+  </div>
+  <div class="sb-row">
+    <span class="sb-tag">3. indem: Verlagerung ihrer Fabriken ins Ausland – Die Unternehmen profitieren von billigeren Arbeitskräften.</span>
+    <input class="sb-input" id="u5_3" data-ans="indem sie ihre fabriken ins ausland verlagern, profitieren die unternehmen von billigeren arbeitskräften|indem sie ihre fabriken ins ausland verlagern profitieren die unternehmen von billigeren arbeitskraften" placeholder="Formulieren Sie Satz 3 …">
+    <span class="hint" id="h5_3"></span>
+  </div>
+  <div class="sb-row">
+    <span class="sb-tag">4. weil: Export der Waren in die ganze Welt – Der Kundenkreis erweitert sich enorm.</span>
+    <input class="sb-input" id="u5_4" data-ans="weil die waren in die ganze welt exportiert werden, erweitert sich der kundenkreis enorm|weil die waren in die ganze welt exportiert werden erweitert sich der kundenkreis enorm" placeholder="Formulieren Sie Satz 4 …">
+    <span class="hint" id="h5_4"></span>
+  </div>
+  <div class="sb-row">
+    <span class="sb-tag">5. durch: Die Welt globalisiert sich. – Nationale Grenzen verlieren immer mehr an Bedeutung.</span>
+    <input class="sb-input" id="u5_5" data-ans="durch die globalisierung der welt verlieren nationale grenzen immer mehr an bedeutung" placeholder="Formulieren Sie Satz 5 …">
+    <span class="hint" id="h5_5"></span>
+  </div>
+  <div class="sb-row">
+    <span class="sb-tag">6. dadurch, dass: viel preiswerterer Transport von Waren – Globale Einkäufe sind möglich.</span>
+    <input class="sb-input" id="u5_6" data-ans="dadurch, dass waren viel preiswerter transportiert werden, sind globale einkäufe möglich|dadurch dass waren viel preiswerter transportiert werden sind globale einkaufe moglich|dadurch, dass waren viel preiswerter transportiert werden können, sind globale einkäufe möglich" placeholder="Formulieren Sie Satz 6 …">
+    <span class="hint" id="h5_6"></span>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU5()">✔ Prüfen</button>
+    <button class="btn btn-reset" onclick="resetU5()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd5">/ 5 Punkte</span>
+  </div>
+  <div class="result-bar" id="res5"></div>
+</div>
+
+
+<!-- AUFGABE 6 -->
+<div class="aufgabe" id="u6">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">6</div>
+    <div>
+      <div class="aufgabe-title">Lesen. „Die neue Welt des Teilens". Kreuzen Sie an: a oder b?</div>
+    </div>
+  </div>
+
+  <div class="lesetext">
+    <h3>Die neue Welt des Teilens</h3>
+    <h4>Das Prinzip der Shareconomy breitet sich immer weiter aus</h4>
+    <p>Wer zweimal im Jahr eine Bohrmaschine braucht, muss eigentlich keine besitzen. Ausleihen ist da die sinnvollere Lösung. Auch auf ein eigenes Auto kann man verzichten, wenn man per App eins um die Ecke findet. Teilen kann man noch vieles mehr: die eigene Wohnung mit Gästen, den Internetanschluss mit Nachbarn, das Büro mit anderen Selbstständigen. Auch tauschen ganz ohne Geld folgt diesem ökonomischen Trend: Wenn du mit meinem Hund Gassi gehst, schneide ich dir die Haare.</p>
+    <br>
+    <p>Leihen, Mieten und Tauschen sind nun natürlich keine neuen Erfindungen. Bekanntlich wurden in der Menschheitsgeschichte vor Einführung des Geldes Güter getauscht, damit nicht jeder alles selbst produzieren musste und damit man von den Kenntnissen und Fertigkeiten anderer profitieren konnte. Immer in Mangelzeiten blühte dieses Teil- und Tauschprinzip, aus der Not heraus: So war es etwa in der DDR ganz normal, dass Nachbarn und Freunde Waren und Dienstleistungen tauschten und teilten.</p>
+    <br>
+    <p>Neu am gegenwärtigen Trend ist die Rolle des Internets: Durch das Entstehen entsprechender Plattformen kann man nun auch mit Unbekannten tauschen – und zwar nicht nur eins zu eins: Wenn ich mit irgendeinem Hund Gassi gehe, kann ich mir von jemand anderem die Haare schneiden lassen – ein Punktesystem oder eine virtuelle Währung machen es möglich. So funktionieren Tauschringe, die es mittlerweile fast überall gibt.</p>
+    <br>
+    <p>Nutzen statt besitzen – die Motive der Shareconomy-Anhänger sind: sparen, Flexibilität, Umweltschutz, soziale Vernetzung. Das beinhaltet einen gesellschaftlichen Wandel, denn der Besitz als Statussymbol tritt in den Hintergrund, Nachhaltigkeit und Vernunft ersetzen den besinnungslosen Konsum vergangener Jahrzehnte. Etwas zu haben ist nicht mehr der höchste Wert. Entscheidender wird die Frage: Was brauche ich wirklich?</p>
+    <br>
+    <p>Was im Kleinen und Privaten schon gut funktioniert, hält auch immer mehr Einzug in die Wirtschaft. Einerseits sind private Taxidienste oder Übernachtungs-Plattformen eine Bedrohung für die etablierten Unternehmen der jeweiligen Branche, andererseits verändern sich Unternehmen durch die Shareconomy und ganz neue entstehen. Zuerst war da die Idee, das Auto mit dem Nachbarn zu teilen, dann entstand eine Carsharing-Plattform für Privatleute, dann entstand ein Unternehmen, das Autos über die Stadt verteilt, die man per App finden und mieten kann. Es ist eine aufregende neue Welt.</p>
+  </div>
+
+  <div id="u6-items">
+    <div class="mc-block">
+      <div class="mc-question">1. Shareconomy bedeutet, …</div>
+      <div class="mc-options" id="mc6_1">
+        <label class="mc-label"><input type="radio" name="mc6_1" value="a"> a &nbsp;dass Dinge von mehreren Leuten benutzt werden.</label>
+        <label class="mc-label"><input type="radio" name="mc6_1" value="b"> b &nbsp;dass Dinge verschenkt und Dienstleistungen vermietet werden.</label>
+      </div>
+    </div>
+    <div class="mc-block">
+      <div class="mc-question">2. In den Frühzeiten der Menschheit …</div>
+      <div class="mc-options" id="mc6_2">
+        <label class="mc-label"><input type="radio" name="mc6_2" value="a"> a &nbsp;basierte die Wirtschaft auf dem Tauschen.</label>
+        <label class="mc-label"><input type="radio" name="mc6_2" value="b"> b &nbsp;standen Kenntnisse und Fertigkeiten allen zur Verfügung.</label>
+      </div>
+    </div>
+    <div class="mc-block">
+      <div class="mc-question">3. Das Prinzip der Shareconomy …</div>
+      <div class="mc-options" id="mc6_3">
+        <label class="mc-label"><input type="radio" name="mc6_3" value="a"> a &nbsp;war schon immer sehr verbreitet.</label>
+        <label class="mc-label"><input type="radio" name="mc6_3" value="b"> b &nbsp;nahm besonders in Notzeiten zu.</label>
+      </div>
+    </div>
+    <div class="mc-block">
+      <div class="mc-question">4. Das Internet …</div>
+      <div class="mc-options" id="mc6_4">
+        <label class="mc-label"><input type="radio" name="mc6_4" value="a"> a &nbsp;vergrößert den Kreis der Nutzer über das persönliche Umfeld hinaus.</label>
+        <label class="mc-label"><input type="radio" name="mc6_4" value="b"> b &nbsp;erschafft durch Shareconomy-Plattformen neue Dienstleistungen.</label>
+      </div>
+    </div>
+    <div class="mc-block">
+      <div class="mc-question">5. Der Wunsch, seine Ausgaben zu senken, …</div>
+      <div class="mc-options" id="mc6_5">
+        <label class="mc-label"><input type="radio" name="mc6_5" value="a"> a &nbsp;wird durch Veränderungen in der Gesellschaft ausgelöst.</label>
+        <label class="mc-label"><input type="radio" name="mc6_5" value="b"> b &nbsp;ist ein wichtiger Antrieb der Shareconomy.</label>
+      </div>
+    </div>
+    <div class="mc-block">
+      <div class="mc-question">6. Shareconomy ist auch …</div>
+      <div class="mc-options" id="mc6_6">
+        <label class="mc-label"><input type="radio" name="mc6_6" value="a"> a &nbsp;Konsumkritik.</label>
+        <label class="mc-label"><input type="radio" name="mc6_6" value="b"> b &nbsp;ein Statussymbol.</label>
+      </div>
+    </div>
+    <div class="mc-block">
+      <div class="mc-question">7. Etablierte Unternehmen …</div>
+      <div class="mc-options" id="mc6_7">
+        <label class="mc-label"><input type="radio" name="mc6_7" value="a"> a &nbsp;müssen sich von Grund auf erneuern.</label>
+        <label class="mc-label"><input type="radio" name="mc6_7" value="b"> b &nbsp;fühlen sich bedroht oder herausgefordert.</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="checkU6()">✔ Prüfen</button>
+    <button class="btn btn-reset" onclick="resetU6()">↺ Zurücksetzen</button>
+    <span class="punkte-display" id="pd6">/ 7 Punkte</span>
+  </div>
+  <div class="result-bar" id="res6"></div>
+</div>
+
+
+<!-- AUFGABE 7 -->
+<div class="aufgabe" id="u7">
+  <div class="aufgabe-header">
+    <div class="aufgabe-nr">7</div>
+    <div>
+      <div class="aufgabe-title">Schreiben. Antworten Sie als Experte für moralische Fragen auf diese Leser-Frage (ca. 150 Wörter).</div>
+    </div>
+  </div>
+
+  <div class="news-box">
+    Gestern war ich mit einer Gruppe von acht Bekannten im Restaurant. Als es ans Bezahlen ging, schlugen zwei Leute vor, die Rechnung gleichmäßig durch alle zu teilen. Niemand protestierte, auch ich nicht, obwohl ich nur eine Vorspeise gegessen und viel weniger getrunken hatte als die anderen. Ich fand das unfair, habe mich aber nicht getraut, etwas zu sagen. Darf man in einer solchen Situation das gemeinsame Bezahlen ablehnen?
+    <div class="news-author">Holger Peitzmeier</div>
+  </div>
+
+  <p style="font-size:14px; margin-bottom:12px; line-height:1.8;">
+    Schreiben Sie, …<br>
+    <strong>– was für und was gegen ein Veto in dieser Situation spricht.</strong><br>
+    <strong>– wie man die Situation lösen könnte.</strong><br>
+    <strong>– was in Ihrem Heimatland in dieser Situation üblich ist.</strong><br>
+    Benutzen Sie Redemittel aus Aufgabe 3.
+  </p>
+
+  <textarea class="schreib-area" id="u7_text" placeholder="Schreiben Sie hier Ihre Antwort …"></textarea>
+
+  <div class="punkte-kriterien">
+    <strong>Bewertungskriterien (9 Punkte):</strong><br>
+    Inhalt: 3 Punkte &nbsp;·&nbsp; Ausdrucksfähigkeit (Wortschatz &amp; Kohärenz): 3 Punkte &nbsp;·&nbsp; Korrektheit: 3 Punkte
+  </div>
+
+  <button class="muster-btn" onclick="toggleMuster()">
+    <span id="muster-arrow">▶</span> Mustertext anzeigen (C1-Niveau)
+  </button>
+
+  <div class="mustertext" id="mustertext">
+    <div class="m-title">Mustertext – Leserbrief (ca. 155 Wörter, Niveau C1)</div>
+    <p>Sehr geehrter Herr Peitzmeier,</p>
+    <br>
+    <p>ich finde es durchaus <em>anerkennenswert</em>, wenn jemand in einer solchen Situation offen seine Meinung äußert. Es ist nämlich keineswegs selbstverständlich, dass eine gleichmäßige Aufteilung der Rechnung fair ist – gerade dann nicht, wenn die Konsumunterschiede erheblich sind.</p>
+    <br>
+    <p>Ich finde es <em>nicht in Ordnung</em>, dass derjenige, der weniger bestellt hat, genauso viel zahlen soll wie andere. Ich <em>halte nichts davon</em>, wenn soziale Konventionen dazu führen, dass Menschen sich finanziell benachteiligt fühlen, aber schweigen.</p>
+    <br>
+    <p>Die Lösung könnte darin bestehen, vor dem Essen kurz anzusprechen, wie die Rechnung aufgeteilt werden soll. In meinem Heimatland ist es üblich, dass jeder für das bezahlt, was er bestellt hat – das empfinde ich als <em>lobenswert</em> und fair.</p>
+    <br>
+    <p>Mit freundlichen Grüßen</p>
+  </div>
+</div>
+
+
+<!-- GESAMTERGEBNIS -->
+<div class="gesamt-box" id="gesamt">
+  <div class="gesamt-title">Gesamtergebnis (Aufgaben 1–6)</div>
+  <div class="gesamt-punkte" id="gesamt-punkte">–</div>
+  <div class="gesamt-sub">von 31 Punkten (ohne Schreiben) &nbsp;·&nbsp; inkl. Schreiben: 40 Punkte</div>
+  <div class="bewertung">
+    <span class="bew bew-sg">40–37 sehr gut</span>
+    <span class="bew bew-g">36–33 gut</span>
+    <span class="bew bew-b">32–28 befriedigend</span>
+    <span class="bew bew-a">27–24 ausreichend</span>
+    <span class="bew bew-nb">&lt; 24 nicht bestanden</span>
+  </div>
+</div>
+
+</div>
+
+<script>
+const scores = {1:0,2:0,3:0,4:0,5:0,6:0};
+const maxS   = {1:5, 2:3, 3:4, 4:7, 5:5, 6:7};
+
+function norm(s){ return s.trim().toLowerCase().replace(/[.!?,]/g,'').replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss'); }
+function matchAns(val, data){ const v=norm(val); return data.split('|').some(a=>norm(a)===v); }
+
+function showResult(id, correct, total, nr){
+  const el=document.getElementById('res'+id);
+  el.classList.add('show');
+  const pct=total>0?Math.round(correct/total*100):0;
+  el.className='result-bar show '+(pct===100?'gut':pct>=60?'mittel':'schlecht');
+  const emoji=pct===100?'🎉':pct>=60?'👍':'❌';
+  el.textContent=emoji+' '+correct+' von '+total+' richtig';
+  document.getElementById('pd'+id).textContent=correct+' / '+maxS[nr]+' Punkte';
+  scores[nr]=correct*(maxS[nr]/total);
+  updateTotal();
+}
+
+function updateTotal(){
+  let t=0; for(let k in scores) t+=scores[k];
+  const disp=(t%1===0)?t:t.toFixed(1);
+  document.getElementById('gesamt-punkte').textContent=disp+' / 31';
+}
+
+// A1 – Komposita
+const komposita = {
+  u1_2:{ans:'J', word:'die Geschäftsidee'},
+  u1_3:{ans:'A', word:'der Kapitalgeber'},
+  u1_4:{ans:'G', word:'der Dienstleistungssektor'},
+  u1_5:{ans:'E', word:'das Alleinstellungsmerkmal'},
+  u1_6:{ans:'B', word:'die Gewinnbeteiligung'},
+  u1_7:{ans:'F', word:'die Fehlkalkulation'},
+  u1_8:{ans:'C', word:'die Produktionsstätte'},
+  u1_9:{ans:'H', word:'das Mindestkapital'},
+  u1_10:{ans:'I', word:'die Zahlungsunfähigkeit'},
+  u1_11:{ans:'K', word:'der Businessplan'}
+};
+
+function showKompositum(sel, word){
+  const num = sel.id.replace('u1_','');
+  const kr = document.getElementById('kr_'+num);
+  if(kr){ kr.textContent = '→ '+word; kr.classList.add('show'); }
+}
+
+function checkU1(){
+  let ok=0;
+  for(let id in komposita){
+    const s=document.getElementById(id);
+    s.classList.remove('correct','wrong');
+    if(s.value===komposita[id].ans){ s.classList.add('correct'); ok++; }
+    else s.classList.add('wrong');
+  }
+  showResult(1,ok,10,1);
+}
+function resetU1(){
+  for(let id in komposita){
+    const s=document.getElementById(id); s.value=''; s.className='match-select';
+    const num=id.replace('u1_','');
+    const kr=document.getElementById('kr_'+num); if(kr){ kr.classList.remove('show'); }
+  }
+  document.getElementById('res1').className='result-bar';
+  document.getElementById('pd1').textContent='/ 5 Punkte';
+}
+
+// A2 – Verben
+function checkU2(){
+  let ok=0;
+  for(let i=1;i<=6;i++){
+    const inp=document.getElementById('u2_'+i);
+    inp.classList.remove('correct','wrong');
+    if(matchAns(inp.value, inp.dataset.ans)){ inp.classList.add('correct'); ok++; }
+    else inp.classList.add('wrong');
+  }
+  showResult(2,ok,6,2);
+}
+function resetU2(){
+  for(let i=1;i<=6;i++){ const e=document.getElementById('u2_'+i); e.value=''; e.className='fill-input'; }
+  document.getElementById('res2').className='result-bar';
+  document.getElementById('pd2').textContent='/ 3 Punkte';
+}
+
+// A3 – Wort passt nicht
+const ans3={
+  mc3_1:'merkwürdig', mc3_2:'bemerke es', mc3_3:'dieses Vernehmen',
+  mc3_4:'unbedenklich', mc3_5:'nicht unangemessen', mc3_6:'unbenutzbar',
+  mc3_7:'missverstehe es', mc3_8:'überhaupt nirgends'
+};
+function checkU3(){
+  let ok=0;
+  for(let k in ans3){
+    const opts=document.querySelectorAll('#'+k+' .mc-label');
+    const sel=document.querySelector('input[name="'+k+'"]:checked');
+    opts.forEach(l=>l.classList.remove('correct-opt','wrong-opt'));
+    if(sel){
+      if(sel.value===ans3[k]){ sel.parentElement.classList.add('correct-opt'); ok++; }
+      else{
+        sel.parentElement.classList.add('wrong-opt');
+        opts.forEach(l=>{ if(l.querySelector('input').value===ans3[k]) l.classList.add('correct-opt'); });
+      }
+    } else {
+      opts.forEach(l=>{ if(l.querySelector('input').value===ans3[k]) l.classList.add('correct-opt'); });
+    }
+  }
+  showResult(3,ok,8,3);
+}
+function resetU3(){
+  document.querySelectorAll('#u3 .mc-label').forEach(l=>l.classList.remove('correct-opt','wrong-opt'));
+  document.querySelectorAll('#u3 input[type=radio]').forEach(r=>r.checked=false);
+  document.getElementById('res3').className='result-bar';
+  document.getElementById('pd3').textContent='/ 4 Punkte';
+}
+
+// A4 – Ruhrgebiet Präteritum
+function checkU4(){
+  let ok=0;
+  for(let i=2;i<=8;i++){
+    const inp=document.getElementById('u4_'+i);
+    const hint=document.getElementById('h4_'+i);
+    inp.classList.remove('correct','wrong');
+    if(matchAns(inp.value, inp.dataset.ans)){ inp.classList.add('correct'); ok++; if(hint) hint.classList.remove('show'); }
+    else{
+      inp.classList.add('wrong');
+      if(hint){ hint.textContent='→ '+inp.dataset.ans.split('|')[0]; hint.classList.add('show'); }
+    }
+  }
+  showResult(4,ok,7,4);
+}
+function resetU4(){
+  for(let i=2;i<=8;i++){
+    const inp=document.getElementById('u4_'+i); inp.value=''; inp.className='sb-input';
+    const h=document.getElementById('h4_'+i); if(h) h.classList.remove('show');
+  }
+  document.getElementById('res4').className='result-bar';
+  document.getElementById('pd4').textContent='/ 7 Punkte';
+}
+
+// A5 – Kausal-/Modalsätze
+function checkU5(){
+  let ok=0;
+  for(let i=2;i<=6;i++){
+    const inp=document.getElementById('u5_'+i);
+    const hint=document.getElementById('h5_'+i);
+    inp.classList.remove('correct','wrong');
+    if(matchAns(inp.value, inp.dataset.ans)){ inp.classList.add('correct'); ok++; if(hint) hint.classList.remove('show'); }
+    else{
+      inp.classList.add('wrong');
+      if(hint){ hint.textContent='→ '+inp.dataset.ans.split('|')[0]; hint.classList.add('show'); }
+    }
+  }
+  showResult(5,ok,5,5);
+}
+function resetU5(){
+  for(let i=2;i<=6;i++){
+    const inp=document.getElementById('u5_'+i); inp.value=''; inp.className='sb-input';
+    const h=document.getElementById('h5_'+i); if(h) h.classList.remove('show');
+  }
+  document.getElementById('res5').className='result-bar';
+  document.getElementById('pd5').textContent='/ 5 Punkte';
+}
+
+// A6 – Lesen
+const ans6={mc6_1:'a',mc6_2:'b',mc6_3:'b',mc6_4:'a',mc6_5:'b',mc6_6:'a',mc6_7:'b'};
+function checkU6(){
+  let ok=0;
+  for(let k in ans6){
+    const opts=document.querySelectorAll('#'+k+' .mc-label');
+    const sel=document.querySelector('input[name="'+k+'"]:checked');
+    opts.forEach(l=>l.classList.remove('correct-opt','wrong-opt'));
+    if(sel){
+      if(sel.value===ans6[k]){ sel.parentElement.classList.add('correct-opt'); ok++; }
+      else{
+        sel.parentElement.classList.add('wrong-opt');
+        opts.forEach(l=>{ if(l.querySelector('input').value===ans6[k]) l.classList.add('correct-opt'); });
+      }
+    } else {
+      opts.forEach(l=>{ if(l.querySelector('input').value===ans6[k]) l.classList.add('correct-opt'); });
+    }
+  }
+  showResult(6,ok,7,6);
+}
+function resetU6(){
+  document.querySelectorAll('#u6-items .mc-label').forEach(l=>l.classList.remove('correct-opt','wrong-opt'));
+  document.querySelectorAll('#u6-items input[type=radio]').forEach(r=>r.checked=false);
+  document.getElementById('res6').className='result-bar';
+  document.getElementById('pd6').textContent='/ 7 Punkte';
+}
+
+// LÖSUNGEN
+let loesungenSichtbar=false;
+function toggleLoesungen(){
+  const btn=document.getElementById('loes-btn');
+  if(!loesungenSichtbar){
+    showAllLoesungen(); loesungenSichtbar=true;
+    btn.textContent='🔒 Lösungen verbergen'; btn.classList.add('active');
+  } else {
+    resetAll(); loesungenSichtbar=false;
+    btn.textContent='🔑 Lösungen anzeigen'; btn.classList.remove('active');
+  }
+}
+
+function showAllLoesungen(){
+  // A1
+  const a1={'u1_2':'J','u1_3':'A','u1_4':'G','u1_5':'E','u1_6':'B','u1_7':'F','u1_8':'C','u1_9':'H','u1_10':'I','u1_11':'K'};
+  for(let id in a1){
+    document.getElementById(id).value=a1[id];
+    const num=id.replace('u1_','');
+    const kr=document.getElementById('kr_'+num);
+    if(kr){ kr.textContent='→ '+komposita[id].word; kr.classList.add('show'); }
+  }
+  checkU1();
+
+  // A2
+  const a2v={u2_1:'erwirtschaftet',u2_2:'investieren',u2_3:'gesenkt',u2_4:'verlegt',u2_5:'nutzen',u2_6:'eingeführt'};
+  for(let id in a2v) document.getElementById(id).value=a2v[id];
+  checkU2();
+
+  // A3
+  const a3v={mc3_1:'merkwürdig',mc3_2:'bemerke es',mc3_3:'dieses Vernehmen',mc3_4:'unbedenklich',mc3_5:'nicht unangemessen',mc3_6:'unbenutzbar',mc3_7:'missverstehe es',mc3_8:'überhaupt nirgends'};
+  for(let k in a3v){ const r=document.querySelector('input[name="'+k+'"][value="'+a3v[k]+'"]'); if(r) r.checked=true; }
+  checkU3();
+
+  // A4
+  const a4v={
+    u4_2:'Seit der Entdeckung der Steinkohle im Mittelalter entwickelte sich das Ruhrgebiet rasant.',
+    u4_3:'Nach dem Ende des Zweiten Weltkriegs stieg die Bevölkerungszahl rasch an.',
+    u4_4:'Seit dem Ende des Zweiten Weltkriegs veränderte sich das Ruhrgebiet drastisch.',
+    u4_5:'Seit 1957 ging der Kohleanteil aus dem Ruhrgebiet an der Weltproduktion zurück.',
+    u4_6:'Während der Kohlekrise verloren viele Bergarbeiter den Arbeitsplatz.',
+    u4_7:'Nach der Kohlekrise baute die Regierung den Dienstleistungssektor aus.',
+    u4_8:'Seit dem Anfang der 60er-Jahre wurden Universitäten im Ruhrgebiet gegründet.'
+  };
+  for(let id in a4v) document.getElementById(id).value=a4v[id];
+  checkU4();
+
+  // A5
+  const a5v={
+    u5_2:'Wegen der starken Konkurrenz der Unternehmen müssen die Produktionskosten möglichst niedrig sein.',
+    u5_3:'Indem sie ihre Fabriken ins Ausland verlagern, profitieren die Unternehmen von billigeren Arbeitskräften.',
+    u5_4:'Weil die Waren in die ganze Welt exportiert werden, erweitert sich der Kundenkreis enorm.',
+    u5_5:'Durch die Globalisierung der Welt verlieren nationale Grenzen immer mehr an Bedeutung.',
+    u5_6:'Dadurch, dass Waren viel preiswerter transportiert werden, sind globale Einkäufe möglich.'
+  };
+  for(let id in a5v) document.getElementById(id).value=a5v[id];
+  checkU5();
+
+  // A6
+  const a6v={mc6_1:'a',mc6_2:'b',mc6_3:'b',mc6_4:'a',mc6_5:'b',mc6_6:'a',mc6_7:'b'};
+  for(let k in a6v){ const r=document.querySelector('input[name="'+k+'"][value="'+a6v[k]+'"]'); if(r) r.checked=true; }
+  checkU6();
+}
+
+function resetAll(){
+  resetU1();resetU2();resetU3();resetU4();resetU5();resetU6();
+  for(let k in scores) scores[k]=0;
+  document.getElementById('gesamt-punkte').textContent='–';
+}
+
+function toggleMuster(){
+  const m=document.getElementById('mustertext');
+  const btn=document.querySelector('.muster-btn');
+  if(m.classList.contains('show')){
+    m.classList.remove('show');
+    btn.innerHTML='<span id="muster-arrow">▶</span> Mustertext anzeigen (C1-Niveau)';
+  } else {
+    m.classList.add('show');
+    btn.innerHTML='<span id="muster-arrow">▼</span> Mustertext verbergen';
+  }
+}
+</script>
+</body>
+</html>
