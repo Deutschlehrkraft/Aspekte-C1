@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wortschatz – Kapitel 3 | An die Arbeit!</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f3; color: #222; font-size: 17px; line-height: 1.6; }
+
+.page-header {
+  background: linear-gradient(135deg, #00695c, #00897b);
+  color: #fff; padding: 16px 28px;
+  display: flex; justify-content: space-between; align-items: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,.2); flex-wrap: wrap; gap: 8px;
+}
+.page-header h1 { font-size: 1.5em; font-weight: 700; letter-spacing: .3px; }
+.page-header p  { font-size: .88em; opacity: .85; margin-top: 3px; }
+.badge { background: rgba(255,255,255,.22); border-radius: 16px; padding: 4px 14px; font-size: .85em; font-weight: bold; }
+
+.container { max-width: 980px; margin: 0 auto; padding: 22px 16px 50px; }
+
+/* Module section */
+.modul-block { margin-bottom: 22px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+
+.modul-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 20px; cursor: pointer; user-select: none;
+  background: #2e7d6e; color: #fff; gap: 10px;
+  transition: background .15s;
+}
+.modul-header:hover { background: #245f53; }
+.modul-title { font-weight: 700; font-size: 1.02em; display: flex; align-items: center; gap: 10px; }
+.modul-badge {
+  background: rgba(255,255,255,.25); border-radius: 12px;
+  padding: 2px 11px; font-size: .82em; font-weight: 700;
+}
+.modul-arrow { font-size: 1.1em; transition: transform .25s; }
+.modul-arrow.open { transform: rotate(180deg); }
+
+.modul-body { display: none; background: #fff; }
+.modul-body.show { display: block; }
+
+/* Table */
+.vocab-table { width: 100%; border-collapse: collapse; font-size: .93em; }
+.vocab-table thead tr { background: #e8f4f1; }
+.vocab-table th {
+  padding: 9px 14px; text-align: left; font-weight: 700;
+  color: #1a5247; border-bottom: 2px solid #b2dfdb; font-size: .9em;
+}
+.vocab-table td {
+  padding: 8px 14px; vertical-align: top;
+  border-bottom: 1px solid #e0f0ed;
+}
+.vocab-table tr:nth-child(odd)  td { background: #fafefe; }
+.vocab-table tr:nth-child(even) td { background: #f0fafa; }
+.vocab-table tr:last-child td { border-bottom: none; }
+
+.col-de   { width: 30%; font-weight: 700; color: #004d40; }
+.col-gram { font-size: .82em; font-weight: 400; color: #777; display: block; margin-top: 2px; }
+.col-expl { width: 38%; color: #444; }
+.col-bg   { width: 32%; color: #1a237e; }
+
+/* Wortverbindungen special style */
+.modul-block.wv .modul-header { background: #455a64; }
+.modul-block.wv .modul-header:hover { background: #37474f; }
+.vocab-table .col-de.wv { color: #1a237e; font-style: italic; font-weight: 600; }
+
+/* search bar */
+.search-bar {
+  display: flex; align-items: center; gap: 10px;
+  background: #fff; border-radius: 30px;
+  border: 2px solid #b2dfdb; padding: 7px 16px;
+  margin-bottom: 20px; box-shadow: 0 1px 6px rgba(0,0,0,.07);
+}
+.search-bar input {
+  border: none; outline: none; font-size: 16px;
+  font-family: inherit; flex: 1; background: transparent;
+}
+.search-bar span { color: #2e7d6e; font-size: 1.2em; }
+.hidden-row { display: none !important; }
+
+/* legend */
+.legend {
+  background: #fff; border-radius: 10px; padding: 12px 18px;
+  margin-bottom: 18px; font-size: .88em; color: #555;
+  box-shadow: 0 1px 6px rgba(0,0,0,.07);
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+}
+.legend strong { color: #2e7d6e; }
+
+@media (max-width: 600px) {
+  .col-expl { display: none; }
+  .vocab-table th:nth-child(2) { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div>
+    <h1>Wortschatz – Kapitel 3</h1>
+    <p>An die Arbeit! &nbsp;|&nbsp; Aspekte neu C1 &nbsp;|&nbsp; AB S. 46–47</p>
+  </div>
+  <span class="badge">Modul 1–4 + Wortverbindungen</span>
+</div>
+
+<div class="container">
+
+  <div class="search-bar">
+    <span>🔍</span>
+    <input type="text" id="searchInput" placeholder="Wort suchen …" oninput="filterWords(this.value)">
+  </div>
+
+  <div class="legend">
+    <strong>Legende:</strong>
+    <span>Spalten: <b>Deutsch</b> (mit Grammatikangabe) &nbsp;·&nbsp; <b>Erklärung</b> &nbsp;·&nbsp; <b>Bulgарски превод</b></span>
+    <span>Auf den Modulkopf klicken zum Auf-/Zuklappen &nbsp;|&nbsp; Suchfeld filtert alle Einträge</span>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- MODUL 1                                             -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="modul-block" id="block-m1">
+    <div class="modul-header" onclick="toggleModul('m1')">
+      <span class="modul-title">
+        <span class="modul-badge">Modul 1</span>
+        Ein bunter Lebenslauf
+      </span>
+      <span class="modul-arrow open" id="arr-m1">▾</span>
+    </div>
+    <div class="modul-body show" id="body-m1">
+      <table class="vocab-table">
+        <thead>
+          <tr>
+            <th class="col-de">Deutsch</th>
+            <th class="col-expl">Erklärung</th>
+            <th class="col-bg">Български</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-de">aufschlussreich</td>
+            <td class="col-expl">gibt viele nützliche Informationen; informativ</td>
+            <td class="col-bg">информативен; поучителен; разкриващ много</td>
+          </tr>
+          <tr>
+            <td class="col-de">die Auszeit<span class="col-gram">-en</span></td>
+            <td class="col-expl">eine Pause vom Beruf/Alltag; Zeit für sich selbst</td>
+            <td class="col-bg">почивка от работата; пауза; „тайм-аут"</td>
+          </tr>
+          <tr>
+            <td class="col-de">die Laufbahn<span class="col-gram">-en</span></td>
+            <td class="col-expl">berufliche Entwicklung eines Menschen; Karriere</td>
+            <td class="col-bg">кариера; поприще; професионален път</td>
+          </tr>
+          <tr>
+            <td class="col-de">die Mobilität<span class="col-gram">(Sg.)</span></td>
+            <td class="col-expl">Bereitschaft und Fähigkeit, den Wohnort/Arbeitsort zu wechseln</td>
+            <td class="col-bg">мобилност; готовност за преместване</td>
+          </tr>
+          <tr>
+            <td class="col-de">plausibel</td>
+            <td class="col-expl">logisch nachvollziehbar; überzeugend; einleuchtend</td>
+            <td class="col-bg">правдоподобен; убедителен; логичен</td>
+          </tr>
+          <tr>
+            <td class="col-de">revidieren</td>
+            <td class="col-expl">eine frühere Meinung/Entscheidung überprüfen und ändern</td>
+            <td class="col-bg">преразглеждам; ревизирам; коригирам</td>
+          </tr>
+          <tr>
+            <td class="col-de">der Richtungswechsel<span class="col-gram">- (Pl. gleich)</span></td>
+            <td class="col-expl">wenn man seinen beruflichen/persönlichen Weg ändert</td>
+            <td class="col-bg">промяна на посоката / курса; завой</td>
+          </tr>
+          <tr>
+            <td class="col-de">schlüssig</td>
+            <td class="col-expl">logisch und überzeugend; in sich stimmig</td>
+            <td class="col-bg">логичен; убедителен; последователен</td>
+          </tr>
+          <tr>
+            <td class="col-de">der Studiengang<span class="col-gram">-̈e</span></td>
+            <td class="col-expl">eine bestimmte Studienrichtung an der Universität</td>
+            <td class="col-bg">специалност; учебна програма (в университет)</td>
+          </tr>
+          <tr>
+            <td class="col-de">etw. umgehen<span class="col-gram">umgeht, umging, hat umgangen</span></td>
+            <td class="col-expl">etwas Unangenehmes/Schwieriges geschickt vermeiden</td>
+            <td class="col-bg">заобикалям нещо; избягвам нещо</td>
+          </tr>
+          <tr>
+            <td class="col-de">zielstrebig</td>
+            <td class="col-expl">konsequent auf ein Ziel hinarbeitend; ehrgeizig</td>
+            <td class="col-bg">целеустремен; устремен към целта</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- MODUL 2                                             -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="modul-block" id="block-m2">
+    <div class="modul-header" onclick="toggleModul('m2')">
+      <span class="modul-title">
+        <span class="modul-badge">Modul 2</span>
+        Probieren geht über Studieren?
+      </span>
+      <span class="modul-arrow open" id="arr-m2">▾</span>
+    </div>
+    <div class="modul-body show" id="body-m2">
+      <table class="vocab-table">
+        <thead>
+          <tr>
+            <th class="col-de">Deutsch</th>
+            <th class="col-expl">Erklärung</th>
+            <th class="col-bg">Български</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-de">der Arbeitsablauf<span class="col-gram">-̈e</span></td>
+            <td class="col-expl">wie Aufgaben in einem Betrieb organisiert und ausgeführt werden</td>
+            <td class="col-bg">работен процес; ход на работата</td>
+          </tr>
+          <tr>
+            <td class="col-de">die Aufstiegschance<span class="col-gram">-n</span></td>
+            <td class="col-expl">Möglichkeit, im Beruf höhere Positionen zu erreichen</td>
+            <td class="col-bg">шанс за кариерно израстване</td>
+          </tr>
+          <tr>
+            <td class="col-de">berufsbegleitend</td>
+            <td class="col-expl">neben dem Beruf; gleichzeitig mit der Arbeit (z. B. Studium)</td>
+            <td class="col-bg">успоредно с работата; задочно</td>
+          </tr>
+          <tr>
+            <td class="col-de">die Doppelbelastung<span class="col-gram">-en</span></td>
+            <td class="col-expl">gleichzeitige Belastung durch zwei Bereiche (z. B. Arbeit + Studium)</td>
+            <td class="col-bg">двойно натоварване</td>
+          </tr>
+          <tr>
+            <td class="col-de">die Promotion<span class="col-gram">-en</span></td>
+            <td class="col-expl">Abschluss eines Doktortitels an der Universität</td>
+            <td class="col-bg">докторантура; защита на дисертация</td>
+          </tr>
+          <tr>
+            <td class="col-de">der Stellenwert<span class="col-gram">(Sg.)</span></td>
+            <td class="col-expl">Bedeutung/Wichtigkeit von etwas in einem bestimmten Zusammenhang</td>
+            <td class="col-bg">стойност; значимост; ранг</td>
+          </tr>
+          <tr>
+            <td class="col-de">das Studentenleben<span class="col-gram">(Sg.)</span></td>
+            <td class="col-expl">der Alltag und die Erfahrungen während des Studiums</td>
+            <td class="col-bg">студентски живот</td>
+          </tr>
+          <tr>
+            <td class="col-de">der Titel<span class="col-gram">- (Pl. gleich)</span></td>
+            <td class="col-expl">akademischer Grad (z. B. Dr., Prof.) oder Berufsbezeichnung</td>
+            <td class="col-bg">титла; академична степен</td>
+          </tr>
+          <tr>
+            <td class="col-de">voraussetzen</td>
+            <td class="col-expl">etwas als notwendige Bedingung/Grundlage verlangen</td>
+            <td class="col-bg">предпоставям; изисквам предварително</td>
+          </tr>
+          <tr>
+            <td class="col-de">die Zulassungsvoraussetzung<span class="col-gram">-en</span></td>
+            <td class="col-expl">Bedingung, die man erfüllen muss, um zugelassen zu werden</td>
+            <td class="col-bg">условие за допускане / прием</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- MODUL 3                                             -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="modul-block" id="block-m3">
+    <div class="modul-header" onclick="toggleModul('m3')">
+      <span class="modul-title">
+        <span class="modul-badge">Modul 3</span>
+        Multitasking
+      </span>
+      <span class="modul-arrow open" id="arr-m3">▾</span>
+    </div>
+    <div class="modul-body show" id="body-m3">
+      <table class="vocab-table">
+        <thead>
+          <tr>
+            <th class="col-de">Deutsch</th>
+            <th class="col-expl">Erklärung</th>
+            <th class="col-bg">Български</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-de">beharren auf (+ Dat.)</td>
+            <td class="col-expl">an einer Meinung/Forderung festhalten; nicht nachgeben</td>
+            <td class="col-bg">настоявам за/на; упорствам</td>
+          </tr>
+          <tr>
+            <td class="col-de">berühren</td>
+            <td class="col-expl">etwas anfassen; auch: ein Thema ansprechen / jdn. emotional bewegen</td>
+            <td class="col-bg">докосвам; засягам; трогвам</td>
+          </tr>
+          <tr>
+            <td class="col-de">der Beweis<span class="col-gram">-e</span></td>
+            <td class="col-expl">etwas, das zeigt, dass etwas wahr ist; Nachweis</td>
+            <td class="col-bg">доказателство</td>
+          </tr>
+          <tr>
+            <td class="col-de">darbieten<span class="col-gram">bietet dar, bot dar, hat dargeboten</span></td>
+            <td class="col-expl">etwas zeigen, vorstellen oder aufführen (oft künstlerisch/formell)</td>
+            <td class="col-bg">предлагам; представям; изпълнявам</td>
+          </tr>
+          <tr>
+            <td class="col-de">gelangen zu (+ Dat.)</td>
+            <td class="col-expl">einen Ort/Zustand/eine Erkenntnis durch Bemühung erreichen</td>
+            <td class="col-bg">достигам до; стигам до</td>
+          </tr>
+          <tr>
+            <td class="col-de">haufenweise</td>
+            <td class="col-expl">sehr viele; in großer Menge (umgangssprachlich)</td>
+            <td class="col-bg">купища; куп; огромно количество (разг.)</td>
+          </tr>
+          <tr>
+            <td class="col-de">die Kapazität<span class="col-gram">-en</span></td>
+            <td class="col-expl">Aufnahme- oder Leistungsvermögen; verfügbare Ressource</td>
+            <td class="col-bg">капацитет; възможност; потенциал</td>
+          </tr>
+          <tr>
+            <td class="col-de">klarkommen mit (+ Dat.)<span class="col-gram">kommt klar, kam klar, ist klargekommen</span></td>
+            <td class="col-expl">mit einer schwierigen Situation/Person gut umgehen können</td>
+            <td class="col-bg">справям се с; оправям се с (разг.)</td>
+          </tr>
+          <tr>
+            <td class="col-de">der Reiz<span class="col-gram">-e</span></td>
+            <td class="col-expl">etwas Attraktives, das anzieht; Anreiz; Stimulus</td>
+            <td class="col-bg">привлекателност; очарование; стимул</td>
+          </tr>
+          <tr>
+            <td class="col-de">die Ressource<span class="col-gram">-n</span></td>
+            <td class="col-expl">verfügbare Mittel (Zeit, Energie, Geld usw.)</td>
+            <td class="col-bg">ресурс</td>
+          </tr>
+          <tr>
+            <td class="col-de">scheitern an (+ Dat.)</td>
+            <td class="col-expl">aufgrund eines Hindernisses keinen Erfolg haben; misslingen</td>
+            <td class="col-bg">провалям се поради; не успявам в</td>
+          </tr>
+          <tr>
+            <td class="col-de">vermeiden<span class="col-gram">vermeidet, vermied, hat vermieden</span></td>
+            <td class="col-expl">absichtlich nicht tun; einer Sache aus dem Weg gehen</td>
+            <td class="col-bg">избягвам; предотвратявам</td>
+          </tr>
+          <tr>
+            <td class="col-de">verschwenden</td>
+            <td class="col-expl">etwas unnötig und sinnlos verbrauchen (Zeit, Geld, Energie)</td>
+            <td class="col-bg">прахосвам; разхищавам</td>
+          </tr>
+          <tr>
+            <td class="col-de">versetzt</td>
+            <td class="col-expl">an einen anderen Ort/in eine andere Position verlegt; zeitlich verschoben</td>
+            <td class="col-bg">преместен; поставен в (друга позиция/момент)</td>
+          </tr>
+          <tr>
+            <td class="col-de">verwechseln</td>
+            <td class="col-expl">zwei Dinge/Personen irrtümlich für gleich halten; durcheinanderbringen</td>
+            <td class="col-bg">бъркам; объркам; смесвам</td>
+          </tr>
+          <tr>
+            <td class="col-de">sich verzögern</td>
+            <td class="col-expl">später passieren als geplant; sich verschieben</td>
+            <td class="col-bg">забавям се; отлагам се; закъснявам</td>
+          </tr>
+          <tr>
+            <td class="col-de">zuständig sein für (+ Akk.)</td>
+            <td class="col-expl">für etwas verantwortlich sein; die Aufgabe/Kompetenz haben</td>
+            <td class="col-bg">отговорен съм за; компетентен съм по</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- MODUL 4                                             -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="modul-block" id="block-m4">
+    <div class="modul-header" onclick="toggleModul('m4')">
+      <span class="modul-title">
+        <span class="modul-badge">Modul 4</span>
+        Soft Skills
+      </span>
+      <span class="modul-arrow open" id="arr-m4">▾</span>
+    </div>
+    <div class="modul-body show" id="body-m4">
+      <table class="vocab-table">
+        <thead>
+          <tr>
+            <th class="col-de">Deutsch</th>
+            <th class="col-expl">Erklärung</th>
+            <th class="col-bg">Български</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-de">auflisten</td>
+            <td class="col-expl">Dinge der Reihe nach in einer Liste aufschreiben; aufzählen</td>
+            <td class="col-bg">изреждам в списък; изброявам</td>
+          </tr>
+          <tr>
+            <td class="col-de">beinhalten</td>
+            <td class="col-expl">etwas in sich einschließen; enthalten</td>
+            <td class="col-bg">включвам в себе си; съдържам</td>
+          </tr>
+          <tr>
+            <td class="col-de">das Durchsetzungsvermögen<span class="col-gram">(Sg.)</span></td>
+            <td class="col-expl">die Fähigkeit, eigene Ziele/Interessen gegen Widerstand durchzusetzen</td>
+            <td class="col-bg">воля за постигане на цели; напористост</td>
+          </tr>
+          <tr>
+            <td class="col-de">das Einfühlungsvermögen<span class="col-gram">(Sg.)</span></td>
+            <td class="col-expl">die Fähigkeit, sich in die Lage anderer Menschen zu versetzen; Empathie</td>
+            <td class="col-bg">емпатия; способност за съпреживяване</td>
+          </tr>
+          <tr>
+            <td class="col-de">erstellen</td>
+            <td class="col-expl">etwas herstellen oder anfertigen (z. B. ein Dokument, einen Plan)</td>
+            <td class="col-bg">изготвям; съставям; създавам</td>
+          </tr>
+          <tr>
+            <td class="col-de">floskelhaft</td>
+            <td class="col-expl">voller leerer, nichtssagender Phrasen; klischeehaft</td>
+            <td class="col-bg">клиширан; банален; пълен с клишета</td>
+          </tr>
+          <tr>
+            <td class="col-de">fortan</td>
+            <td class="col-expl">ab diesem Zeitpunkt; von nun an; in Zukunft (geh.)</td>
+            <td class="col-bg">занапред; отсега нататък; оттук нататък</td>
+          </tr>
+          <tr>
+            <td class="col-de">die Führungskompetenz<span class="col-gram">(Sg.)</span></td>
+            <td class="col-expl">die Fähigkeit, ein Team oder eine Organisation erfolgreich zu leiten</td>
+            <td class="col-bg">ръководни умения; лидерска компетентност</td>
+          </tr>
+          <tr>
+            <td class="col-de">herausfiltern</td>
+            <td class="col-expl">aus einer Menge die wichtigen/relevanten Dinge herausholen</td>
+            <td class="col-bg">отсявам; изфилтрирам; извличам</td>
+          </tr>
+          <tr>
+            <td class="col-de">lehrreich</td>
+            <td class="col-expl">man lernt dabei viel; aufschlussreich; informativ</td>
+            <td class="col-bg">поучителен; полезен за научаване</td>
+          </tr>
+          <tr>
+            <td class="col-de">die Priorität<span class="col-gram">-en</span></td>
+            <td class="col-expl">was am wichtigsten ist und zuerst erledigt werden muss</td>
+            <td class="col-bg">приоритет</td>
+          </tr>
+          <tr>
+            <td class="col-de">die Schlüsselqualifikation<span class="col-gram">-en</span></td>
+            <td class="col-expl">grundlegende Fähigkeit, die in vielen Berufen gebraucht wird</td>
+            <td class="col-bg">ключова квалификация; основно умение</td>
+          </tr>
+          <tr>
+            <td class="col-de">umgehen mit (+ Dat.)<span class="col-gram">geht um, ging um, ist umgegangen</span></td>
+            <td class="col-expl">mit etwas/jemandem (auf eine bestimmte Art) arbeiten oder interagieren</td>
+            <td class="col-bg">работя/общувам с; справям се с</td>
+          </tr>
+          <tr>
+            <td class="col-de">die Zielstrebigkeit<span class="col-gram">(Sg.)</span></td>
+            <td class="col-expl">konsequentes, entschlossenes Verfolgen eines Ziels</td>
+            <td class="col-bg">целеустременост</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- WICHTIGE WORTVERBINDUNGEN                           -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="modul-block wv" id="block-wv">
+    <div class="modul-header" onclick="toggleModul('wv')">
+      <span class="modul-title">
+        <span class="modul-badge">M 1–4</span>
+        Wichtige Wortverbindungen
+      </span>
+      <span class="modul-arrow open" id="arr-wv">▾</span>
+    </div>
+    <div class="modul-body show" id="body-wv">
+      <table class="vocab-table">
+        <thead>
+          <tr>
+            <th class="col-de">Deutsch</th>
+            <th class="col-expl">Erklärung</th>
+            <th class="col-bg">Български</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-de wv">vieles auf einmal tun<span class="col-gram">tut, tat, hat getan</span></td>
+            <td class="col-expl">mehrere Aufgaben gleichzeitig erledigen; Multitasking</td>
+            <td class="col-bg">правя много неща едновременно</td>
+          </tr>
+          <tr>
+            <td class="col-de wv">einen Fehler ausbügeln</td>
+            <td class="col-expl">einen Fehler korrigieren und in Ordnung bringen (umgangsspr.)</td>
+            <td class="col-bg">поправям / изглаждам грешка (разг.)</td>
+          </tr>
+          <tr>
+            <td class="col-de wv">bei etw. ist Vorsicht geboten</td>
+            <td class="col-expl">man muss bei dieser Sache vorsichtig sein; es ist riskant</td>
+            <td class="col-bg">при нещо е необходимо внимание; трябва да се внимава</td>
+          </tr>
+          <tr>
+            <td class="col-de wv">einer Illusion erliegen<span class="col-gram">erliegt, erlag, ist erlegen</span></td>
+            <td class="col-expl">sich von einer falschen Vorstellung täuschen lassen</td>
+            <td class="col-bg">поддавам се на илюзия; залъгвам се</td>
+          </tr>
+          <tr>
+            <td class="col-de wv">etw. nicht gewachsen sein</td>
+            <td class="col-expl">einer Aufgabe/Situation nicht gerecht werden können; überfordert sein</td>
+            <td class="col-bg">не съм на ниво за нещо; не мога да се справя с нещо</td>
+          </tr>
+          <tr>
+            <td class="col-de wv">sich auf dem Laufenden halten<span class="col-gram">hält, hielt, hat gehalten</span></td>
+            <td class="col-expl">regelmäßig über aktuelle Entwicklungen informiert bleiben</td>
+            <td class="col-bg">поддържам се в течение; следя новостите</td>
+          </tr>
+          <tr>
+            <td class="col-de wv">der Reihe nach</td>
+            <td class="col-expl">in einer bestimmten Reihenfolge; eines nach dem anderen</td>
+            <td class="col-bg">по ред; едно след друго</td>
+          </tr>
+          <tr>
+            <td class="col-de wv">Verhandlungen führen mit</td>
+            <td class="col-expl">offizielle Gespräche führen, um eine Einigung zu erzielen</td>
+            <td class="col-bg">водя преговори с</td>
+          </tr>
+          <tr>
+            <td class="col-de wv">neuen Wind in etw. bringen<span class="col-gram">bringt, brachte, hat gebracht</span></td>
+            <td class="col-expl">neue Ideen/Energie in etwas einbringen; für Veränderung sorgen</td>
+            <td class="col-bg">внасям свеж вятър; давам нов тласък на нещо</td>
+          </tr>
+          <tr>
+            <td class="col-de wv">sich einen Überblick verschaffen über</td>
+            <td class="col-expl">sich über ein Thema informieren, um das Gesamtbild zu verstehen</td>
+            <td class="col-bg">добивам представа за; разглеждам обхватно</td>
+          </tr>
+          <tr>
+            <td class="col-de wv">Zeit verplempern</td>
+            <td class="col-expl">Zeit sinnlos und ohne Nutzen verschwenden (umgangsspr.)</td>
+            <td class="col-bg">пилея / прахосвам времето (разг.)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+function toggleModul(id) {
+  const body = document.getElementById('body-' + id);
+  const arr  = document.getElementById('arr-'  + id);
+  const open = body.classList.toggle('show');
+  arr.classList.toggle('open', open);
+}
+
+function filterWords(q) {
+  q = q.trim().toLowerCase();
+  document.querySelectorAll('.vocab-table tbody tr').forEach(row => {
+    const text = row.textContent.toLowerCase();
+    row.classList.toggle('hidden-row', q.length > 0 && !text.includes(q));
+  });
+  // auto-open all blocks when searching
+  if (q.length > 0) {
+    ['m1','m2','m3','m4','wv'].forEach(id => {
+      document.getElementById('body-' + id).classList.add('show');
+      document.getElementById('arr-'  + id).classList.add('open');
+    });
+  }
+}
+</script>
+</body>
+</html>
