@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wortschatz – Kapitel 3 | An die Arbeit!</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f3; color: #222; font-size: 17px; line-height: 1.6; }
+.page-header {
+  background: linear-gradient(135deg, #00695c, #00897b);
+  color: #fff; padding: 16px 28px;
+  display: flex; justify-content: space-between; align-items: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,.2); flex-wrap: wrap; gap: 8px;
+}
+.page-header h1 { font-size: 1.5em; font-weight: 700; letter-spacing: .3px; }
+.page-header p  { font-size: .88em; opacity: .85; margin-top: 3px; }
+.badge { background: rgba(255,255,255,.22); border-radius: 16px; padding: 4px 14px; font-size: .85em; font-weight: bold; }
+.container { max-width: 1100px; margin: 0 auto; padding: 22px 16px 50px; }
+.modul-block { margin-bottom: 22px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+.modul-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 20px; cursor: pointer; user-select: none;
+  background: #2e7d6e; color: #fff; gap: 10px; transition: background .15s;
+}
+.modul-header:hover { background: #245f53; }
+.modul-title { font-weight: 700; font-size: 1.02em; display: flex; align-items: center; gap: 10px; }
+.modul-badge { background: rgba(255,255,255,.25); border-radius: 12px; padding: 2px 11px; font-size: .82em; font-weight: 700; }
+.modul-arrow { font-size: 1.1em; transition: transform .25s; }
+.modul-arrow.open { transform: rotate(180deg); }
+.modul-body { display: none; background: #fff; }
+.modul-body.show { display: block; }
+.modul-block.wv .modul-header { background: #455a64; }
+.modul-block.wv .modul-header:hover { background: #37474f; }
+.vocab-table { width: 100%; border-collapse: collapse; font-size: .91em; }
+.vocab-table thead tr { background: #e8f4f1; }
+.vocab-table th { padding: 9px 12px; text-align: left; font-weight: 700; color: #1a5247; border-bottom: 2px solid #b2dfdb; font-size: .88em; }
+.vocab-table td { padding: 8px 12px; vertical-align: top; border-bottom: 1px solid #e0f0ed; }
+.vocab-table tr:nth-child(odd)  td { background: #fafefe; }
+.vocab-table tr:nth-child(even) td { background: #f0fafa; }
+.vocab-table tr:last-child td { border-bottom: none; }
+.col-de   { width: 20%; font-weight: 700; color: #004d40; }
+.col-gram { font-size: .80em; font-weight: 400; color: #777; display: block; margin-top: 2px; }
+.col-expl { width: 25%; color: #444; }
+.col-bg   { width: 20%; color: #1a237e; }
+.col-bsp  { width: 35%; }
+.bsp-de   { display: block; font-style: italic; color: #1b3c2a; font-size: .87em; line-height: 1.5; }
+.bsp-bg   { display: block; color: #6d3a00; font-size: .82em; margin-top: 3px; }
+.modul-block.wv .vocab-table .col-de { color: #1a237e; font-style: italic; font-weight: 600; }
+.search-bar {
+  display: flex; align-items: center; gap: 10px;
+  background: #fff; border-radius: 30px; border: 2px solid #b2dfdb;
+  padding: 7px 16px; margin-bottom: 20px; box-shadow: 0 1px 6px rgba(0,0,0,.07);
+}
+.search-bar input { border: none; outline: none; font-size: 16px; font-family: inherit; flex: 1; background: transparent; }
+.search-bar span { color: #2e7d6e; font-size: 1.2em; }
+.hidden-row { display: none !important; }
+.legend {
+  background: #fff; border-radius: 10px; padding: 12px 18px; margin-bottom: 18px;
+  font-size: .88em; color: #555; box-shadow: 0 1px 6px rgba(0,0,0,.07);
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+}
+.legend strong { color: #2e7d6e; }
+@media (max-width: 680px) {
+  .col-expl { display: none; }
+  .vocab-table th:nth-child(2) { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="page-header">
+  <div>
+    <h1>Wortschatz – Kapitel 3</h1>
+    <p>An die Arbeit! &nbsp;|&nbsp; Aspekte neu C1 &nbsp;|&nbsp; AB S. 46–47</p>
+  </div>
+  <span class="badge">Modul 1–4 + Wortverbindungen</span>
+</div>
+<div class="container">
+  <div class="search-bar">
+    <span>🔍</span>
+    <input type="text" id="searchInput" placeholder="Wort suchen …" oninput="filterWords(this.value)">
+  </div>
+  <div class="legend">
+    <strong>Legende:</strong>
+    <span><b>Deutsch</b> · <b>Erklärung</b> · <b>Български</b> · <b>Beispielsatz</b> (kursiv) mit Übersetzung</span>
+    <span>Modulkopf klicken zum Auf-/Zuklappen &nbsp;|&nbsp; Suchfeld filtert alle Einträge</span>
+  </div>
+
+  <!-- MODUL 1 -->
+  <div class="modul-block" id="block-m1">
+    <div class="modul-header" onclick="toggleModul('m1')">
+      <span class="modul-title"><span class="modul-badge">Modul 1</span>Ein bunter Lebenslauf</span>
+      <span class="modul-arrow open" id="arr-m1">▾</span>
+    </div>
+    <div class="modul-body show" id="body-m1">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">aufschlussreich</td><td class="col-expl">gibt viele nützliche Informationen; informativ; lehrreich</td><td class="col-bg">информативен; поучителен; разкриващ много</td><td class="col-bsp"><span class="bsp-de">Das Interview mit dem Personalchef war sehr aufschlussreich.</span><span class="bsp-bg">Интервюто с ръководителя на персонала беше много информативно.</span></td></tr>
+          <tr><td class="col-de">die Auszeit<span class="col-gram">-en</span></td><td class="col-expl">eine Pause vom Beruf oder Alltag; Zeit für sich selbst nehmen</td><td class="col-bg">почивка от работата; пауза; „тайм-аут"</td><td class="col-bsp"><span class="bsp-de">Nach fünf Jahren intensiver Arbeit gönnt sie sich endlich eine Auszeit.</span><span class="bsp-bg">След пет години интензивна работа тя най-накрая си позволява почивка.</span></td></tr>
+          <tr><td class="col-de">die Laufbahn<span class="col-gram">-en</span></td><td class="col-expl">berufliche Entwicklung eines Menschen; Karriere</td><td class="col-bg">кариера; поприще; професионален път</td><td class="col-bsp"><span class="bsp-de">Er blickt auf eine beeindruckende berufliche Laufbahn zurück.</span><span class="bsp-bg">Зад него е впечатляваща професионална кариера.</span></td></tr>
+          <tr><td class="col-de">die Mobilität<span class="col-gram">(Sg.)</span></td><td class="col-expl">Bereitschaft und Fähigkeit, den Wohnort oder Arbeitsort zu wechseln</td><td class="col-bg">мобилност; готовност за преместване</td><td class="col-bsp"><span class="bsp-de">Berufliche Mobilität wird in vielen internationalen Unternehmen vorausgesetzt.</span><span class="bsp-bg">В много международни предприятия се изисква професионална мобилност.</span></td></tr>
+          <tr><td class="col-de">plausibel</td><td class="col-expl">logisch nachvollziehbar; überzeugend; einleuchtend</td><td class="col-bg">правдоподобен; убедителен; логичен</td><td class="col-bsp"><span class="bsp-de">Ihre Erklärung für den Richtungswechsel klang durchaus plausibel.</span><span class="bsp-bg">Обяснението й за смяната на посоката звучеше напълно убедително.</span></td></tr>
+          <tr><td class="col-de">revidieren</td><td class="col-expl">eine frühere Meinung oder Entscheidung überprüfen und ändern</td><td class="col-bg">преразглеждам; ревизирам; коригирам</td><td class="col-bsp"><span class="bsp-de">Nach den neuen Erkenntnissen musste er seine Meinung revidieren.</span><span class="bsp-bg">След новите данни той трябваше да преразгледа мнението си.</span></td></tr>
+          <tr><td class="col-de">der Richtungswechsel<span class="col-gram">- (Pl. gleich)</span></td><td class="col-expl">wenn man seinen beruflichen oder persönlichen Weg ändert</td><td class="col-bg">промяна на посоката; завой</td><td class="col-bsp"><span class="bsp-de">Ihr Richtungswechsel von der Wissenschaft zur Wirtschaft überraschte alle.</span><span class="bsp-bg">Промяната й на посоката от науката към икономиката изненада всички.</span></td></tr>
+          <tr><td class="col-de">schlüssig</td><td class="col-expl">logisch und überzeugend; in sich stimmig</td><td class="col-bg">логичен; убедителен; последователен</td><td class="col-bsp"><span class="bsp-de">Im Vorstellungsgespräch muss man eine schlüssige Begründung für jeden Wechsel liefern.</span><span class="bsp-bg">На интервюто за работа трябва да се даде логична обосновка за всяка смяна.</span></td></tr>
+          <tr><td class="col-de">der Studiengang<span class="col-gram">-̈e</span></td><td class="col-expl">eine bestimmte Studienrichtung an der Universität</td><td class="col-bg">специалност; учебна програма (в университет)</td><td class="col-bsp"><span class="bsp-de">Sie hat den Studiengang Wirtschaftsinformatik gewählt und bereut es nicht.</span><span class="bsp-bg">Тя е избрала специалността бизнес информатика и не съжалява.</span></td></tr>
+          <tr><td class="col-de">etw. umgehen<span class="col-gram">umgeht, umging, hat umgangen</span></td><td class="col-expl">etwas Unangenehmes oder Schwieriges geschickt vermeiden</td><td class="col-bg">заобикалям нещо; избягвам нещо</td><td class="col-bsp"><span class="bsp-de">Er wusste immer, wie man unangenehme Fragen geschickt umgeht.</span><span class="bsp-bg">Той винаги знаеше как умело да заобикаля неудобните въпроси.</span></td></tr>
+          <tr><td class="col-de">zielstrebig</td><td class="col-expl">konsequent auf ein Ziel hinarbeitend; ehrgeizig und entschlossen</td><td class="col-bg">целеустремен; устремен към целта</td><td class="col-bsp"><span class="bsp-de">Nur wer wirklich zielstrebig ist, kann eine solche Karriere aufbauen.</span><span class="bsp-bg">Само наистина целеустременият може да изгради такава кариера.</span></td></tr>
+          <!-- Added from Übungen vocab -->
+          <tr><td class="col-de">bestätigen<span class="col-gram">bestätigte, hat bestätigt | Rektion: Akk.</span></td><td class="col-expl">etwas als wahr, korrekt oder gültig erklären; zeigen, dass etwas stimmt</td><td class="col-bg">потвърждавам; удостоверявам; доказвам истинността</td><td class="col-bsp"><span class="bsp-de">Neue Studien bestätigen, was viele Personalchefs schon lange wissen.</span><span class="bsp-bg">Нови изследвания потвърждават това, което много ръководители на персонала отдавна знаят.</span></td></tr>
+          <tr><td class="col-de">gelingen<span class="col-gram">gelang, ist gelungen | unpersönl.: jdm. gelingt etw.</span></td><td class="col-expl">etwas erfolgreich zustande bringen; mit einer Aufgabe Erfolg haben</td><td class="col-bg">успявам; сполучвам (безлично: es gelingt mir)</td><td class="col-bsp"><span class="bsp-de">Es ist ihr gelungen, Beruf und Familie perfekt miteinander zu verbinden.</span><span class="bsp-bg">Успяло й е перфектно да съвмести работата и семейството.</span></td></tr>
+          <tr><td class="col-de">gelten als<span class="col-gram">gilt, galt, hat gegolten | als + Nom.</span></td><td class="col-expl">von anderen als etwas Bestimmtes angesehen werden; für etwas gehalten werden</td><td class="col-bg">важа за нещо; смята се за; считам се за</td><td class="col-bsp"><span class="bsp-de">Ein bunter Lebenslauf gilt heute nicht mehr automatisch als Nachteil.</span><span class="bsp-bg">Пъстрото CV днес вече не се смята автоматично за недостатък.</span></td></tr>
+          <tr><td class="col-de">verursachen<span class="col-gram">verursachte, hat verursacht | Rektion: Akk.</span></td><td class="col-expl">der Grund für etwas sein; etwas bewirken oder hervorrufen – oft Negatives</td><td class="col-bg">причинявам; предизвиквам; провокирам</td><td class="col-bsp"><span class="bsp-de">Häufige Jobwechsel können beim Personalchef Misstrauen verursachen.</span><span class="bsp-bg">Честите смени на работа могат да предизвикат недоверие у ръководителя на персонала.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODUL 2 -->
+  <div class="modul-block" id="block-m2">
+    <div class="modul-header" onclick="toggleModul('m2')">
+      <span class="modul-title"><span class="modul-badge">Modul 2</span>Probieren geht über Studieren?</span>
+      <span class="modul-arrow open" id="arr-m2">▾</span>
+    </div>
+    <div class="modul-body show" id="body-m2">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">der Arbeitsablauf<span class="col-gram">-̈e</span></td><td class="col-expl">wie Aufgaben in einem Betrieb organisiert und ausgeführt werden</td><td class="col-bg">работен процес; ход на работата</td><td class="col-bsp"><span class="bsp-de">Der Arbeitsablauf im neuen Büro ist gut strukturiert und effizient.</span><span class="bsp-bg">Работният процес в новия офис е добре структуриран и ефективен.</span></td></tr>
+          <tr><td class="col-de">die Aufstiegschance<span class="col-gram">-n</span></td><td class="col-expl">Möglichkeit, im Beruf höhere Positionen zu erreichen</td><td class="col-bg">шанс за кариерно израстване</td><td class="col-bsp"><span class="bsp-de">Die Aufstiegschancen in dieser Firma sind für gut ausgebildete Bewerber sehr gut.</span><span class="bsp-bg">Шансовете за кариерно израстване в тази фирма са много добри за добре образованите кандидати.</span></td></tr>
+          <tr><td class="col-de">berufsbegleitend</td><td class="col-expl">neben dem Beruf; gleichzeitig mit der Arbeit (z. B. Studium)</td><td class="col-bg">успоредно с работата; задочно</td><td class="col-bsp"><span class="bsp-de">Sie studiert berufsbegleitend und arbeitet dabei Vollzeit – das ist eine enorme Doppelbelastung.</span><span class="bsp-bg">Тя учи задочно и работи на пълен работен ден – това е огромно двойно натоварване.</span></td></tr>
+          <tr><td class="col-de">die Doppelbelastung<span class="col-gram">-en</span></td><td class="col-expl">gleichzeitige Belastung durch zwei Bereiche (z. B. Arbeit + Studium)</td><td class="col-bg">двойно натоварване</td><td class="col-bsp"><span class="bsp-de">Die Doppelbelastung durch Job und Studium fordert viel Disziplin.</span><span class="bsp-bg">Двойното натоварване от работа и обучение изисква много дисциплина.</span></td></tr>
+          <tr><td class="col-de">die Promotion<span class="col-gram">-en</span></td><td class="col-expl">Abschluss eines Doktortitels an der Universität</td><td class="col-bg">докторантура; защита на дисертация</td><td class="col-bsp"><span class="bsp-de">Nach seiner Promotion plant er eine Karriere in der angewandten Forschung.</span><span class="bsp-bg">След докторантурата си той планира кариера в приложните изследвания.</span></td></tr>
+          <tr><td class="col-de">der Stellenwert<span class="col-gram">(Sg.)</span></td><td class="col-expl">Bedeutung und Wichtigkeit von etwas in einem bestimmten Zusammenhang</td><td class="col-bg">стойност; значимост; ранг</td><td class="col-bsp"><span class="bsp-de">Der Stellenwert eines Hochschulabschlusses hat sich in den letzten Jahren verändert.</span><span class="bsp-bg">Значимостта на висшето образование се е променила през последните години.</span></td></tr>
+          <tr><td class="col-de">das Studentenleben<span class="col-gram">(Sg.)</span></td><td class="col-expl">der Alltag und die Erfahrungen während des Studiums</td><td class="col-bg">студентски живот</td><td class="col-bsp"><span class="bsp-de">Das Studentenleben bietet viel mehr als nur Lernen und Prüfungen.</span><span class="bsp-bg">Студентският живот предлага много повече от просто учене и изпити.</span></td></tr>
+          <tr><td class="col-de">der Titel<span class="col-gram">- (Pl. gleich)</span></td><td class="col-expl">akademischer Grad (z. B. Dr., Prof.) oder Berufsbezeichnung</td><td class="col-bg">титла; академична степен</td><td class="col-bsp"><span class="bsp-de">Sie führt nach ihrer Promotion stolz den Titel Doktorin der Wirtschaftswissenschaften.</span><span class="bsp-bg">След докторантурата тя с гордост носи титлата Доктор по икономически науки.</span></td></tr>
+          <tr><td class="col-de">voraussetzen</td><td class="col-expl">etwas als notwendige Bedingung oder Grundlage verlangen</td><td class="col-bg">предпоставям; изисквам предварително</td><td class="col-bsp"><span class="bsp-de">Diese Stelle setzt mehrjährige einschlägige Berufserfahrung voraus.</span><span class="bsp-bg">Тази позиция предполага многогодишен подходящ професионален опит.</span></td></tr>
+          <tr><td class="col-de">die Zulassungsvoraussetzung<span class="col-gram">-en</span></td><td class="col-expl">Bedingung, die man erfüllen muss, um zugelassen zu werden</td><td class="col-bg">условие за допускане / прием</td><td class="col-bsp"><span class="bsp-de">Ohne Abitur erfüllt man die Zulassungsvoraussetzungen für diesen Studiengang nicht.</span><span class="bsp-bg">Без матура не се изпълняват условията за прием в тази специалност.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODUL 3 -->
+  <div class="modul-block" id="block-m3">
+    <div class="modul-header" onclick="toggleModul('m3')">
+      <span class="modul-title"><span class="modul-badge">Modul 3</span>Multitasking</span>
+      <span class="modul-arrow open" id="arr-m3">▾</span>
+    </div>
+    <div class="modul-body show" id="body-m3">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">beharren auf (+ Dat.)</td><td class="col-expl">an einer Meinung oder Forderung festhalten; nicht nachgeben</td><td class="col-bg">настоявам за/на; упорствам</td><td class="col-bsp"><span class="bsp-de">Er beharrte auf seiner Meinung, obwohl alle Fakten dagegen sprachen.</span><span class="bsp-bg">Той упорстваше в мнението си, въпреки че всички факти бяха против него.</span></td></tr>
+          <tr><td class="col-de">berühren</td><td class="col-expl">etwas anfassen; auch: ein Thema ansprechen oder jdn. emotional bewegen</td><td class="col-bg">докосвам; засягам; трогвам</td><td class="col-bsp"><span class="bsp-de">Diese Geschichte hat mich tief berührt und lange beschäftigt.</span><span class="bsp-bg">Тази история ме е дълбоко трогнала и дълго ме е занимавала.</span></td></tr>
+          <tr><td class="col-de">der Beweis<span class="col-gram">-e</span></td><td class="col-expl">etwas, das zeigt, dass etwas wahr ist; Nachweis</td><td class="col-bg">доказателство</td><td class="col-bsp"><span class="bsp-de">Es gibt keinen wissenschaftlichen Beweis dafür, dass Multitasking die Produktivität steigert.</span><span class="bsp-bg">Няма научно доказателство за това, че многозадачността повишава продуктивността.</span></td></tr>
+          <tr><td class="col-de">darbieten<span class="col-gram">bietet dar, bot dar, hat dargeboten</span></td><td class="col-expl">etwas zeigen, vorstellen oder aufführen (oft künstlerisch oder formell)</td><td class="col-bg">предлагам; представям; изпълнявам</td><td class="col-bsp"><span class="bsp-de">Die Studierenden darboten ihre Ergebnisse in einer eindrucksvollen Präsentation.</span><span class="bsp-bg">Студентите представиха резултатите си в впечатляваща презентация.</span></td></tr>
+          <tr><td class="col-de">gelangen zu (+ Dat.)</td><td class="col-expl">einen Ort, Zustand oder eine Erkenntnis durch Bemühung erreichen</td><td class="col-bg">достигам до; стигам до</td><td class="col-bsp"><span class="bsp-de">Nach langen Diskussionen gelangte das Forscherteam zu einem Ergebnis.</span><span class="bsp-bg">След дълги дискусии изследователският екип стигна до резултат.</span></td></tr>
+          <tr><td class="col-de">haufenweise</td><td class="col-expl">sehr viele; in großer Menge (umgangssprachlich)</td><td class="col-bg">купища; куп; огромно количество (разг.)</td><td class="col-bsp"><span class="bsp-de">Auf ihrem Schreibtisch lagen haufenweise unerledigte Aufgaben.</span><span class="bsp-bg">На бюрото й лежаха купища неизпълнени задачи.</span></td></tr>
+          <tr><td class="col-de">die Kapazität<span class="col-gram">-en</span></td><td class="col-expl">Aufnahme- oder Leistungsvermögen; verfügbare Ressource</td><td class="col-bg">капацитет; възможност; потенциал</td><td class="col-bsp"><span class="bsp-de">Die Kapazität des Gehirns beim Multitasking ist stark begrenzt.</span><span class="bsp-bg">Капацитетът на мозъка при многозадачност е силно ограничен.</span></td></tr>
+          <tr><td class="col-de">klarkommen mit (+ Dat.)<span class="col-gram">kommt klar, kam klar, ist klargekommen</span></td><td class="col-expl">mit einer schwierigen Situation oder Person gut umgehen können</td><td class="col-bg">справям се с; оправям се с (разг.)</td><td class="col-bsp"><span class="bsp-de">Mit der neuen Software kommt er noch nicht richtig klar.</span><span class="bsp-bg">Той все още не се оправя добре с новия софтуер.</span></td></tr>
+          <tr><td class="col-de">der Reiz<span class="col-gram">-e</span></td><td class="col-expl">etwas Attraktives, das anzieht; Anreiz; Stimulus</td><td class="col-bg">привлекателност; очарование; стимул</td><td class="col-bsp"><span class="bsp-de">Der Reiz des Multitaskings liegt im Gefühl, produktiver zu sein.</span><span class="bsp-bg">Привлекателността на многозадачността е в усещането за по-голяма продуктивност.</span></td></tr>
+          <tr><td class="col-de">die Ressource<span class="col-gram">-n</span></td><td class="col-expl">verfügbare Mittel (Zeit, Energie, Geld usw.)</td><td class="col-bg">ресурс</td><td class="col-bsp"><span class="bsp-de">Zeit ist eine begrenzte Ressource, die man sinnvoll einsetzen sollte.</span><span class="bsp-bg">Времето е ограничен ресурс, който трябва да се използва разумно.</span></td></tr>
+          <tr><td class="col-de">scheitern an (+ Dat.)</td><td class="col-expl">aufgrund eines Hindernisses keinen Erfolg haben; misslingen</td><td class="col-bg">провалям се поради; не успявам в</td><td class="col-bsp"><span class="bsp-de">Das Projekt scheiterte an mangelnder Kommunikation und schlechter Planung.</span><span class="bsp-bg">Проектът се провали поради недостатъчна комуникация и лошо планиране.</span></td></tr>
+          <tr><td class="col-de">vermeiden<span class="col-gram">vermeidet, vermied, hat vermieden</span></td><td class="col-expl">absichtlich nicht tun; einer Sache aus dem Weg gehen</td><td class="col-bg">избягвам; предотвратявам</td><td class="col-bsp"><span class="bsp-de">Bei komplexen Aufgaben sollte man Multitasking unbedingt vermeiden.</span><span class="bsp-bg">При сложни задачи непременно трябва да се избягва многозадачността.</span></td></tr>
+          <tr><td class="col-de">verschwenden</td><td class="col-expl">etwas Wertvolles unnötig und sinnlos verbrauchen (Zeit, Geld, Energie)</td><td class="col-bg">прахосвам; разхищавам</td><td class="col-bsp"><span class="bsp-de">Durch ständiges Hin- und Herwechseln verschwendet man mehr Zeit, als man spart.</span><span class="bsp-bg">Чрез постоянното превключване се прахосва повече време, отколкото се спестява.</span></td></tr>
+          <tr><td class="col-de">versetzt</td><td class="col-expl">an einen anderen Ort verlegt; zeitlich verschoben</td><td class="col-bg">преместен; поставен в (друга позиция/момент)</td><td class="col-bsp"><span class="bsp-de">Die Reaktionen des Gehirns werden beim Multitasking zeitlich versetzt verarbeitet.</span><span class="bsp-bg">Реакциите на мозъка се обработват времево изместено при многозадачност.</span></td></tr>
+          <tr><td class="col-de">verwechseln</td><td class="col-expl">zwei Dinge oder Personen irrtümlich für gleich halten; durcheinanderbringen</td><td class="col-bg">бъркам; объркам; смесвам</td><td class="col-bsp"><span class="bsp-de">Dabei verwechseln wir oft Schnelligkeit mit Effizienz.</span><span class="bsp-bg">При това ние често бъркаме бързината с ефективността.</span></td></tr>
+          <tr><td class="col-de">sich verzögern</td><td class="col-expl">später passieren als geplant; sich verschieben</td><td class="col-bg">забавям се; отлагам се; закъснявам</td><td class="col-bsp"><span class="bsp-de">Die Fertigstellung des Projekts hat sich durch Multitasking um zwei Wochen verzögert.</span><span class="bsp-bg">Завършването на проекта се е забавило с две седмици заради многозадачността.</span></td></tr>
+          <tr><td class="col-de">zuständig sein für (+ Akk.)</td><td class="col-expl">für etwas verantwortlich sein; die Aufgabe oder Kompetenz haben</td><td class="col-bg">отговорен съм за; компетентен съм по</td><td class="col-bsp"><span class="bsp-de">Für technische Probleme ist die IT-Abteilung zuständig.</span><span class="bsp-bg">За технически проблеми отговаря IT отделът.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODUL 4 -->
+  <div class="modul-block" id="block-m4">
+    <div class="modul-header" onclick="toggleModul('m4')">
+      <span class="modul-title"><span class="modul-badge">Modul 4</span>Soft Skills</span>
+      <span class="modul-arrow open" id="arr-m4">▾</span>
+    </div>
+    <div class="modul-body show" id="body-m4">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">auflisten</td><td class="col-expl">Dinge der Reihe nach in einer Liste aufschreiben; aufzählen</td><td class="col-bg">изреждам в списък; изброявам</td><td class="col-bsp"><span class="bsp-de">Bitte listen Sie Ihre wichtigsten beruflichen Fähigkeiten auf.</span><span class="bsp-bg">Моля, изредете в списък най-важните си професионални умения.</span></td></tr>
+          <tr><td class="col-de">beinhalten</td><td class="col-expl">etwas in sich einschließen; enthalten</td><td class="col-bg">включвам в себе си; съдържам</td><td class="col-bsp"><span class="bsp-de">Das Stellenangebot beinhaltet flexible Arbeitszeiten und Homeoffice-Möglichkeiten.</span><span class="bsp-bg">Обявата за работа включва гъвкаво работно време и възможност за работа от вкъщи.</span></td></tr>
+          <tr><td class="col-de">das Durchsetzungsvermögen<span class="col-gram">(Sg.)</span></td><td class="col-expl">die Fähigkeit, eigene Ziele oder Interessen gegen Widerstand durchzusetzen</td><td class="col-bg">воля за постигане на цели; напористост</td><td class="col-bsp"><span class="bsp-de">In dieser Führungsposition ist ausgeprägtes Durchsetzungsvermögen unerlässlich.</span><span class="bsp-bg">На тази ръководна позиция изразената напористост е незаменима.</span></td></tr>
+          <tr><td class="col-de">das Einfühlungsvermögen<span class="col-gram">(Sg.)</span></td><td class="col-expl">die Fähigkeit, sich in die Lage anderer Menschen zu versetzen; Empathie</td><td class="col-bg">емпатия; способност за съпреживяване</td><td class="col-bsp"><span class="bsp-de">Als Therapeutin braucht sie großes Einfühlungsvermögen und viel Geduld.</span><span class="bsp-bg">Като терапевт тя се нуждае от голяма емпатия и много търпение.</span></td></tr>
+          <tr><td class="col-de">erstellen</td><td class="col-expl">etwas herstellen oder anfertigen (z. B. ein Dokument, einen Plan)</td><td class="col-bg">изготвям; съставям; създавам</td><td class="col-bsp"><span class="bsp-de">Sie hat eine sehr detaillierte Präsentation zu ihren Kompetenzen erstellt.</span><span class="bsp-bg">Тя е изготвила много подробна презентация на компетентностите си.</span></td></tr>
+          <tr><td class="col-de">floskelhaft</td><td class="col-expl">voller leerer, nichtssagender Phrasen; klischeehaft</td><td class="col-bg">клиширан; банален; пълен с клишета</td><td class="col-bsp"><span class="bsp-de">Sein Anschreiben wirkte floskelhaft und unpersönlich – er bekam keine Einladung.</span><span class="bsp-bg">Мотивационното му писмо изглеждаше клиширано и безлично – не получи покана.</span></td></tr>
+          <tr><td class="col-de">fortan</td><td class="col-expl">ab diesem Zeitpunkt; von nun an; in Zukunft (gehoben)</td><td class="col-bg">занапред; отсега нататък; оттук нататък</td><td class="col-bsp"><span class="bsp-de">Nach dem Gespräch entschied er, fortan nur noch per E-Mail zu kommunizieren.</span><span class="bsp-bg">След разговора той реши занапред да общува само по имейл.</span></td></tr>
+          <tr><td class="col-de">die Führungskompetenz<span class="col-gram">(Sg.)</span></td><td class="col-expl">die Fähigkeit, ein Team oder eine Organisation erfolgreich zu leiten</td><td class="col-bg">ръководни умения; лидерска компетентност</td><td class="col-bsp"><span class="bsp-de">Führungskompetenz gehört zu den am meisten gefragten Soft Skills.</span><span class="bsp-bg">Ръководните умения са сред най-търсените меки компетентности.</span></td></tr>
+          <tr><td class="col-de">herausfiltern</td><td class="col-expl">aus einer Menge die wichtigen oder relevanten Dinge herausholen</td><td class="col-bg">отсявам; изфилтрирам; извличам</td><td class="col-bsp"><span class="bsp-de">Aus hunderten Bewerbungen musste sie die geeignetsten Kandidaten herausfiltern.</span><span class="bsp-bg">От стотиците кандидатури тя трябваше да отсее най-подходящите кандидати.</span></td></tr>
+          <tr><td class="col-de">lehrreich</td><td class="col-expl">man lernt dabei viel; aufschlussreich; informativ</td><td class="col-bg">поучителен; полезен за научаване</td><td class="col-bsp"><span class="bsp-de">Das Praktikum war sehr lehrreich und hat ihr viele neue Einblicke gegeben.</span><span class="bsp-bg">Стажът беше много поучителен и й е дал много нови прозрения.</span></td></tr>
+          <tr><td class="col-de">die Priorität<span class="col-gram">-en</span></td><td class="col-expl">was am wichtigsten ist und zuerst erledigt werden muss</td><td class="col-bg">приоритет</td><td class="col-bsp"><span class="bsp-de">Bei der täglichen Zeitplanung muss man klare Prioritäten setzen.</span><span class="bsp-bg">При ежедневното планиране на времето трябва да се поставят ясни приоритети.</span></td></tr>
+          <tr><td class="col-de">die Schlüsselqualifikation<span class="col-gram">-en</span></td><td class="col-expl">grundlegende Fähigkeit, die in vielen Berufen gebraucht wird</td><td class="col-bg">ключова квалификация; основно умение</td><td class="col-bsp"><span class="bsp-de">Teamfähigkeit gilt als eine der wichtigsten Schlüsselqualifikationen im modernen Berufsleben.</span><span class="bsp-bg">Способността за работа в екип се счита за едно от най-важните ключови умения в съвременния трудов живот.</span></td></tr>
+          <tr><td class="col-de">umgehen mit (+ Dat.)<span class="col-gram">geht um, ging um, ist umgegangen</span></td><td class="col-expl">mit etwas oder jemandem auf eine bestimmte Art arbeiten oder interagieren</td><td class="col-bg">работя/общувам с; справям се с</td><td class="col-bsp"><span class="bsp-de">Sie weiß gut, wie man professionell mit Konflikten im Team umgeht.</span><span class="bsp-bg">Тя знае добре как да се работи с конфликти в екипа по професионален начин.</span></td></tr>
+          <tr><td class="col-de">die Zielstrebigkeit<span class="col-gram">(Sg.)</span></td><td class="col-expl">konsequentes, entschlossenes Verfolgen eines Ziels</td><td class="col-bg">целеустременост</td><td class="col-bsp"><span class="bsp-de">Dank ihrer Zielstrebigkeit hat sie alle Hindernisse auf dem Weg nach oben überwunden.</span><span class="bsp-bg">Благодарение на целеустремеността си тя е преодоляла всички препятствия по пътя нагоре.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- WORTVERBINDUNGEN -->
+  <div class="modul-block wv" id="block-wv">
+    <div class="modul-header" onclick="toggleModul('wv')">
+      <span class="modul-title"><span class="modul-badge">M 1–4</span>Wichtige Wortverbindungen</span>
+      <span class="modul-arrow open" id="arr-wv">▾</span>
+    </div>
+    <div class="modul-body show" id="body-wv">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">vieles auf einmal tun<span class="col-gram">tut, tat, hat getan</span></td><td class="col-expl">mehrere Aufgaben gleichzeitig erledigen; Multitasking</td><td class="col-bg">правя много неща едновременно</td><td class="col-bsp"><span class="bsp-de">Wer vieles auf einmal tut, erledigt am Ende oft nichts wirklich gut.</span><span class="bsp-bg">Който прави много неща едновременно, в крайна сметка често не прави нищо добре.</span></td></tr>
+          <tr><td class="col-de">einen Fehler ausbügeln</td><td class="col-expl">einen Fehler korrigieren und in Ordnung bringen (umgangssprachlich)</td><td class="col-bg">поправям / изглаждам грешка (разг.)</td><td class="col-bsp"><span class="bsp-de">Es hat viel Aufwand gekostet, diesen Fehler im Lebenslauf auszubügeln.</span><span class="bsp-bg">Коствало е много усилия да се изглади тази грешка в CV-то.</span></td></tr>
+          <tr><td class="col-de">bei etw. ist Vorsicht geboten</td><td class="col-expl">man muss bei dieser Sache vorsichtig sein; es ist riskant</td><td class="col-bg">при нещо е необходимо внимание</td><td class="col-bsp"><span class="bsp-de">Bei der Angabe von Kompetenzen im Lebenslauf ist Vorsicht geboten – keine Übertreibungen!</span><span class="bsp-bg">При посочването на компетентности в CV-то е необходимо внимание – без преувеличения!</span></td></tr>
+          <tr><td class="col-de">einer Illusion erliegen<span class="col-gram">erliegt, erlag, ist erlegen</span></td><td class="col-expl">sich von einer falschen Vorstellung täuschen lassen</td><td class="col-bg">поддавам се на илюзия; залъгвам се</td><td class="col-bsp"><span class="bsp-de">Viele Menschen erliegen der Illusion, Multitasking zu wirklich beherrschen.</span><span class="bsp-bg">Много хора се поддават на илюзията, че наистина владеят многозадачността.</span></td></tr>
+          <tr><td class="col-de">etw. nicht gewachsen sein</td><td class="col-expl">einer Aufgabe oder Situation nicht gerecht werden können; überfordert sein</td><td class="col-bg">не съм на ниво за нещо; не мога да се справя</td><td class="col-bsp"><span class="bsp-de">Dieser enormen Doppelbelastung ist er schlicht nicht gewachsen.</span><span class="bsp-bg">Той просто не е на ниво за това огромно двойно натоварване.</span></td></tr>
+          <tr><td class="col-de">sich auf dem Laufenden halten<span class="col-gram">hält, hielt, hat gehalten</span></td><td class="col-expl">regelmäßig über aktuelle Entwicklungen informiert bleiben</td><td class="col-bg">поддържам се в течение; следя новостите</td><td class="col-bsp"><span class="bsp-de">Es ist wichtig, sich über neue Entwicklungen am Arbeitsmarkt auf dem Laufenden zu halten.</span><span class="bsp-bg">Важно е да се поддържате в течение с новите развития на пазара на труда.</span></td></tr>
+          <tr><td class="col-de">der Reihe nach</td><td class="col-expl">in einer bestimmten Reihenfolge; eines nach dem anderen</td><td class="col-bg">по ред; едно след друго</td><td class="col-bsp"><span class="bsp-de">Bitte löst die Aufgaben der Reihe nach und überspring keine.</span><span class="bsp-bg">Моля, решавайте задачите по ред и не пропускайте нито една.</span></td></tr>
+          <tr><td class="col-de">Verhandlungen führen mit</td><td class="col-expl">offizielle Gespräche führen, um eine Einigung zu erzielen</td><td class="col-bg">водя преговори с</td><td class="col-bsp"><span class="bsp-de">Die Gewerkschaft führt gerade intensive Verhandlungen mit dem Arbeitgeberverband.</span><span class="bsp-bg">Профсъюзът в момента води интензивни преговори с работодателската организация.</span></td></tr>
+          <tr><td class="col-de">neuen Wind in etw. bringen<span class="col-gram">bringt, brachte, hat gebracht</span></td><td class="col-expl">neue Ideen und Energie in etwas einbringen; für Veränderung sorgen</td><td class="col-bg">внасям свеж вятър; давам нов тласък</td><td class="col-bsp"><span class="bsp-de">Die junge Managerin brachte neuen Wind in das alteingesessene Unternehmen.</span><span class="bsp-bg">Младата мениджърка внесе свеж вятър в утвърденото предприятие.</span></td></tr>
+          <tr><td class="col-de">sich einen Überblick verschaffen über</td><td class="col-expl">sich über ein Thema informieren, um das Gesamtbild zu verstehen</td><td class="col-bg">добивам представа за; разглеждам обхватно</td><td class="col-bsp"><span class="bsp-de">Zuerst müssen wir uns einen Überblick über die aktuelle Situation verschaffen.</span><span class="bsp-bg">Първо трябва да добием обща представа за текущата ситуация.</span></td></tr>
+          <tr><td class="col-de">Zeit verplempern</td><td class="col-expl">Zeit sinnlos und ohne Nutzen verschwenden (umgangssprachlich)</td><td class="col-bg">пилея / прахосвам времето (разг.)</td><td class="col-bsp"><span class="bsp-de">Er verplemperte den ganzen Nachmittag mit unwichtigen E-Mails.</span><span class="bsp-bg">Той е прахосал целия следобед с маловажни имейли.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+<script>
+function toggleModul(id) {
+  const body = document.getElementById('body-' + id);
+  const arr  = document.getElementById('arr-'  + id);
+  const open = body.classList.toggle('show');
+  arr.classList.toggle('open', open);
+}
+function filterWords(q) {
+  q = q.trim().toLowerCase();
+  document.querySelectorAll('.vocab-table tbody tr').forEach(row => {
+    const text = row.textContent.toLowerCase();
+    row.classList.toggle('hidden-row', q.length > 0 && !text.includes(q));
+  });
+  if (q.length > 0) {
+    ['m1','m2','m3','m4','wv'].forEach(id => {
+      document.getElementById('body-' + id).classList.add('show');
+      document.getElementById('arr-'  + id).classList.add('open');
+    });
+  }
+}
+</script>
+</body>
+</html>
