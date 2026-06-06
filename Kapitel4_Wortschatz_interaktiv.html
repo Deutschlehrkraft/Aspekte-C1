@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wortschatz – Kapitel 4 | Wirtschaft, Globalisierung, Unternehmertum</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f3; color: #222; font-size: 17px; line-height: 1.6; }
+.page-header {
+  background: linear-gradient(135deg, #00695c, #00897b);
+  color: #fff; padding: 16px 28px;
+  display: flex; justify-content: space-between; align-items: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,.2); flex-wrap: wrap; gap: 8px;
+}
+.page-header h1 { font-size: 1.5em; font-weight: 700; }
+.page-header p  { font-size: .88em; opacity: .85; margin-top: 3px; }
+.badge { background: rgba(255,255,255,.22); border-radius: 16px; padding: 4px 14px; font-size: .85em; font-weight: bold; }
+.container { max-width: 1100px; margin: 0 auto; padding: 22px 16px 50px; }
+.modul-block { margin-bottom: 22px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+.modul-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 20px; cursor: pointer; user-select: none;
+  background: #2e7d6e; color: #fff; gap: 10px; transition: background .15s;
+}
+.modul-header:hover { background: #245f53; }
+.modul-title { font-weight: 700; font-size: 1.02em; display: flex; align-items: center; gap: 10px; }
+.modul-badge { background: rgba(255,255,255,.25); border-radius: 12px; padding: 2px 11px; font-size: .82em; font-weight: 700; }
+.modul-arrow { font-size: 1.1em; transition: transform .25s; }
+.modul-arrow.open { transform: rotate(180deg); }
+.modul-body { display: none; background: #fff; }
+.modul-body.show { display: block; }
+.modul-block.wv .modul-header { background: #455a64; }
+.modul-block.wv .modul-header:hover { background: #37474f; }
+.vocab-table { width: 100%; border-collapse: collapse; font-size: .91em; }
+.vocab-table thead tr { background: #e8f4f1; }
+.vocab-table th { padding: 9px 12px; text-align: left; font-weight: 700; color: #1a5247; border-bottom: 2px solid #b2dfdb; font-size: .88em; }
+.vocab-table td { padding: 8px 12px; vertical-align: top; border-bottom: 1px solid #e0f0ed; }
+.vocab-table tr:nth-child(odd)  td { background: #fafefe; }
+.vocab-table tr:nth-child(even) td { background: #f0fafa; }
+.vocab-table tr:last-child td { border-bottom: none; }
+.col-de   { width: 20%; font-weight: 700; color: #004d40; }
+.col-gram { font-size: .80em; font-weight: 400; color: #777; display: block; margin-top: 2px; }
+.col-expl { width: 25%; color: #444; }
+.col-bg   { width: 20%; color: #1a237e; }
+.col-bsp  { width: 35%; }
+.bsp-de   { display: block; font-style: italic; color: #1b3c2a; font-size: .87em; line-height: 1.5; }
+.bsp-bg   { display: block; color: #6d3a00; font-size: .82em; margin-top: 3px; }
+.modul-block.wv .vocab-table .col-de { color: #1a237e; font-style: italic; font-weight: 600; }
+.search-bar {
+  display: flex; align-items: center; gap: 10px;
+  background: #fff; border-radius: 30px; border: 2px solid #b2dfdb;
+  padding: 7px 16px; margin-bottom: 20px; box-shadow: 0 1px 6px rgba(0,0,0,.07);
+}
+.search-bar input { border: none; outline: none; font-size: 16px; font-family: inherit; flex: 1; background: transparent; }
+.search-bar span { color: #2e7d6e; font-size: 1.2em; }
+.hidden-row { display: none !important; }
+.legend {
+  background: #fff; border-radius: 10px; padding: 12px 18px; margin-bottom: 18px;
+  font-size: .88em; color: #555; box-shadow: 0 1px 6px rgba(0,0,0,.07);
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+}
+.legend strong { color: #2e7d6e; }
+@media (max-width: 680px) {
+  .col-expl { display: none; }
+  .vocab-table th:nth-child(2) { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="page-header">
+  <div><h1>Wortschatz – Kapitel 4</h1>
+  <p>Wirtschaft &amp; Globalisierung &nbsp;|&nbsp; Aspekte neu C1 &nbsp;|&nbsp; AB S. 60–61</p></div>
+  <span class="badge">Modul 1–4 + Wortverbindungen</span>
+</div>
+<div class="container">
+  <div class="search-bar"><span>🔍</span><input type="text" id="searchInput" placeholder="Wort suchen …" oninput="filterWords(this.value)"></div>
+  <div class="legend"><strong>Legende:</strong><span><b>Deutsch</b> · <b>Erklärung</b> · <b>Български</b> · <b>Beispielsatz</b> (kursiv) mit Übersetzung</span><span>Modulkopf klicken zum Auf-/Zuklappen &nbsp;|&nbsp; Suchfeld filtert alle Einträge</span></div>
+
+  <!-- MODUL 1 -->
+  <div class="modul-block" id="block-m1">
+    <div class="modul-header" onclick="toggleModul('m1')"><span class="modul-title"><span class="modul-badge">Modul 1</span>Vom Kohlenpott …</span><span class="modul-arrow open" id="arr-m1">▾</span></div>
+    <div class="modul-body show" id="body-m1">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">der Abschwung<span class="col-gram">-̈e</span></td><td class="col-expl">eine Phase wirtschaftlichen Rückgangs; sinkende Konjunktur</td><td class="col-bg">икономически спад; рецесия; упадък</td><td class="col-bsp"><span class="bsp-de">Nach dem wirtschaftlichen Abschwung wurden viele Stellen gestrichen.</span><span class="bsp-bg">След икономическия спад бяха съкратени много работни места.</span></td></tr>
+          <tr><td class="col-de">der Aufschwung<span class="col-gram">-̈e</span></td><td class="col-expl">eine Phase wirtschaftlichen Wachstums und allgemeiner Verbesserung</td><td class="col-bg">икономически подем; разцвет; бум</td><td class="col-bsp"><span class="bsp-de">Der Aufschwung der Region begann mit der Ansiedlung neuer Industrien.</span><span class="bsp-bg">Подемът на региона започна с установяването на нови индустрии.</span></td></tr>
+          <tr><td class="col-de">die Ausdehnung<span class="col-gram">-en</span></td><td class="col-expl">die Vergrößerung oder Erweiterung von etwas in Fläche, Macht oder Einfluss</td><td class="col-bg">разширяване; разпростиране; разширение</td><td class="col-bsp"><span class="bsp-de">Die Ausdehnung des Stadtgebiets hat die Infrastruktur stark belastet.</span><span class="bsp-bg">Разширяването на градската територия е натоварило силно инфраструктурата.</span></td></tr>
+          <tr><td class="col-de">das Ballungsgebiet<span class="col-gram">-e</span></td><td class="col-expl">Gebiet mit sehr hoher Bevölkerungs- und Industriedichte; Agglomeration</td><td class="col-bg">агломерация; гъсто населен / индустриален район</td><td class="col-bsp"><span class="bsp-de">Im Ruhrgebiet liegt eines der größten Ballungsgebiete Europas.</span><span class="bsp-bg">В Рурската зона се намира една от най-големите агломерации в Европа.</span></td></tr>
+          <tr><td class="col-de">der Dienstleistungssektor<span class="col-gram">-en</span></td><td class="col-expl">der Teil der Wirtschaft, der Dienstleistungen erbringt</td><td class="col-bg">сектор на услугите; третичен сектор</td><td class="col-bsp"><span class="bsp-de">Der Dienstleistungssektor hat die Industrie als wichtigsten Wirtschaftszweig abgelöst.</span><span class="bsp-bg">Секторът на услугите е изместил индустрията като най-важен стопански бранш.</span></td></tr>
+          <tr><td class="col-de">die Einwohnerzahl<span class="col-gram">-en</span></td><td class="col-expl">die Anzahl der Menschen, die dauerhaft in einem Gebiet leben</td><td class="col-bg">брой жители; население</td><td class="col-bsp"><span class="bsp-de">Die Einwohnerzahl der Stadt ist in den letzten Jahren deutlich gesunken.</span><span class="bsp-bg">Броят на жителите на града е намалял значително през последните години.</span></td></tr>
+          <tr><td class="col-de">die Legende<span class="col-gram">-n</span></td><td class="col-expl">Erklärung der Symbole auf einer Karte; auch: eine bekannte Geschichte</td><td class="col-bg">легенда (на карта); обяснение на символи</td><td class="col-bsp"><span class="bsp-de">Die Legende der Karte erklärt alle verwendeten Symbole und Farben.</span><span class="bsp-bg">Легендата на картата обяснява всички използвани символи и цветове.</span></td></tr>
+          <tr><td class="col-de">die Quelle<span class="col-gram">-n</span></td><td class="col-expl">Ursprungsort von Wasser; übertragen: Herkunft von Informationen</td><td class="col-bg">извор; (преносно) източник</td><td class="col-bsp"><span class="bsp-de">Als Quelle gab er eine veraltete Studie aus den 1990er-Jahren an.</span><span class="bsp-bg">Като източник той посочи остаряло изследване от 90-те години.</span></td></tr>
+          <tr><td class="col-de">der Standort<span class="col-gram">-e</span></td><td class="col-expl">der Ort, an dem ein Unternehmen oder eine Institution sich befindet</td><td class="col-bg">местоположение; седалище; обект</td><td class="col-bsp"><span class="bsp-de">Der Standort des Unternehmens wurde nach Osteuropa verlagert.</span><span class="bsp-bg">Обектът на предприятието беше преместен в Източна Европа.</span></td></tr>
+          <tr><td class="col-de">der Strukturwandel<span class="col-gram">- (Sg.)</span></td><td class="col-expl">grundlegende Veränderung der wirtschaftlichen oder gesellschaftlichen Struktur</td><td class="col-bg">структурна промяна; структурна трансформация</td><td class="col-bsp"><span class="bsp-de">Der Strukturwandel im Ruhrgebiet war ein langer und schmerzhafter Prozess.</span><span class="bsp-bg">Структурната промяна в Рурската зона беше дълъг и болезнен процес.</span></td></tr>
+          <tr><td class="col-de">der Umschwung<span class="col-gram">-̈e</span></td><td class="col-expl">ein plötzlicher oder bedeutender Wandel in eine andere Richtung; Wende</td><td class="col-bg">обрат; промяна на посоката; преломен момент</td><td class="col-bsp"><span class="bsp-de">Der politische Umschwung kam für viele Beobachter völlig überraschend.</span><span class="bsp-bg">Политическият обрат дойде напълно изненадващо за много наблюдатели.</span></td></tr>
+          <tr><td class="col-de">die Verkehrsanbindung<span class="col-gram">-en</span></td><td class="col-expl">die Verbindung eines Ortes an das Verkehrsnetz (Autobahn, Bahn usw.)</td><td class="col-bg">транспортна връзка; транспортна инфраструктура</td><td class="col-bsp"><span class="bsp-de">Die gute Verkehrsanbindung macht diesen Standort besonders attraktiv für Investoren.</span><span class="bsp-bg">Добрата транспортна връзка прави това местоположение особено привлекателно за инвеститори.</span></td></tr>
+          <tr><td class="col-de">der Wandel<span class="col-gram">- (Sg.)</span></td><td class="col-expl">eine langsame, allmähliche Veränderung; ein Transformationsprozess</td><td class="col-bg">промяна; преход; трансформация</td><td class="col-bsp"><span class="bsp-de">Der gesellschaftliche Wandel vollzieht sich langsam, aber stetig.</span><span class="bsp-bg">Обществената промяна се осъществява бавно, но стабилно.</span></td></tr>
+          <tr><td class="col-de">das Wirtschaftswunder<span class="col-gram">- (Pl. gleich)</span></td><td class="col-expl">außergewöhnlich schnelles wirtschaftliches Wachstum nach einer Krisenzeit</td><td class="col-bg">икономическо чудо</td><td class="col-bsp"><span class="bsp-de">Das deutsche Wirtschaftswunder nach dem Zweiten Weltkrieg gilt als einzigartig in der Geschichte.</span><span class="bsp-bg">Германското икономическо чудо след Втората световна война се смята за уникално в историята.</span></td></tr>
+          <tr><td class="col-de">der Wirtschaftszweig<span class="col-gram">-e</span></td><td class="col-expl">ein Bereich oder eine Branche der Wirtschaft (z. B. Tourismus, Bergbau)</td><td class="col-bg">отрасъл на икономиката; стопански бранш</td><td class="col-bsp"><span class="bsp-de">Der Tourismus ist der wichtigste Wirtschaftszweig in dieser Region.</span><span class="bsp-bg">Туризмът е най-важният стопански бранш в тази região.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODUL 2 -->
+  <div class="modul-block" id="block-m2">
+    <div class="modul-header" onclick="toggleModul('m2')"><span class="modul-title"><span class="modul-badge">Modul 2</span>Mit gutem Gewissen?</span><span class="modul-arrow open" id="arr-m2">▾</span></div>
+    <div class="modul-body show" id="body-m2">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">der Ballast<span class="col-gram">(Sg.)</span></td><td class="col-expl">unnötige Last oder Bürde; etwas, das hemmt und belastet</td><td class="col-bg">баласт; тежест; бреме (преносно)</td><td class="col-bsp"><span class="bsp-de">Alte Vorurteile sind ein Ballast, den man auf dem Weg nach vorne ablegen sollte.</span><span class="bsp-bg">Старите предразсъдъци са баласт, от който трябва да се освободим по пътя напред.</span></td></tr>
+          <tr><td class="col-de">bedenklich</td><td class="col-expl">besorgniserregend; moralisch oder rechtlich zweifelhaft</td><td class="col-bg">тревожен; съмнителен; притеснителен</td><td class="col-bsp"><span class="bsp-de">Die Qualität der importierten Produkte ist bedenklich gesunken.</span><span class="bsp-bg">Качеството на вносните продукти се е понижило до тревожна степен.</span></td></tr>
+          <tr><td class="col-de">sich entpuppen als</td><td class="col-expl">sich als etwas Bestimmtes herausstellen – oft unerwartet</td><td class="col-bg">оказвам се; разкривам се като</td><td class="col-bsp"><span class="bsp-de">Das vermeintliche Schnäppchen entpuppte sich als teurer Fehlkauf.</span><span class="bsp-bg">Привидната изгодна сделка се оказа скъпа грешна покупка.</span></td></tr>
+          <tr><td class="col-de">die Fälligkeit<span class="col-gram">-en</span></td><td class="col-expl">der Zeitpunkt, an dem eine Zahlung rechtlich erfüllt werden muss</td><td class="col-bg">падеж; срок за плащане; изискуемост</td><td class="col-bsp"><span class="bsp-de">Bei Fälligkeit des Kredits waren keine ausreichenden Mittel vorhanden.</span><span class="bsp-bg">При падежа на кредита не бяха налице достатъчно средства.</span></td></tr>
+          <tr><td class="col-de">die Fehlkalkulation<span class="col-gram">-en</span></td><td class="col-expl">eine fehlerhafte Berechnung oder Planung, die zu Verlusten führt</td><td class="col-bg">погрешна пресметка; грешна калкулация</td><td class="col-bsp"><span class="bsp-de">Eine Fehlkalkulation der Baukosten hat das gesamte Projekt gefährdet.</span><span class="bsp-bg">Грешна калкулация на строителните разходи е застрашила целия проект.</span></td></tr>
+          <tr><td class="col-de">insgeheim</td><td class="col-expl">im Inneren, ohne es anderen zu zeigen; heimlich; verborgen</td><td class="col-bg">тайно; скрито; на ум си</td><td class="col-bsp"><span class="bsp-de">Insgeheim hoffte er, dass der Konkurrent scheitern würde.</span><span class="bsp-bg">На ум си той се надяваше, че конкурентът ще се провали.</span></td></tr>
+          <tr><td class="col-de">die Insolvenz<span class="col-gram">-en</span></td><td class="col-expl">die Zahlungsunfähigkeit; ein Unternehmen kann Schulden nicht bezahlen</td><td class="col-bg">несъстоятелност; фалит; неплатежоспособност</td><td class="col-bsp"><span class="bsp-de">Das Unternehmen musste nach jahrelangen Verlusten Insolvenz anmelden.</span><span class="bsp-bg">Предприятието трябваше да обяви несъстоятелност след години загуби.</span></td></tr>
+          <tr><td class="col-de">moralisch</td><td class="col-expl">ethischen Grundsätzen und dem Gewissen entsprechend; sittlich</td><td class="col-bg">морален; нравствен; етичен</td><td class="col-bsp"><span class="bsp-de">Moralisch gesehen ist dieses Geschäftsverhalten nicht vertretbar.</span><span class="bsp-bg">От морална гледна точка това бизнес поведение не може да бъде защитено.</span></td></tr>
+          <tr><td class="col-de">der Sachverhalt<span class="col-gram">-e</span></td><td class="col-expl">eine genau beschriebene Situation; die Gesamtheit der relevanten Fakten</td><td class="col-bg">фактическо положение; обстоятелства; факти</td><td class="col-bsp"><span class="bsp-de">Vor Gericht muss der Sachverhalt klar und vollständig dargelegt werden.</span><span class="bsp-bg">Пред съда фактическото положение трябва да бъде ясно и пълно представено.</span></td></tr>
+          <tr><td class="col-de">überführen</td><td class="col-expl">jemanden einer Straftat nachweisen; beweisen, dass jemand schuldig ist</td><td class="col-bg">изобличавам; доказвам вина</td><td class="col-bsp"><span class="bsp-de">Der Angeklagte wurde mithilfe von DNA-Spuren eindeutig überführt.</span><span class="bsp-bg">Обвиняемият беше недвусмислено изобличен с помощта на ДНК следи.</span></td></tr>
+          <tr><td class="col-de">die Verjährung<span class="col-gram">(Sg.)</span></td><td class="col-expl">Ablauf einer Frist, nach der eine Straftat nicht mehr verfolgt werden kann</td><td class="col-bg">давност; изтичане на давностния срок</td><td class="col-bsp"><span class="bsp-de">Nach Ablauf der Verjährungsfrist kann die Tat strafrechtlich nicht mehr verfolgt werden.</span><span class="bsp-bg">След изтичане на давностния срок деянието не може да се преследва наказателно.</span></td></tr>
+          <tr><td class="col-de">die Verpflichtung<span class="col-gram">-en</span></td><td class="col-expl">eine Pflicht oder Verbindlichkeit gegenüber anderen; Pflicht zu handeln</td><td class="col-bg">задължение; ангажимент; обвързаност</td><td class="col-bsp"><span class="bsp-de">Er ist seiner vertraglichen Verpflichtung nicht rechtzeitig nachgekommen.</span><span class="bsp-bg">Той не е изпълнил навреме договорното си задължение.</span></td></tr>
+          <tr><td class="col-de">die Zahlungsunfähigkeit<span class="col-gram">(Sg.)</span></td><td class="col-expl">der Zustand, wenn jemand fällige Schulden dauerhaft nicht bezahlen kann</td><td class="col-bg">неплатежоспособност; несъстоятелност</td><td class="col-bsp"><span class="bsp-de">Die Zahlungsunfähigkeit des Unternehmens wurde vom Gericht offiziell festgestellt.</span><span class="bsp-bg">Неплатежоспособността на предприятието беше официално установена от съда.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODUL 3 -->
+  <div class="modul-block" id="block-m3">
+    <div class="modul-header" onclick="toggleModul('m3')"><span class="modul-title"><span class="modul-badge">Modul 3</span>Die Welt ist ein Dorf</span><span class="modul-arrow open" id="arr-m3">▾</span></div>
+    <div class="modul-body show" id="body-m3">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">angewiesen sein auf<span class="col-gram">auf + Akk.</span></td><td class="col-expl">abhängig sein von etwas oder jemandem; ohne dieses nicht auskommen</td><td class="col-bg">завися от; нуждая се от; разчитам на</td><td class="col-bsp"><span class="bsp-de">Viele Entwicklungsländer sind nach wie vor auf ausländische Investitionen angewiesen.</span><span class="bsp-bg">Много развиващи се страни все още зависят от чуждестранни инвестиции.</span></td></tr>
+          <tr><td class="col-de">sich ansiedeln</td><td class="col-expl">sich dauerhaft niederlassen; (Unternehmen) sich an einem Standort etablieren</td><td class="col-bg">установявам се; заселвам се; разполагам се</td><td class="col-bsp"><span class="bsp-de">Mehrere internationale Konzerne haben sich in der Region angesiedelt.</span><span class="bsp-bg">Няколко международни концерна са се установили в региона.</span></td></tr>
+          <tr><td class="col-de">die Globalisierung<span class="col-gram">(Sg.)</span></td><td class="col-expl">der Prozess der weltweiten Vernetzung von Wirtschaft, Kultur und Politik</td><td class="col-bg">глобализация; световна интеграция</td><td class="col-bsp"><span class="bsp-de">Die Globalisierung hat sowohl Chancen als auch Risiken für lokale Unternehmen gebracht.</span><span class="bsp-bg">Глобализацията е донесла и шансове, и рискове за местните предприятия.</span></td></tr>
+          <tr><td class="col-de">die Güter<span class="col-gram">(nur Pl.)</span></td><td class="col-expl">Waren und Produkte, die produziert, gehandelt oder konsumiert werden</td><td class="col-bg">стоки; блага; продукти</td><td class="col-bsp"><span class="bsp-de">Güter werden heute in kürzester Zeit rund um den Globus transportiert.</span><span class="bsp-bg">Стоки се транспортират днес из целия свят в най-кратки срокове.</span></td></tr>
+          <tr><td class="col-de">die Liberalisierung<span class="col-gram">(Sg.)</span></td><td class="col-expl">Lockerung staatlicher Einschränkungen; freiere Märkte und Handelsregeln</td><td class="col-bg">либерализация; освобождаване на пазара</td><td class="col-bsp"><span class="bsp-de">Die Liberalisierung des Handels hat zu mehr Wettbewerb und niedrigeren Preisen geführt.</span><span class="bsp-bg">Либерализацията на търговията е довела до по-голяма конкуренция и по-ниски цени.</span></td></tr>
+          <tr><td class="col-de">die Lohnkosten<span class="col-gram">(nur Pl.)</span></td><td class="col-expl">die gesamten Kosten für die Bezahlung der Arbeitnehmer</td><td class="col-bg">разходи за труд; трудови разходи</td><td class="col-bsp"><span class="bsp-de">Die niedrigen Lohnkosten in Osteuropa locken viele westliche Unternehmen an.</span><span class="bsp-bg">Ниските разходи за труд в Източна Европа привличат много западни предприятия.</span></td></tr>
+          <tr><td class="col-de">der Preisdruck<span class="col-gram">(Sg.)</span></td><td class="col-expl">der Zwang, Preise durch Konkurrenz oder Marktbedingungen zu senken</td><td class="col-bg">ценови натиск; натиск за намаляване на цените</td><td class="col-bsp"><span class="bsp-de">Der zunehmende Preisdruck zwingt viele Unternehmen zur Rationalisierung.</span><span class="bsp-bg">Нарастващият ценови натиск принуждава много предприятия към рационализация.</span></td></tr>
+          <tr><td class="col-de">die Produktionsstätte<span class="col-gram">-n</span></td><td class="col-expl">ein Ort oder eine Anlage, an dem Waren hergestellt werden; Fabrik</td><td class="col-bg">производствен обект; завод; фабрика</td><td class="col-bsp"><span class="bsp-de">Die neue Produktionsstätte soll langfristig 500 Arbeitsplätze schaffen.</span><span class="bsp-bg">Новият производствен обект трябва дългосрочно да създаде 500 работни места.</span></td></tr>
+          <tr><td class="col-de">die Rationalisierungsmaßnahme<span class="col-gram">-n</span></td><td class="col-expl">Maßnahme zur Effizienzsteigerung, oft durch Automatisierung oder Personalabbau</td><td class="col-bg">мярка за рационализация; оптимизация</td><td class="col-bsp"><span class="bsp-de">Die Rationalisierungsmaßnahmen führten zum Abbau von über 200 Stellen.</span><span class="bsp-bg">Мерките за рационализация доведоха до съкращаване на над 200 работни места.</span></td></tr>
+          <tr><td class="col-de">der Rohstoff<span class="col-gram">-e</span></td><td class="col-expl">natürliche Materialien als Grundlage für die industrielle Produktion</td><td class="col-bg">суровина; природен ресурс</td><td class="col-bsp"><span class="bsp-de">Seltene Rohstoffe sind für die Elektronikindustrie absolut unverzichtbar.</span><span class="bsp-bg">Редките суровини са абсолютно незаменими за електронната промишленост.</span></td></tr>
+          <tr><td class="col-de">die Schattenseite<span class="col-gram">-n</span></td><td class="col-expl">der negative Aspekt oder Nachteil einer Sache; die weniger erfreuliche Seite</td><td class="col-bg">тъмна страна; недостатък; минус</td><td class="col-bsp"><span class="bsp-de">Die Schattenseite der Globalisierung ist die wachsende soziale Ungleichheit.</span><span class="bsp-bg">Тъмната страна на глобализацията е нарастващото социално неравенство.</span></td></tr>
+          <tr><td class="col-de">der Steuervorteil<span class="col-gram">-e</span></td><td class="col-expl">ein finanzieller Vorteil durch niedrigere Steuern oder Steuerbefreiungen</td><td class="col-bg">данъчно предимство; данъчна облага</td><td class="col-bsp"><span class="bsp-de">Das Unternehmen verlagerte seinen Sitz wegen der Steuervorteile ins Ausland.</span><span class="bsp-bg">Предприятието премести седалището си в чужбина заради данъчните предимства.</span></td></tr>
+          <tr><td class="col-de">die Transparenz<span class="col-gram">(Sg.)</span></td><td class="col-expl">Offenheit, Nachvollziehbarkeit und Klarheit von Prozessen und Entscheidungen</td><td class="col-bg">прозрачност; откритост; яснота</td><td class="col-bsp"><span class="bsp-de">Mehr Transparenz bei Unternehmensentscheidungen wäre dringend wünschenswert.</span><span class="bsp-bg">По-голяма прозрачност при фирмените решения би била спешно желателна.</span></td></tr>
+          <tr><td class="col-de">die Verlegung<span class="col-gram">-en</span></td><td class="col-expl">das Verschieben eines Unternehmens oder einer Produktion an einen anderen Ort</td><td class="col-bg">преместване; прехвърляне (на производство)</td><td class="col-bsp"><span class="bsp-de">Die Verlegung der Produktion nach Asien hat Tausende Stellen gekostet.</span><span class="bsp-bg">Преместването на производството в Азия е коствало хиляди работни места.</span></td></tr>
+          <tr><td class="col-de">der Welthandel<span class="col-gram">(Sg.)</span></td><td class="col-expl">der internationale Handel zwischen Ländern weltweit</td><td class="col-bg">световна търговия; международна търговия</td><td class="col-bsp"><span class="bsp-de">Der Welthandel ist nach der Pandemie nur langsam wieder gewachsen.</span><span class="bsp-bg">Световната търговия е нараснала само бавно след пандемията.</span></td></tr>
+          <tr><td class="col-de">der Wettbewerbsdruck<span class="col-gram">(Sg.)</span></td><td class="col-expl">der Druck durch Konkurrenz, effizienter oder billiger als Mitbewerber zu sein</td><td class="col-bg">конкурентен натиск; натиск на пазара</td><td class="col-bsp"><span class="bsp-de">Der globale Wettbewerbsdruck zwingt Firmen zu ständiger Innovation.</span><span class="bsp-bg">Глобалният конкурентен натиск принуждава фирмите към постоянни иновации.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODUL 4 -->
+  <div class="modul-block" id="block-m4">
+    <div class="modul-header" onclick="toggleModul('m4')"><span class="modul-title"><span class="modul-badge">Modul 4</span>Wer soll das bezahlen?</span><span class="modul-arrow open" id="arr-m4">▾</span></div>
+    <div class="modul-body show" id="body-m4">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">das Alleinstellungsmerkmal<span class="col-gram">-e</span></td><td class="col-expl">einzigartige Eigenschaft eines Produkts/Unternehmens, die es von Konkurrenten unterscheidet (USP)</td><td class="col-bg">уникална отличителна черта; USP</td><td class="col-bsp"><span class="bsp-de">Das einzigartige Design ist das entscheidende Alleinstellungsmerkmal des Produkts.</span><span class="bsp-bg">Уникалният дизайн е решаващата отличителна черта на продукта.</span></td></tr>
+          <tr><td class="col-de">das Finanzierungsinstitut<span class="col-gram">-e</span></td><td class="col-expl">eine Institution, die Finanzierungen oder Kredite gewährt (z. B. Bank)</td><td class="col-bg">финансираща институция; кредитна институция</td><td class="col-bsp"><span class="bsp-de">Die staatliche Förderbank agiert als Finanzierungsinstitut für kleine Unternehmen.</span><span class="bsp-bg">Държавната банка за развитие действа като финансираща институция за малки предприятия.</span></td></tr>
+          <tr><td class="col-de">die Firmengründung<span class="col-gram">-en</span></td><td class="col-expl">der Prozess, ein neues Unternehmen rechtlich und organisatorisch zu gründen</td><td class="col-bg">основаване на фирма; стартиране на бизнес</td><td class="col-bsp"><span class="bsp-de">Eine Firmengründung erfordert sorgfältige Vorbereitung und ausreichend Startkapital.</span><span class="bsp-bg">Основаването на фирма изисква внимателна подготовка и достатъчен стартов капитал.</span></td></tr>
+          <tr><td class="col-de">die Fremdfinanzierung<span class="col-gram">-en</span></td><td class="col-expl">Finanzierung durch externe Mittel (Kredite, Investoren) – nicht durch Eigenkapital</td><td class="col-bg">външно финансиране; заемен капитал</td><td class="col-bsp"><span class="bsp-de">Für das Expansionsprojekt war eine Fremdfinanzierung unbedingt notwendig.</span><span class="bsp-bg">За проекта за разширяване беше абсолютно необходимо външно финансиране.</span></td></tr>
+          <tr><td class="col-de">das Fremdkapital<span class="col-gram">(Sg.)</span></td><td class="col-expl">von externen Quellen geliehenes Kapital, das zurückgezahlt werden muss</td><td class="col-bg">чужд капитал; привлечен капитал; дълг</td><td class="col-bsp"><span class="bsp-de">Das junge Unternehmen ist stark von Fremdkapital abhängig und muss hohe Zinsen zahlen.</span><span class="bsp-bg">Младото предприятие е силно зависимо от чужд капитал и трябва да плаща висока лихва.</span></td></tr>
+          <tr><td class="col-de">die Geschäftsidee<span class="col-gram">-n</span></td><td class="col-expl">ein Konzept oder eine Idee für ein neues Produkt, eine Dienstleistung oder ein Unternehmen</td><td class="col-bg">бизнес идея; предприемачески замисъл</td><td class="col-bsp"><span class="bsp-de">Seine Geschäftsidee war innovativ, aber noch nicht marktreif.</span><span class="bsp-bg">Бизнес идеята му беше иновативна, но все още не бе готова за пазара.</span></td></tr>
+          <tr><td class="col-de">die Gewinnbeteiligung<span class="col-gram">-en</span></td><td class="col-expl">die anteilige Teilhabe an den Gewinnen eines Unternehmens</td><td class="col-bg">участие в печалбата; дял от печалбата</td><td class="col-bsp"><span class="bsp-de">Die Mitarbeiter erhalten am Jahresende eine leistungsabhängige Gewinnbeteiligung.</span><span class="bsp-bg">Служителите получават в края на годината участие в печалбата в зависимост от представянето.</span></td></tr>
+          <tr><td class="col-de">der Kapitalgeber<span class="col-gram">- (Pl. gleich)</span></td><td class="col-expl">jemand, der Kapital für ein Unternehmen bereitstellt; Investor</td><td class="col-bg">инвеститор; капиталовложител; финансиращ</td><td class="col-bsp"><span class="bsp-de">Ohne einen verlässlichen Kapitalgeber ist das Vorhaben nicht realisierbar.</span><span class="bsp-bg">Без надежден инвеститор начинанието не може да бъде реализирано.</span></td></tr>
+          <tr><td class="col-de">die Marktsituation<span class="col-gram">-en</span></td><td class="col-expl">die aktuelle Lage und Bedingungen auf einem bestimmten Markt</td><td class="col-bg">пазарна ситуация; пазарна конюнктура</td><td class="col-bsp"><span class="bsp-de">Die aktuelle Marktsituation ist für Neugründungen leider wenig günstig.</span><span class="bsp-bg">Текущата пазарна ситуация за съжаление е малко благоприятна за нови стартиращи фирми.</span></td></tr>
+          <tr><td class="col-de">die Mindestkapitalmenge<span class="col-gram">-n</span></td><td class="col-expl">das gesetzlich vorgeschriebene Mindestkapital bei einer Unternehmensgründung</td><td class="col-bg">минимален капитал; изискуем минимален капитал</td><td class="col-bsp"><span class="bsp-de">Für eine GmbH ist eine Mindestkapitalmenge von 25.000 Euro gesetzlich vorgeschrieben.</span><span class="bsp-bg">За дружество с ограничена отговорност минималният капитал от 25 000 евро е законово предписан.</span></td></tr>
+          <tr><td class="col-de">vorfinanzieren</td><td class="col-expl">Kosten im Voraus finanzieren, bevor die eigentlichen Einnahmen fließen</td><td class="col-bg">предварително финансирам; авансирам</td><td class="col-bsp"><span class="bsp-de">Das Projekt muss vorfinanziert werden, bis die Fördermittel bewilligt sind.</span><span class="bsp-bg">Проектът трябва да бъде предварително финансиран, докато се одобрят субсидиите.</span></td></tr>
+          <tr><td class="col-de">zweckgebunden</td><td class="col-expl">nur für einen bestimmten Zweck bestimmt und verwendbar; nicht frei einsetzbar</td><td class="col-bg">целево; с определено предназначение</td><td class="col-bsp"><span class="bsp-de">Die Fördermittel sind zweckgebunden und dürfen ausschließlich für Bildungszwecke verwendet werden.</span><span class="bsp-bg">Субсидиите са целеви и могат да се използват единствено за образователни цели.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- WORTVERBINDUNGEN -->
+  <div class="modul-block wv" id="block-wv">
+    <div class="modul-header" onclick="toggleModul('wv')"><span class="modul-title"><span class="modul-badge">M 1–4</span>Wichtige Wortverbindungen</span><span class="modul-arrow open" id="arr-wv">▾</span></div>
+    <div class="modul-body show" id="body-wv">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">seine Ansprüche durchsetzen</td><td class="col-expl">eigene Forderungen oder Rechte erfolgreich geltend machen</td><td class="col-bg">налагам претенциите си; отстоявам правата си</td><td class="col-bsp"><span class="bsp-de">In den Verhandlungen konnte sie ihre Ansprüche vollständig durchsetzen.</span><span class="bsp-bg">В преговорите тя успя напълно да наложи претенциите си.</span></td></tr>
+          <tr><td class="col-de">die Ballung von Zufällen</td><td class="col-expl">das unwahrscheinliche Zusammentreffen vieler zufälliger Ereignisse</td><td class="col-bg">натрупване на случайности; стечение на обстоятелствата</td><td class="col-bsp"><span class="bsp-de">Sein Erfolg war keine Leistung, sondern eine erstaunliche Ballung von Zufällen.</span><span class="bsp-bg">Успехът му не беше постижение, а удивително натрупване на случайности.</span></td></tr>
+          <tr><td class="col-de">den Blick verstellen</td><td class="col-expl">die klare Sicht auf etwas versperren; jemanden an richtiger Einschätzung hindern</td><td class="col-bg">пречи на ясната преценка; замъглявам погледа</td><td class="col-bsp"><span class="bsp-de">Kurzfristiger Gewinn verstellt manchmal den Blick auf langfristige Risiken.</span><span class="bsp-bg">Краткосрочната печалба понякога пречи на ясното виждане на дългосрочните рискове.</span></td></tr>
+          <tr><td class="col-de">Fristen setzen</td><td class="col-expl">verbindliche Termine oder Deadlines festlegen</td><td class="col-bg">поставям срокове; определям краен срок</td><td class="col-bsp"><span class="bsp-de">Der Auftraggeber hat sehr enge Fristen gesetzt, die kaum einzuhalten sind.</span><span class="bsp-bg">Възложителят е поставил много тесни срокове, които почти не могат да се спазят.</span></td></tr>
+          <tr><td class="col-de">Gewinn erwirtschaften</td><td class="col-expl">durch wirtschaftliche Tätigkeit einen Profit oder Überschuss erzielen</td><td class="col-bg">реализирам печалба; генерирам приходи</td><td class="col-bsp"><span class="bsp-de">Erst im dritten Jahr konnte das Start-up erstmals Gewinn erwirtschaften.</span><span class="bsp-bg">Едва в третата година стартиращата фирма успя за пръв път да реализира печалба.</span></td></tr>
+          <tr><td class="col-de">etw. juristisch regeln</td><td class="col-expl">eine Angelegenheit rechtlich und offiziell lösen oder festlegen</td><td class="col-bg">уреждам нещо по юридически начин</td><td class="col-bsp"><span class="bsp-de">Alle Vereinbarungen zwischen den Partnern wurden juristisch einwandfrei geregelt.</span><span class="bsp-bg">Всички споразумения между партньорите са уредени по безупречен юридически начин.</span></td></tr>
+          <tr><td class="col-de">den Kern treffen<span class="col-gram">trifft, traf, hat getroffen</span></td><td class="col-expl">das Wesentliche oder Zentrale einer Sache genau ansprechen oder erfassen</td><td class="col-bg">улавям същността; стигам до ядрото на въпроса</td><td class="col-bsp"><span class="bsp-de">Mit diesem Argument hat er genau den Kern des Problems getroffen.</span><span class="bsp-bg">С този аргумент той е уцелил точно ядрото на проблема.</span></td></tr>
+          <tr><td class="col-de">etw. loswerden wollen</td><td class="col-expl">versuchen, sich von etwas Unerwünschtem zu befreien</td><td class="col-bg">искам да се отърва от нещо/някого</td><td class="col-bsp"><span class="bsp-de">Er wollte die veralteten Maschinen endlich loswerden und modernere kaufen.</span><span class="bsp-bg">Той най-накрая искаше да се отърве от остарелите машини и да купи по-модерни.</span></td></tr>
+          <tr><td class="col-de">sich selbstständig machen</td><td class="col-expl">ein eigenes Unternehmen gründen oder freiberuflich tätig werden</td><td class="col-bg">ставам самостоятелен; откривам собствен бизнес</td><td class="col-bsp"><span class="bsp-de">Nach zehn Jahren als Angestellte hat sie sich endlich selbstständig gemacht.</span><span class="bsp-bg">След десет години като наета тя най-накрая е открила собствен бизнес.</span></td></tr>
+          <tr><td class="col-de">eine Traube von Menschen</td><td class="col-expl">eine dichte, kompakte Ansammlung vieler Menschen an einem Ort</td><td class="col-bg">тълпа от хора; навалица; купчина хора</td><td class="col-bsp"><span class="bsp-de">Vor dem neuen Laden stand bereits eine Traube von neugierigen Menschen.</span><span class="bsp-bg">Пред новия магазин вече стоеше тълпа от любопитни хора.</span></td></tr>
+          <tr><td class="col-de">ein lang gehegter Traum</td><td class="col-expl">ein Wunsch, den man seit langer Zeit in sich trägt und verwirklichen möchte</td><td class="col-bg">дълго лелеяна мечта; заветна мечта</td><td class="col-bsp"><span class="bsp-de">Das eigene Café zu eröffnen war ein lang gehegter Traum von ihr.</span><span class="bsp-bg">Отварянето на собствено кафе беше нейна дълго лелеяна мечта.</span></td></tr>
+          <tr><td class="col-de">etw. unerwähnt lassen<span class="col-gram">lässt, ließ, hat gelassen</span></td><td class="col-expl">etwas absichtlich nicht erwähnen oder übergehen</td><td class="col-bg">пропускам споменаването; оставям без коментар</td><td class="col-bsp"><span class="bsp-de">Die Risiken des Projekts ließ er in seiner Präsentation bewusst unerwähnt.</span><span class="bsp-bg">Рисковете на проекта той съзнателно е оставил без споменаване в презентацията.</span></td></tr>
+          <tr><td class="col-de">seiner Verantwortung nachkommen<span class="col-gram">kommt nach, kam nach</span></td><td class="col-expl">die eigenen Pflichten und Verantwortlichkeiten gewissenhaft erfüllen</td><td class="col-bg">изпълнявам отговорностите си; поемам отговорността</td><td class="col-bsp"><span class="bsp-de">Als Führungskraft muss man seiner Verantwortung gegenüber dem Team nachkommen.</span><span class="bsp-bg">Като ръководен кадър трябва да се изпълнява отговорността към екипа.</span></td></tr>
+          <tr><td class="col-de">in ein Vorhaben investieren</td><td class="col-expl">Geld, Zeit oder andere Ressourcen in ein geplantes Projekt stecken</td><td class="col-bg">инвестирам в начинание/проект</td><td class="col-bsp"><span class="bsp-de">Sie investierte ihre gesamten Ersparnisse mutig in das neue Vorhaben.</span><span class="bsp-bg">Тя смело инвестира всичките си спестявания в новото начинание.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+<script>
+function toggleModul(id) {
+  const body = document.getElementById('body-' + id);
+  const arr  = document.getElementById('arr-'  + id);
+  const open = body.classList.toggle('show');
+  arr.classList.toggle('open', open);
+}
+function filterWords(q) {
+  q = q.trim().toLowerCase();
+  document.querySelectorAll('.vocab-table tbody tr').forEach(row => {
+    row.classList.toggle('hidden-row', q.length > 0 && !row.textContent.toLowerCase().includes(q));
+  });
+  if (q.length > 0) {
+    ['m1','m2','m3','m4','wv'].forEach(id => {
+      document.getElementById('body-' + id).classList.add('show');
+      document.getElementById('arr-'  + id).classList.add('open');
+    });
+  }
+}
+</script>
+</body>
+</html>
