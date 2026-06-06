@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wortschatz – Kapitel 5 | Vernetzt, Ziele, Motivation, Ehrenamt</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f3; color: #222; font-size: 17px; line-height: 1.6; }
+.page-header {
+  background: linear-gradient(135deg, #00695c, #00897b);
+  color: #fff; padding: 16px 28px;
+  display: flex; justify-content: space-between; align-items: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,.2); flex-wrap: wrap; gap: 8px;
+}
+.page-header h1 { font-size: 1.5em; font-weight: 700; }
+.page-header p  { font-size: .88em; opacity: .85; margin-top: 3px; }
+.badge { background: rgba(255,255,255,.22); border-radius: 16px; padding: 4px 14px; font-size: .85em; font-weight: bold; }
+.container { max-width: 1100px; margin: 0 auto; padding: 22px 16px 50px; }
+.modul-block { margin-bottom: 22px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+.modul-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 20px; cursor: pointer; user-select: none;
+  background: #2e7d6e; color: #fff; gap: 10px; transition: background .15s;
+}
+.modul-header:hover { background: #245f53; }
+.modul-title { font-weight: 700; font-size: 1.02em; display: flex; align-items: center; gap: 10px; }
+.modul-badge { background: rgba(255,255,255,.25); border-radius: 12px; padding: 2px 11px; font-size: .82em; font-weight: 700; }
+.modul-arrow { font-size: 1.1em; transition: transform .25s; }
+.modul-arrow.open { transform: rotate(180deg); }
+.modul-body { display: none; background: #fff; }
+.modul-body.show { display: block; }
+.modul-block.wv .modul-header { background: #455a64; }
+.modul-block.wv .modul-header:hover { background: #37474f; }
+.vocab-table { width: 100%; border-collapse: collapse; font-size: .91em; }
+.vocab-table thead tr { background: #e8f4f1; }
+.vocab-table th { padding: 9px 12px; text-align: left; font-weight: 700; color: #1a5247; border-bottom: 2px solid #b2dfdb; font-size: .88em; }
+.vocab-table td { padding: 8px 12px; vertical-align: top; border-bottom: 1px solid #e0f0ed; }
+.vocab-table tr:nth-child(odd)  td { background: #fafefe; }
+.vocab-table tr:nth-child(even) td { background: #f0fafa; }
+.vocab-table tr:last-child td { border-bottom: none; }
+.col-de   { width: 20%; font-weight: 700; color: #004d40; }
+.col-gram { font-size: .80em; font-weight: 400; color: #777; display: block; margin-top: 2px; }
+.col-expl { width: 25%; color: #444; }
+.col-bg   { width: 20%; color: #1a237e; }
+.col-bsp  { width: 35%; }
+.bsp-de   { display: block; font-style: italic; color: #1b3c2a; font-size: .87em; line-height: 1.5; }
+.bsp-bg   { display: block; color: #6d3a00; font-size: .82em; margin-top: 3px; }
+.modul-block.wv .vocab-table .col-de { color: #1a237e; font-style: italic; font-weight: 600; }
+.search-bar {
+  display: flex; align-items: center; gap: 10px;
+  background: #fff; border-radius: 30px; border: 2px solid #b2dfdb;
+  padding: 7px 16px; margin-bottom: 20px; box-shadow: 0 1px 6px rgba(0,0,0,.07);
+}
+.search-bar input { border: none; outline: none; font-size: 16px; font-family: inherit; flex: 1; background: transparent; }
+.search-bar span { color: #2e7d6e; font-size: 1.2em; }
+.hidden-row { display: none !important; }
+.legend {
+  background: #fff; border-radius: 10px; padding: 12px 18px; margin-bottom: 18px;
+  font-size: .88em; color: #555; box-shadow: 0 1px 6px rgba(0,0,0,.07);
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+}
+.legend strong { color: #2e7d6e; }
+@media (max-width: 680px) {
+  .col-expl { display: none; }
+  .vocab-table th:nth-child(2) { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="page-header">
+  <div><h1>Wortschatz – Kapitel 5</h1>
+  <p>Vernetzt · Ziele · Motivation · Ehrenamt &nbsp;|&nbsp; Aspekte neu C1 &nbsp;|&nbsp; AB S. 74–75</p></div>
+  <span class="badge">Modul 1–4 + Wortverbindungen</span>
+</div>
+<div class="container">
+  <div class="search-bar"><span>🔍</span><input type="text" id="searchInput" placeholder="Wort suchen …" oninput="filterWords(this.value)"></div>
+  <div class="legend"><strong>Legende:</strong><span><b>Deutsch</b> · <b>Erklärung</b> · <b>Български</b> · <b>Beispielsatz</b> (kursiv) mit Übersetzung</span><span>Modulkopf klicken zum Auf-/Zuklappen &nbsp;|&nbsp; Suchfeld filtert alle Einträge</span></div>
+
+  <!-- MODUL 1 -->
+  <div class="modul-block" id="block-m1">
+    <div class="modul-header" onclick="toggleModul('m1')"><span class="modul-title"><span class="modul-badge">Modul 1</span>Vernetzt</span><span class="modul-arrow open" id="arr-m1">▾</span></div>
+    <div class="modul-body show" id="body-m1">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">die Anschaffungskosten<span class="col-gram">(nur Pl.)</span></td><td class="col-expl">die einmaligen Kosten beim Kauf eines Geräts oder einer Ausstattung</td><td class="col-bg">разходи за придобиване; покупна цена</td><td class="col-bsp"><span class="bsp-de">Die Anschaffungskosten für das neue Equipment waren sehr hoch, amortisieren sich aber schnell.</span><span class="bsp-bg">Разходите за придобиване на новото оборудване бяха много високи, но бързо се изплащат.</span></td></tr>
+          <tr><td class="col-de">bedenkenlos</td><td class="col-expl">ohne Bedenken oder Risiko; sicher und unbedenklich verwendbar</td><td class="col-bg">без притеснения; без задръжки; безпроблемно</td><td class="col-bsp"><span class="bsp-de">Diese App kann man bedenkenlos auch auf Kinder loslassen.</span><span class="bsp-bg">Това приложение може да се ползва от деца без притеснения.</span></td></tr>
+          <tr><td class="col-de">der Betreiber<span class="col-gram">- (Pl. gleich)</span></td><td class="col-expl">jemand, der eine Plattform, eine Anlage oder ein Unternehmen betreibt und verantwortet</td><td class="col-bg">оператор; стопанисващ; управляващ</td><td class="col-bsp"><span class="bsp-de">Der Betreiber der Plattform ist für alle veröffentlichten Inhalte mitverantwortlich.</span><span class="bsp-bg">Операторът на платформата е съотговорен за всички публикувани съдържания.</span></td></tr>
+          <tr><td class="col-de">beteuern</td><td class="col-expl">etwas nachdrücklich versichern; feierlich erklären, dass etwas wahr ist</td><td class="col-bg">уверявам настойчиво; заявявам категорично</td><td class="col-bsp"><span class="bsp-de">Er beteuerte seine Unschuld, aber niemand im Raum glaubte ihm.</span><span class="bsp-bg">Той уверяваше за невинността си, но никой в стаята не му вярваше.</span></td></tr>
+          <tr><td class="col-de">durchsichtig</td><td class="col-expl">transparent; leicht zu durchschauen; offensichtlich in seinen Absichten</td><td class="col-bg">прозрачен; очевиден; лесно разгадаем</td><td class="col-bsp"><span class="bsp-de">Seine Absichten waren so durchsichtig, dass alle sie sofort erkannten.</span><span class="bsp-bg">Намеренията му бяха толкова очевидни, че всички ги разпознаха веднага.</span></td></tr>
+          <tr><td class="col-de">effizient</td><td class="col-expl">mit geringstmöglichem Aufwand das bestmögliche Ergebnis erzielen</td><td class="col-bg">ефективен; ефициентен; рационален</td><td class="col-bsp"><span class="bsp-de">Durch die neue Software arbeitet das ganze Team deutlich effizienter.</span><span class="bsp-bg">Благодарение на новия софтуер целият екип работи значително по-ефективно.</span></td></tr>
+          <tr><td class="col-de">der Grad<span class="col-gram">-e</span></td><td class="col-expl">ein Maß für die Intensität, Stärke oder das Ausmaß von etwas</td><td class="col-bg">степен; градус; ниво; мяра</td><td class="col-bsp"><span class="bsp-de">Der Grad der Vernetzung zwischen den Abteilungen beeinflusst die Produktivität erheblich.</span><span class="bsp-bg">Степента на свързаност между отделите влияе значително на продуктивността.</span></td></tr>
+          <tr><td class="col-de">laufend</td><td class="col-expl">ständig; kontinuierlich; immer wieder; aktuell und regelmäßig anfallend</td><td class="col-bg">постоянен; текущ; непрекъснат</td><td class="col-bsp"><span class="bsp-de">Sie informiert sich laufend über die neuesten Entwicklungen im Bereich KI.</span><span class="bsp-bg">Тя постоянно се информира за последните развития в областта на ИИ.</span></td></tr>
+          <tr><td class="col-de">der Multiplikator<span class="col-gram">-en</span></td><td class="col-expl">jemand oder etwas, das Informationen oder Einfluss verstärkt und weiterverbreitet</td><td class="col-bg">мултипликатор; разпространител; усилвател</td><td class="col-bsp"><span class="bsp-de">Soziale Netzwerke wirken als Multiplikatoren für Informationen jeder Art.</span><span class="bsp-bg">Социалните мрежи действат като мултипликатори на информация от всякакъв вид.</span></td></tr>
+          <tr><td class="col-de">oberflächlich</td><td class="col-expl">ohne Tiefe oder gründliches Nachdenken; nur an der Oberfläche bleibend</td><td class="col-bg">повърхностен; плиток; неизчерпателен</td><td class="col-bsp"><span class="bsp-de">Seine Kenntnisse des Themas waren leider sehr oberflächlich und wenig hilfreich.</span><span class="bsp-bg">Познанията му по темата за съжаление бяха много повърхностни и малко полезни.</span></td></tr>
+          <tr><td class="col-de">rasant</td><td class="col-expl">sehr schnell; in atemberaubendem Tempo; sich rasch entwickelnd</td><td class="col-bg">стремителен; светкавичен; бързо развиващ се</td><td class="col-bsp"><span class="bsp-de">Die Technologie entwickelt sich mit rasanter Geschwindigkeit weiter.</span><span class="bsp-bg">Технологиите се развиват по-нататък с стремителна скорост.</span></td></tr>
+          <tr><td class="col-de">verheimlichen</td><td class="col-expl">etwas bewusst vor anderen verbergen; absichtlich geheim halten</td><td class="col-bg">скривам; укривам; премълчавам</td><td class="col-bsp"><span class="bsp-de">In der digitalen Welt ist es immer schwieriger, etwas zu verheimlichen.</span><span class="bsp-bg">В цифровия свят е все по-трудно да се укрие нещо.</span></td></tr>
+          <tr><td class="col-de">sich verzweigen</td><td class="col-expl">sich in viele Richtungen aufteilen oder ausbreiten; sich verästeln</td><td class="col-bg">разклонявам се; разпростирам се в различни посоки</td><td class="col-bsp"><span class="bsp-de">Das Netzwerk verzweigt sich in immer mehr gesellschaftliche Bereiche.</span><span class="bsp-bg">Мрежата се разклонява в все повече обществени области.</span></td></tr>
+          <tr><td class="col-de">vorantreiben<span class="col-gram">treibt voran, trieb voran</span></td><td class="col-expl">etwas aktiv fördern, beschleunigen und weiterbringen</td><td class="col-bg">движа напред; тласкам напред; стимулирам</td><td class="col-bsp"><span class="bsp-de">Sie treibt die Digitalisierung des Unternehmens mit großem Engagement voran.</span><span class="bsp-bg">Тя тласка напред дигитализацията на предприятието с голям ентусиазъм.</span></td></tr>
+          <tr><td class="col-de">der Vorwand<span class="col-gram">-̈e</span></td><td class="col-expl">ein vorgeschützter Grund oder eine Ausrede; ein erfundener Anlass</td><td class="col-bg">претекст; изговор; измислена причина</td><td class="col-bsp"><span class="bsp-de">Unter dem Vorwand einer Umfrage wurden persönliche Daten der Nutzer gesammelt.</span><span class="bsp-bg">Под претекста на анкета бяха събирани лични данни на потребителите.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODUL 2 -->
+  <div class="modul-block" id="block-m2">
+    <div class="modul-header" onclick="toggleModul('m2')"><span class="modul-title"><span class="modul-badge">Modul 2</span>Der Weg ist das Ziel</span><span class="modul-arrow open" id="arr-m2">▾</span></div>
+    <div class="modul-body show" id="body-m2">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">die Bestandsaufnahme<span class="col-gram">-n</span></td><td class="col-expl">systematische Überprüfung der aktuellen Lage; Analyse des Ist-Zustands</td><td class="col-bg">инвентаризация; преглед на текущото положение</td><td class="col-bsp"><span class="bsp-de">Vor dem Neustart machte er eine ehrliche Bestandsaufnahme seiner beruflichen Situation.</span><span class="bsp-bg">Преди новото начало той направи честен преглед на професионалната си ситуация.</span></td></tr>
+          <tr><td class="col-de">das Detail<span class="col-gram">-s</span></td><td class="col-expl">ein einzelnes, kleines Element eines größeren Ganzen; eine Einzelheit</td><td class="col-bg">детайл; подробност; отделен елемент</td><td class="col-bsp"><span class="bsp-de">Bei einem Bewerbungsgespräch kommt es oft auf die entscheidenden Details an.</span><span class="bsp-bg">При интервю за работа решаващите детайли имат голямо значение.</span></td></tr>
+          <tr><td class="col-de">sich erkundigen nach<span class="col-gram">nach + Dat.</span></td><td class="col-expl">aktiv Informationen über etwas einholen; fragen, um etwas herauszufinden</td><td class="col-bg">разузнавам; питам за; интересувам се за</td><td class="col-bsp"><span class="bsp-de">Sie hat sich nach den Möglichkeiten einer berufsbegleitenden Weiterbildung erkundigt.</span><span class="bsp-bg">Тя се е поинтересувала за възможностите на задочното повишаване на квалификацията.</span></td></tr>
+          <tr><td class="col-de">sich spezialisieren auf<span class="col-gram">auf + Akk.</span></td><td class="col-expl">sich auf ein bestimmtes Fachgebiet konzentrieren und darin Experte werden</td><td class="col-bg">специализирам в; насочвам се към дадена област</td><td class="col-bsp"><span class="bsp-de">Er hat sich auf Unternehmensberatung im Gesundheitssektor spezialisiert.</span><span class="bsp-bg">Той се е специализирал в управленско консултиране в здравния сектор.</span></td></tr>
+          <tr><td class="col-de">der Teilschritt<span class="col-gram">-e</span></td><td class="col-expl">ein einzelner Schritt oder eine Etappe auf dem Weg zu einem Ziel</td><td class="col-bg">частична стъпка; подетап; междинна фаза</td><td class="col-bsp"><span class="bsp-de">Jeder große Erfolg besteht aus vielen kleinen, konsequenten Teilschritten.</span><span class="bsp-bg">Всеки голям успех се състои от много малки, последователни частични стъпки.</span></td></tr>
+          <tr><td class="col-de">sich trauen</td><td class="col-expl">den Mut aufbringen, etwas zu tun, das riskant oder schwierig erscheint</td><td class="col-bg">смея; осмелявам се; имам смелостта да</td><td class="col-bsp"><span class="bsp-de">Endlich traut sie sich, ihre eigene Firma zu gründen – ein mutiger Schritt.</span><span class="bsp-bg">Най-накрая тя се осмелява да основе собствена фирма – смела стъпка.</span></td></tr>
+          <tr><td class="col-de">umsetzen</td><td class="col-expl">einen Plan, eine Idee oder ein Konzept in die Praxis bringen; realisieren</td><td class="col-bg">прилагам на практика; реализирам; изпълнявам</td><td class="col-bsp"><span class="bsp-de">Es ist eine Sache, gute Ideen zu haben – eine ganz andere, sie erfolgreich umzusetzen.</span><span class="bsp-bg">Едно е да имаш добри идеи – съвсем друго е успешно да ги приложиш на практика.</span></td></tr>
+          <tr><td class="col-de">die Veränderung<span class="col-gram">-en</span></td><td class="col-expl">ein Prozess des Wandels; eine Änderung im Zustand oder Verhalten</td><td class="col-bg">промяна; изменение; трансформация</td><td class="col-bsp"><span class="bsp-de">Nachhaltige Veränderung braucht Zeit, Geduld und vor allem Konsequenz.</span><span class="bsp-bg">Трайната промяна изисква време, търпение и преди всичко последователност.</span></td></tr>
+          <tr><td class="col-de">vorankommen<span class="col-gram">kommt voran, kam voran, ist vorangekommen</span></td><td class="col-expl">Fortschritte machen; sich in eine positive Richtung entwickeln</td><td class="col-bg">напредвам; постигам напредък; вървя напред</td><td class="col-bsp"><span class="bsp-de">Mit dieser negativen Einstellung wirst du beruflich kaum vorankommen.</span><span class="bsp-bg">С такова негативно отношение едва ли ще напредваш професионално.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODUL 3 -->
+  <div class="modul-block" id="block-m3">
+    <div class="modul-header" onclick="toggleModul('m3')"><span class="modul-title"><span class="modul-badge">Modul 3</span>Ab morgen!</span><span class="modul-arrow open" id="arr-m3">▾</span></div>
+    <div class="modul-body show" id="body-m3">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">sich aufraffen zu<span class="col-gram">zu + Dat./Inf.</span></td><td class="col-expl">trotz innerem Widerstand die nötige Energie aufbringen, etwas zu beginnen</td><td class="col-bg">събирам сили за; принуждавам се да; накарвам се</td><td class="col-bsp"><span class="bsp-de">Nach dem langen Urlaub konnte er sich kaum zur Arbeit aufraffen.</span><span class="bsp-bg">След дългия отпуск той едва можеше да се накара да работи.</span></td></tr>
+          <tr><td class="col-de">aufschieben<span class="col-gram">schiebt auf, schob auf</span></td><td class="col-expl">etwas auf einen späteren Zeitpunkt verschieben; prokrastinieren</td><td class="col-bg">отлагам; отбутвам за по-късно; прокрастинирам</td><td class="col-bsp"><span class="bsp-de">Er schiebt wichtige Aufgaben immer wieder auf – das wird zum Problem.</span><span class="bsp-bg">Той постоянно отлага важните задачи – това се превръща в проблем.</span></td></tr>
+          <tr><td class="col-de">die Diät<span class="col-gram">-en</span></td><td class="col-expl">eine besondere, eingeschränkte Ernährungsweise – zum Abnehmen oder aus gesundheitlichen Gründen</td><td class="col-bg">диета; режим на хранене</td><td class="col-bsp"><span class="bsp-de">Sie hat mit einer strengen Diät begonnen, die ihr Arzt ihr empfohlen hatte.</span><span class="bsp-bg">Тя е започнала строга диета, която й е препоръчал лекарят.</span></td></tr>
+          <tr><td class="col-de">der Fehlschlag<span class="col-gram">-̈e</span></td><td class="col-expl">ein Misserfolg; etwas, das nicht wie geplant funktioniert hat</td><td class="col-bg">неуспех; провал; несполука</td><td class="col-bsp"><span class="bsp-de">Jeder Fehlschlag bringt eine wichtige Lektion mit sich, wenn man ihn richtig analysiert.</span><span class="bsp-bg">Всеки провал носи важен урок, ако го анализираш правилно.</span></td></tr>
+          <tr><td class="col-de">der Frust<span class="col-gram">(Sg.)</span></td><td class="col-expl">Frustration und Enttäuschung über Misserfolge oder ungünstige Umstände</td><td class="col-bg">разочарование; фрустрация; безизходица</td><td class="col-bsp"><span class="bsp-de">Der Frust über die fehlenden Fortschritte machte sie zunehmend mutlos.</span><span class="bsp-bg">Разочарованието от липсата на напредък я правеше все по-обезсърчена.</span></td></tr>
+          <tr><td class="col-de">der Genuss<span class="col-gram">-̈e</span></td><td class="col-expl">das angenehme, bewusste Erleben von etwas Schönem; Freude und Befriedigung</td><td class="col-bg">наслада; удоволствие; наслаждение</td><td class="col-bsp"><span class="bsp-de">Den vollen Genuss eines guten Buches erfährt man nur beim achtsamen Lesen.</span><span class="bsp-bg">Пълната наслада от добра книга се усеща само при внимателното четене.</span></td></tr>
+          <tr><td class="col-de">die Gewohnheit<span class="col-gram">-en</span></td><td class="col-expl">ein Verhalten, das durch häufige Wiederholung zur automatischen Routine geworden ist</td><td class="col-bg">навик; привичка; обичай</td><td class="col-bsp"><span class="bsp-de">Es dauert Wochen, bis sich eine neue positive Gewohnheit wirklich festigt.</span><span class="bsp-bg">Нужни са седмици, докато се затвърди наистина нов позитивен навик.</span></td></tr>
+          <tr><td class="col-de">der Lichtblick<span class="col-gram">-e</span></td><td class="col-expl">ein positiver Aspekt oder Hoffnungszeichen inmitten einer schwierigen Situation</td><td class="col-bg">светъл лъч; надежда; просвет; позитивна нотка</td><td class="col-bsp"><span class="bsp-de">Nach vielen Rückschlägen war der erste Erfolg ein echter Lichtblick für das Team.</span><span class="bsp-bg">След много неуспехи първият успех беше истински просвет за екипа.</span></td></tr>
+          <tr><td class="col-de">schwinden<span class="col-gram">schwindet, schwand, ist geschwunden</span></td><td class="col-expl">allmählich weniger werden; nachlassen; langsam verschwinden</td><td class="col-bg">намалявам; топя се; изчезвам постепенно</td><td class="col-bsp"><span class="bsp-de">Sein Enthusiasmus für das Projekt schwand nach den ersten größeren Problemen.</span><span class="bsp-bg">Ентусиазмът му за проекта е намалял след първите по-сериозни проблеми.</span></td></tr>
+          <tr><td class="col-de">das Selbstvertrauen<span class="col-gram">(Sg.)</span></td><td class="col-expl">das Vertrauen in die eigenen Fähigkeiten; Selbstsicherheit und innere Stärke</td><td class="col-bg">самоувереност; увереност в себе си; самочувствие</td><td class="col-bsp"><span class="bsp-de">Regelmäßige kleine Erfolge stärken das Selbstvertrauen enorm.</span><span class="bsp-bg">Редовните малки успехи укрепват самоувереността огромно.</span></td></tr>
+          <tr><td class="col-de">straucheln</td><td class="col-expl">stolpern und fast fallen; übertragen: in Schwierigkeiten geraten; einen Fehler machen</td><td class="col-bg">спъвам се; залитам; попадам в затруднение</td><td class="col-bsp"><span class="bsp-de">Auch wer einmal strauchelt, kann wieder aufstehen und weitermachen.</span><span class="bsp-bg">Дори който веднъж се спъне, може да стане и да продължи.</span></td></tr>
+          <tr><td class="col-de">der Stubenhocker<span class="col-gram">- (Pl. gleich)</span></td><td class="col-expl">jemand, der sehr viel Zeit drinnen verbringt und ungern ausgeht (umg.)</td><td class="col-bg">домосед; котяк (разг.); човек, който стои вкъщи</td><td class="col-bsp"><span class="bsp-de">Er ist ein echter Stubenhocker und verlässt das Haus nur für das Nötigste.</span><span class="bsp-bg">Той е истински домосед и напуска вкъщи само за най-необходимото.</span></td></tr>
+          <tr><td class="col-de">das Übergewicht<span class="col-gram">(Sg.)</span></td><td class="col-expl">ein Körpergewicht, das über dem gesunden Normalgewicht liegt</td><td class="col-bg">наднормено тегло; затлъстяване</td><td class="col-bsp"><span class="bsp-de">Übergewicht ist ein wachsendes Gesundheitsproblem in modernen Gesellschaften.</span><span class="bsp-bg">Наднорменото тегло е нарастващ здравословен проблем в съвременните общества.</span></td></tr>
+          <tr><td class="col-de">unrealistisch</td><td class="col-expl">nicht der Realität entsprechend; praktisch nicht durchführbar</td><td class="col-bg">нереалистичен; нереален; непостижим</td><td class="col-bsp"><span class="bsp-de">Es ist schlicht unrealistisch, eine Sprache in drei Wochen fließend zu lernen.</span><span class="bsp-bg">Просто е нереалистично да се научи свободно един език за три седмици.</span></td></tr>
+          <tr><td class="col-de">die Verlockung<span class="col-gram">-en</span></td><td class="col-expl">ein starker Anreiz oder eine Versuchung, etwas zu tun – oft nicht Gutes</td><td class="col-bg">изкушение; примамка; съблазън</td><td class="col-bsp"><span class="bsp-de">Die Verlockung, alles auf morgen zu verschieben, ist oft zu groß.</span><span class="bsp-bg">Изкушението да се отложи всичко за утре е често твърде голямо.</span></td></tr>
+          <tr><td class="col-de">verpuffen</td><td class="col-expl">ohne Wirkung bleiben; wirkungslos verschwinden (z. B. Energie, Motivation)</td><td class="col-bg">пропилявам се без резултат; изчезвам без следа</td><td class="col-bsp"><span class="bsp-de">Die anfängliche Begeisterung verpuffte nach den ersten Schwierigkeiten schnell.</span><span class="bsp-bg">Първоначалният ентусиазъм бързо се е пропилял след първите трудности.</span></td></tr>
+          <tr><td class="col-de">der Vorsatz<span class="col-gram">-̈e</span></td><td class="col-expl">ein fester Entschluss, etwas zu tun oder zu ändern; ein Plan für die Zukunft</td><td class="col-bg">намерение; твърдо решение; новогодишна резолюция</td><td class="col-bsp"><span class="bsp-de">Ihre Vorsätze für das neue Jahr hielt sie diesmal tatsächlich konsequent ein.</span><span class="bsp-bg">Целите й за новата година тя действително е изпълнила последователно този път.</span></td></tr>
+          <tr><td class="col-de">zurückführen auf<span class="col-gram">auf + Akk.</span></td><td class="col-expl">etwas als Ursache oder Grund für etwas anderes identifizieren</td><td class="col-bg">свеждам до; приписвам на; обяснявам с</td><td class="col-bsp"><span class="bsp-de">Den Misserfolg führte sie auf mangelnde Vorbereitung und fehlende Disziplin zurück.</span><span class="bsp-bg">Неуспеха тя е отдала на недостатъчната подготовка и липсата на дисциплина.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODUL 4 -->
+  <div class="modul-block" id="block-m4">
+    <div class="modul-header" onclick="toggleModul('m4')"><span class="modul-title"><span class="modul-badge">Modul 4</span>Ehrenamtlich</span><span class="modul-arrow open" id="arr-m4">▾</span></div>
+    <div class="modul-body show" id="body-m4">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">der Anreiz<span class="col-gram">-e</span></td><td class="col-expl">etwas, das jemanden motiviert, aktiv zu werden; ein Ansporn oder Stimulus</td><td class="col-bg">стимул; мотивация; подтик; поощрение</td><td class="col-bsp"><span class="bsp-de">Steuervergünstigungen sind ein wichtiger Anreiz für ehrenamtliches Engagement.</span><span class="bsp-bg">Данъчните облекчения са важен стимул за доброволческа ангажираност.</span></td></tr>
+          <tr><td class="col-de">die Arbeitslosenquote<span class="col-gram">-n</span></td><td class="col-expl">der prozentuale Anteil der Arbeitslosen an der Erwerbsbevölkerung</td><td class="col-bg">процент на безработица; равнище на безработица</td><td class="col-bsp"><span class="bsp-de">Die Arbeitslosenquote in der Region ist auf über 10 Prozent gestiegen.</span><span class="bsp-bg">Процентът на безработица в региона е нараснал на над 10 процента.</span></td></tr>
+          <tr><td class="col-de">die Auseinandersetzung<span class="col-gram">-en</span></td><td class="col-expl">ein Streit oder Konflikt; auch: intensives Beschäftigen mit einem Thema</td><td class="col-bg">дискусия; спор; задълбочено занимаване с тема</td><td class="col-bsp"><span class="bsp-de">Eine kritische Auseinandersetzung mit dem Thema Ehrenamt ist gesellschaftlich wichtig.</span><span class="bsp-bg">Критичното занимаване с темата за доброволчеството е обществено важно.</span></td></tr>
+          <tr><td class="col-de">beeindruckend</td><td class="col-expl">so, dass es einen starken positiven Eindruck hinterlässt; imponierend</td><td class="col-bg">впечатляващ; поразителен; удивителен</td><td class="col-bsp"><span class="bsp-de">Das Engagement der Freiwilligen in der Flüchtlingshilfe war schlicht beeindruckend.</span><span class="bsp-bg">Ангажираността на доброволците в помощта за бежанците беше просто впечатляваща.</span></td></tr>
+          <tr><td class="col-de">der Behördengang<span class="col-gram">-̈e</span></td><td class="col-expl">der Besuch einer Behörde für administrative Angelegenheiten; Amtsgang</td><td class="col-bg">посещение на институция; административна процедура</td><td class="col-bsp"><span class="bsp-de">Ein einziger Behördengang kann manchmal mehrere Stunden in Anspruch nehmen.</span><span class="bsp-bg">Едно единствено посещение на институция може понякога да отнеме няколко часа.</span></td></tr>
+          <tr><td class="col-de">bereichern</td><td class="col-expl">jemanden oder etwas reicher, wertvoller oder vielfältiger machen</td><td class="col-bg">обогатявам; прибавям стойност; правя по-ценен</td><td class="col-bsp"><span class="bsp-de">Das Ehrenamt hat sein Leben enorm bereichert und ihm neuen Sinn gegeben.</span><span class="bsp-bg">Доброволческата работа е обогатила живота му огромно и му е дала нов смисъл.</span></td></tr>
+          <tr><td class="col-de">betreuen</td><td class="col-expl">für jemanden sorgen; jemanden begleiten, unterstützen und auf ihn aufpassen</td><td class="col-bg">грижа се за; наглеждам; придружавам и подпомагам</td><td class="col-bsp"><span class="bsp-de">Sie betreut ehrenamtlich ältere Menschen in der Nachbarschaft und besucht sie täglich.</span><span class="bsp-bg">Тя се грижи доброволно за по-възрастни хора в квартала и ги посещава ежедневно.</span></td></tr>
+          <tr><td class="col-de">der Bildungsgrad<span class="col-gram">-e</span></td><td class="col-expl">das Niveau der schulischen und akademischen Ausbildung einer Person</td><td class="col-bg">образователно равнище; степен на образованост</td><td class="col-bsp"><span class="bsp-de">Ein hoher Bildungsgrad erhöht nachweislich die Chancen auf dem Arbeitsmarkt.</span><span class="col-bg">Високото образователно равнище доказано увеличава шансовете на пазара на труда.</span></td></tr>
+          <tr><td class="col-de">darlegen</td><td class="col-expl">etwas ausführlich, strukturiert und klar erklären; einen Sachverhalt darstellen</td><td class="col-bg">излагам; представям; разяснявам обстоятелно</td><td class="col-bsp"><span class="bsp-de">Sie legte ihre Gründe für den Rücktritt vor dem Vorstand ausführlich dar.</span><span class="bsp-bg">Тя подробно изложи причините за оставката си пред управителния съвет.</span></td></tr>
+          <tr><td class="col-de">das Ehrenamt<span class="col-gram">-̈er</span></td><td class="col-expl">ein unentgeltliches, freiwilliges gesellschaftliches Engagement ohne Bezahlung</td><td class="col-bg">доброволческа длъжност; почетна длъжност</td><td class="col-bsp"><span class="bsp-de">Das Ehrenamt stärkt den gesellschaftlichen Zusammenhalt und fördert die Gemeinschaft.</span><span class="bsp-bg">Доброволческата длъжност укрепва обществената сплотеност и насърчава общността.</span></td></tr>
+          <tr><td class="col-de">eigens</td><td class="col-expl">ausschließlich für einen bestimmten Zweck; speziell und extra für genau diesen Anlass</td><td class="col-bg">специално; изрично; нарочно; точно за тази цел</td><td class="col-bsp"><span class="bsp-de">Er ist eigens für dieses wichtige Treffen aus München angereist.</span><span class="bsp-bg">Той е пристигнал специално за тази важна среща от Мюнхен.</span></td></tr>
+          <tr><td class="col-de">sich einbringen<span class="col-gram">bringt sich ein, brachte sich ein</span></td><td class="col-expl">aktiv an etwas teilnehmen; eigene Ideen, Kompetenzen und Energie einsetzen</td><td class="col-bg">включвам се активно; допринасям; ангажирам се</td><td class="col-bsp"><span class="bsp-de">Jeder kann sich auf seine eigene Weise aktiv in das Gemeinschaftsprojekt einbringen.</span><span class="bsp-bg">Всеки може да се включи активно в общностния проект по свой начин.</span></td></tr>
+          <tr><td class="col-de">freiwillig</td><td class="col-expl">aus eigenem Willen und ohne äußeren Druck oder Zwang</td><td class="col-bg">доброволно; по собствена воля; без принуда</td><td class="col-bsp"><span class="bsp-de">Die Teilnahme am Workshop ist freiwillig, aber ausdrücklich empfohlen.</span><span class="bsp-bg">Участието в семинара е доброволно, но изрично препоръчително.</span></td></tr>
+          <tr><td class="col-de">größtenteils</td><td class="col-expl">zum größten Teil; überwiegend; hauptsächlich</td><td class="col-bg">предимно; в по-голямата си част; основно</td><td class="col-bsp"><span class="bsp-de">Das Sozialprojekt wurde größtenteils durch Spenden und ehrenamtliche Arbeit finanziert.</span><span class="bsp-bg">Социалният проект е финансиран предимно чрез дарения и доброволен труд.</span></td></tr>
+          <tr><td class="col-de">hinzufügen</td><td class="col-expl">etwas zu einer bestehenden Sache ergänzen oder dazutun</td><td class="col-bg">добавям; прибавям; допълвам</td><td class="col-bsp"><span class="bsp-de">Sie fügte noch einige wichtige Punkte zum Konzept hinzu.</span><span class="bsp-bg">Тя добави още няколко важни точки към концепцията.</span></td></tr>
+          <tr><td class="col-de">sich lohnen</td><td class="col-expl">es wert sein; Vorteile oder Nutzen bringen; den Aufwand rechtfertigen</td><td class="col-bg">струва си; изплаща се; оправдава се</td><td class="col-bsp"><span class="bsp-de">Der enorme Aufwand hat sich am Ende wirklich gelohnt – das Ergebnis ist beeindruckend.</span><span class="bsp-bg">Огромното усилие в крайна сметка наистина си е струвало – резултатът е впечатляващ.</span></td></tr>
+          <tr><td class="col-de">vermerken</td><td class="col-expl">etwas schriftlich notieren oder festhalten; in eine Liste oder ein Dokument eintragen</td><td class="col-bg">отбелязвам; записвам; нотирам; вписвам</td><td class="col-bsp"><span class="bsp-de">Die geleisteten Arbeitsstunden wurden gewissenhaft im System vermerkt.</span><span class="bsp-bg">Положените работни часове бяха добросъвестно отбелязани в системата.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- WORTVERBINDUNGEN -->
+  <div class="modul-block wv" id="block-wv">
+    <div class="modul-header" onclick="toggleModul('wv')"><span class="modul-title"><span class="modul-badge">M 1–4</span>Wichtige Wortverbindungen</span><span class="modul-arrow open" id="arr-wv">▾</span></div>
+    <div class="modul-body show" id="body-wv">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">einen Beitrag leisten</td><td class="col-expl">etwas zur Erreichung eines gemeinsamen Ziels beitragen</td><td class="col-bg">допринасям; давам принос; правя вноска</td><td class="col-bsp"><span class="bsp-de">Jeder Einzelne kann einen wertvollen Beitrag zur Verbesserung der Gesellschaft leisten.</span><span class="bsp-bg">Всеки отделен човек може да даде ценен принос за подобряването на обществото.</span></td></tr>
+          <tr><td class="col-de">an seine Grenzen stoßen<span class="col-gram">stößt, stieß, ist gestoßen</span></td><td class="col-expl">die Grenze des eigenen Könnens oder der Belastbarkeit erreichen</td><td class="col-bg">стигам до границите си; изчерпвам се</td><td class="col-bsp"><span class="bsp-de">Bei diesem enormen Projekt ist sie schnell an ihre Grenzen gestoßen.</span><span class="bsp-bg">При този огромен проект тя бързо е стигнала до границите си.</span></td></tr>
+          <tr><td class="col-de">in beruflicher Hinsicht</td><td class="col-expl">was die berufliche Seite betrifft; vom beruflichen Standpunkt aus</td><td class="col-bg">от професионална гледна точка; в кариерен аспект</td><td class="col-bsp"><span class="bsp-de">In beruflicher Hinsicht war das vergangene Jahr außerordentlich erfolgreich für sie.</span><span class="bsp-bg">От професионална гледна точка миналата година беше извънредно успешна за нея.</span></td></tr>
+          <tr><td class="col-de">Kontakte knüpfen</td><td class="col-expl">neue Bekanntschaften und berufliche Verbindungen herstellen; Netzwerken</td><td class="col-bg">установявам контакти; навързвам връзки; networking</td><td class="col-bsp"><span class="bsp-de">Auf der Fachmesse konnte sie zahlreiche nützliche Kontakte knüpfen.</span><span class="bsp-bg">На специализирания панаир тя успя да установи многобройни полезни контакти.</span></td></tr>
+          <tr><td class="col-de">in Maßen</td><td class="col-expl">in einem vernünftigen Ausmaß; nicht übertrieben; mit Maß und Mitte</td><td class="col-bg">умерено; в разумни граници; с мяра</td><td class="col-bsp"><span class="bsp-de">Sport ist gut für die Gesundheit, aber nur in Maßen – zu viel schadet.</span><span class="bsp-bg">Спортът е добър за здравето, но само в разумни граници – твърде много вреди.</span></td></tr>
+          <tr><td class="col-de">etw. ins Netz stellen</td><td class="col-expl">etwas im Internet veröffentlichen oder hochladen; online publizieren</td><td class="col-bg">качвам нещо в интернет; публикувам онлайн</td><td class="col-bsp"><span class="bsp-de">Die Veranstaltung wurde im Nachhinein vollständig ins Netz gestellt.</span><span class="bsp-bg">Събитието беше публикувано изцяло в интернет впоследствие.</span></td></tr>
+          <tr><td class="col-de">den Unterschied ausmachen</td><td class="col-expl">für den entscheidenden Unterschied verantwortlich sein; entscheidend beeinflussen</td><td class="col-bg">правя разликата; имам решаващо значение</td><td class="col-bsp"><span class="bsp-de">Kleine Gesten der Freundlichkeit können im Alltag den entscheidenden Unterschied ausmachen.</span><span class="bsp-bg">Малките жестове на приятелство могат в ежедневието да правят решаваща разлика.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+<script>
+function toggleModul(id) {
+  const body = document.getElementById('body-' + id);
+  const arr  = document.getElementById('arr-'  + id);
+  const open = body.classList.toggle('show');
+  arr.classList.toggle('open', open);
+}
+function filterWords(q) {
+  q = q.trim().toLowerCase();
+  document.querySelectorAll('.vocab-table tbody tr').forEach(row => {
+    row.classList.toggle('hidden-row', q.length > 0 && !row.textContent.toLowerCase().includes(q));
+  });
+  if (q.length > 0) {
+    ['m1','m2','m3','m4','wv'].forEach(id => {
+      document.getElementById('body-' + id).classList.add('show');
+      document.getElementById('arr-'  + id).classList.add('open');
+    });
+  }
+}
+</script>
+</body>
+</html>
