@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wortschatz – Kapitel 2 | Wörter, Worte, Sprache</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f3; color: #222; font-size: 17px; line-height: 1.6; }
+.page-header {
+  background: linear-gradient(135deg, #00695c, #00897b);
+  color: #fff; padding: 16px 28px;
+  display: flex; justify-content: space-between; align-items: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,.2); flex-wrap: wrap; gap: 8px;
+}
+.page-header h1 { font-size: 1.5em; font-weight: 700; letter-spacing: .3px; }
+.page-header p  { font-size: .88em; opacity: .85; margin-top: 3px; }
+.badge { background: rgba(255,255,255,.22); border-radius: 16px; padding: 4px 14px; font-size: .85em; font-weight: bold; }
+.container { max-width: 1100px; margin: 0 auto; padding: 22px 16px 50px; }
+.modul-block { margin-bottom: 22px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+.modul-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 20px; cursor: pointer; user-select: none;
+  background: #2e7d6e; color: #fff; gap: 10px; transition: background .15s;
+}
+.modul-header:hover { background: #245f53; }
+.modul-title { font-weight: 700; font-size: 1.02em; display: flex; align-items: center; gap: 10px; }
+.modul-badge { background: rgba(255,255,255,.25); border-radius: 12px; padding: 2px 11px; font-size: .82em; font-weight: 700; }
+.modul-arrow { font-size: 1.1em; transition: transform .25s; }
+.modul-arrow.open { transform: rotate(180deg); }
+.modul-body { display: none; background: #fff; }
+.modul-body.show { display: block; }
+.modul-block.wv .modul-header { background: #455a64; }
+.modul-block.wv .modul-header:hover { background: #37474f; }
+.modul-block.wf .modul-header { background: #1565c0; }
+.modul-block.wf .modul-header:hover { background: #0d47a1; }
+.modul-block.vb .modul-header { background: #6a1b9a; }
+.modul-block.vb .modul-header:hover { background: #4a148c; }
+.vocab-table { width: 100%; border-collapse: collapse; font-size: .91em; }
+.vocab-table thead tr { background: #e8f4f1; }
+.vocab-table th { padding: 9px 12px; text-align: left; font-weight: 700; color: #1a5247; border-bottom: 2px solid #b2dfdb; font-size: .88em; }
+.vocab-table td { padding: 8px 12px; vertical-align: top; border-bottom: 1px solid #e0f0ed; }
+.vocab-table tr:nth-child(odd)  td { background: #fafefe; }
+.vocab-table tr:nth-child(even) td { background: #f0fafa; }
+.vocab-table tr:last-child td { border-bottom: none; }
+.col-de   { width: 20%; font-weight: 700; color: #004d40; }
+.col-gram { font-size: .80em; font-weight: 400; color: #777; display: block; margin-top: 2px; }
+.col-expl { width: 25%; color: #444; }
+.col-bg   { width: 20%; color: #1a237e; }
+.col-bsp  { width: 35%; }
+.bsp-de   { display: block; font-style: italic; color: #1b3c2a; font-size: .87em; line-height: 1.5; }
+.bsp-bg   { display: block; color: #6d3a00; font-size: .82em; margin-top: 3px; }
+.modul-block.wv .vocab-table .col-de { color: #1a237e; font-style: italic; font-weight: 600; }
+.modul-block.wf .vocab-table th { color: #0d47a1; border-bottom-color: #90caf9; }
+.modul-block.wf .vocab-table thead tr { background: #e3f2fd; }
+.modul-block.wf .vocab-table tr:nth-child(odd)  td { background: #fafcff; }
+.modul-block.wf .vocab-table tr:nth-child(even) td { background: #e8f4ff; }
+.modul-block.wf .col-de { color: #0d47a1; }
+.modul-block.wf .col-bg { color: #4a148c; }
+.modul-block.vb .vocab-table th { color: #4a148c; border-bottom-color: #ce93d8; }
+.modul-block.vb .vocab-table thead tr { background: #f3e5f5; }
+.modul-block.vb .vocab-table tr:nth-child(odd)  td { background: #fdf5ff; }
+.modul-block.vb .vocab-table tr:nth-child(even) td { background: #f3e5f5; }
+.modul-block.vb .col-de { color: #4a148c; }
+.modul-block.vb .col-bg { color: #1a237e; }
+.search-bar {
+  display: flex; align-items: center; gap: 10px;
+  background: #fff; border-radius: 30px; border: 2px solid #b2dfdb;
+  padding: 7px 16px; margin-bottom: 20px; box-shadow: 0 1px 6px rgba(0,0,0,.07);
+}
+.search-bar input { border: none; outline: none; font-size: 16px; font-family: inherit; flex: 1; background: transparent; }
+.search-bar span { color: #2e7d6e; font-size: 1.2em; }
+.hidden-row { display: none !important; }
+.legend {
+  background: #fff; border-radius: 10px; padding: 12px 18px; margin-bottom: 18px;
+  font-size: .88em; color: #555; box-shadow: 0 1px 6px rgba(0,0,0,.07);
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+}
+.legend strong { color: #2e7d6e; }
+.section-divider { font-size: .82em; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin: 28px 0 10px; padding-left: 4px; }
+@media (max-width: 680px) {
+  .col-expl { display: none; }
+  .vocab-table th:nth-child(2) { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="page-header">
+  <div>
+    <h1>Wortschatz – Kapitel 2</h1>
+    <p>Wörter, Worte, Sprache &nbsp;|&nbsp; Aspekte neu C1 &nbsp;|&nbsp; AB S. 32–33 + S. 20–21</p>
+  </div>
+  <span class="badge">Modul 1–4 + Wortverbindungen + Wortfeld + Verben</span>
+</div>
+<div class="container">
+  <div class="search-bar">
+    <span>🔍</span>
+    <input type="text" id="searchInput" placeholder="Wort suchen …" oninput="filterWords(this.value)">
+  </div>
+  <div class="legend">
+    <strong>Legende:</strong>
+    <span><b>Deutsch</b> · <b>Erklärung</b> · <b>Български</b> · <b>Beispielsatz</b> (kursiv) mit Übersetzung</span>
+    <span>Modulkopf klicken zum Auf-/Zuklappen &nbsp;|&nbsp; Suchfeld filtert alle Einträge</span>
+  </div>
+
+  <!-- MODUL 1 -->
+  <div class="modul-block" id="block-m1">
+    <div class="modul-header" onclick="toggleModul('m1')">
+      <span class="modul-title"><span class="modul-badge">Modul 1</span>Immer erreichbar</span>
+      <span class="modul-arrow open" id="arr-m1">▾</span>
+    </div>
+    <div class="modul-body show" id="body-m1">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">abschalten</td><td class="col-expl">den Kopf freimachen; sich von Arbeit und Stress erholen; innerlich zur Ruhe kommen</td><td class="col-bg">изключвам се; отпускам се; спирам да мисля за работа</td><td class="col-bsp"><span class="bsp-de">Nach dem langen Arbeitstag kann ich abends kaum noch abschalten.</span><span class="bsp-bg">След дългия работен ден вечер почти не мога да се изключа.</span></td></tr>
+          <tr><td class="col-de">anderweitig</td><td class="col-expl">auf andere Art; für andere Zwecke; in einer anderen Weise</td><td class="col-bg">по друг начин; за друга цел; иначе</td><td class="col-bsp"><span class="bsp-de">Die frei gewordenen Mittel wurden anderweitig verwendet.</span><span class="bsp-bg">Освободените средства бяха използвани по друг начин.</span></td></tr>
+          <tr><td class="col-de">bewusst</td><td class="col-expl">mit voller Absicht und Kenntnis; mit Willen getan; auch: sich einer Sache bewusst sein</td><td class="col-bg">съзнателен; целенасочен; умишлен</td><td class="col-bsp"><span class="bsp-de">Sie hat bewusst entschieden, nach 18 Uhr nicht mehr erreichbar zu sein.</span><span class="bsp-bg">Тя съзнателно е решила да не бъде достъпна след 18 часа.</span></td></tr>
+          <tr><td class="col-de">die Botschaft<span class="col-gram">-en</span></td><td class="col-expl">eine wichtige Nachricht oder Mitteilung; auch: die offizielle Vertretung eines Staates im Ausland</td><td class="col-bg">послание; съобщение; (също) посолство</td><td class="col-bsp"><span class="bsp-de">Die wichtigste Botschaft ist: Erholung ist keine Schwäche, sondern eine Notwendigkeit.</span><span class="bsp-bg">Най-важното послание е: почивката не е слабост, а необходимост.</span></td></tr>
+          <tr><td class="col-de">derzeit</td><td class="col-expl">momentan; zurzeit; in diesem Augenblick; gegenwärtig</td><td class="col-bg">в момента; сега; понастоящем</td><td class="col-bsp"><span class="bsp-de">Derzeit ist die Chefin im Urlaub und nicht erreichbar.</span><span class="bsp-bg">В момента шефицата е в отпуск и не може да бъде достигната.</span></td></tr>
+          <tr><td class="col-de">eingehen auf<span class="col-gram">geht ein, ging ein, ist eingegangen | auf + Akk.</span></td><td class="col-expl">auf ein Thema oder eine Person reagieren und sich damit befassen; etw. ernst nehmen</td><td class="col-bg">реагирам на; обръщам внимание на; занимавам се с</td><td class="col-bsp"><span class="bsp-de">Der Vorgesetzte ist kaum auf unsere Vorschläge eingegangen.</span><span class="bsp-bg">Ръководителят почти не обърна внимание на нашите предложения.</span></td></tr>
+          <tr><td class="col-de">enorm</td><td class="col-expl">sehr groß; außerordentlich; weit über das Normale hinausgehend</td><td class="col-bg">огромен; извънреден; колосален</td><td class="col-bsp"><span class="bsp-de">Der Druck durch ständige Erreichbarkeit hat enormen Einfluss auf die Gesundheit.</span><span class="bsp-bg">Натискът от постоянната достъпност оказва огромно влияние върху здравето.</span></td></tr>
+          <tr><td class="col-de">erreichbar</td><td class="col-expl">so, dass man jemanden kontaktieren oder etwas erreichen kann; verfügbar</td><td class="col-bg">достижим; на разположение; на линия</td><td class="col-bsp"><span class="bsp-de">Er ist außerhalb der Arbeitszeiten grundsätzlich nicht erreichbar.</span><span class="bsp-bg">По принцип той не е достъпен извън работното си време.</span></td></tr>
+          <tr><td class="col-de">gelegentlich</td><td class="col-expl">manchmal; ab und zu; nicht regelmäßig; hin und wieder</td><td class="col-bg">от време на време; понякога; инцидентно</td><td class="col-bsp"><span class="bsp-de">Gelegentlich schalte ich das Handy auch am Wochenende einfach aus.</span><span class="bsp-bg">От време на време просто изключвам телефона дори през уикенда.</span></td></tr>
+          <tr><td class="col-de">hingegen</td><td class="col-expl">im Gegensatz dazu; dagegen; aber; auf der anderen Seite</td><td class="col-bg">обаче; напротив; от друга страна</td><td class="col-bsp"><span class="bsp-de">Er arbeitet gerne im Büro, seine Kollegin hingegen bevorzugt das Homeoffice.</span><span class="bsp-bg">Той обича да работи в офиса, докато колегата му предпочита работата от вкъщи.</span></td></tr>
+          <tr><td class="col-de">die Pflicht<span class="col-gram">-en</span></td><td class="col-expl">etwas, das man tun muss; eine moralische oder rechtliche Verpflichtung</td><td class="col-bg">задължение; дълг; отговорност</td><td class="col-bsp"><span class="bsp-de">Es ist seine Pflicht als Bereitschaftsarzt, auch nachts erreichbar zu sein.</span><span class="bsp-bg">Негово задължение като дежурен лекар е да бъде достъпен и нощем.</span></td></tr>
+          <tr><td class="col-de">umfassend</td><td class="col-expl">vollständig und alles einschließend; sehr gründlich und detailliert</td><td class="col-bg">изчерпателен; всеобхватен; пълен</td><td class="col-bsp"><span class="bsp-de">Sie hat eine umfassende Antwort auf alle Fragen gegeben.</span><span class="bsp-bg">Тя даде изчерпателен отговор на всички въпроси.</span></td></tr>
+          <tr><td class="col-de">die Vereinbarkeit<span class="col-gram">(Sg.)</span></td><td class="col-expl">die Möglichkeit, zwei Dinge gleichzeitig zu haben oder zu tun (z. B. Beruf und Familie)</td><td class="col-bg">съвместимост; съвместяване</td><td class="col-bsp"><span class="bsp-de">Die Vereinbarkeit von Beruf und Familie bleibt eine große gesellschaftliche Herausforderung.</span><span class="bsp-bg">Съвместяването на работа и семейство остава голямо обществено предизвикателство.</span></td></tr>
+          <tr><td class="col-de">der Zugriff<span class="col-gram">-e</span></td><td class="col-expl">die Möglichkeit, auf etwas zuzugreifen; Zugang – besonders digital</td><td class="col-bg">достъп (особено цифров); право на ползване</td><td class="col-bsp"><span class="bsp-de">Der Zugriff auf Firmendaten von unterwegs ist heute Standard.</span><span class="bsp-bg">Достъпът до фирмени данни от разстояние е днес стандарт.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODUL 2 -->
+  <div class="modul-block" id="block-m2">
+    <div class="modul-header" onclick="toggleModul('m2')">
+      <span class="modul-title"><span class="modul-badge">Modul 2</span>Gib Contra!</span>
+      <span class="modul-arrow open" id="arr-m2">▾</span>
+    </div>
+    <div class="modul-body show" id="body-m2">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">die Attacke<span class="col-gram">-n</span></td><td class="col-expl">ein Angriff; eine plötzliche, feindselige Handlung oder Aussage gegen jemanden</td><td class="col-bg">атака; нападение</td><td class="col-bsp"><span class="bsp-de">Seine verbale Attacke hat alle im Raum erschrocken.</span><span class="bsp-bg">Вербалната му атака смая всички в стаята.</span></td></tr>
+          <tr><td class="col-de">ausgrenzen</td><td class="col-expl">jemanden aus einer Gruppe ausschließen; absichtlich isolieren</td><td class="col-bg">изолирам; изключвам (от група); маргинализирам</td><td class="col-bsp"><span class="bsp-de">Wer andere ausgrenzt, schadet dem gesamten Team.</span><span class="bsp-bg">Който изолира другите, вреди на целия екип.</span></td></tr>
+          <tr><td class="col-de">der Ausweg<span class="col-gram">-e</span></td><td class="col-expl">eine Lösung für ein Problem; eine Möglichkeit aus einer schwierigen Situation</td><td class="col-bg">изход; начин за справяне; решение</td><td class="col-bsp"><span class="bsp-de">Sie suchte verzweifelt nach einem Ausweg aus der Situation.</span><span class="bsp-bg">Тя отчаяно търсеше изход от ситуацията.</span></td></tr>
+          <tr><td class="col-de">die Defensive<span class="col-gram">(Sg.)</span></td><td class="col-expl">eine Verteidigungsposition; die Seite, die sich verteidigt</td><td class="col-bg">отбрана; защитна позиция</td><td class="col-bsp"><span class="bsp-de">Nach dem Vorwurf geriet er in die Defensive.</span><span class="bsp-bg">След обвинението той попадна в отбранителна позиция.</span></td></tr>
+          <tr><td class="col-de">gemein</td><td class="col-expl">böse, verletzend und absichtlich niederträchtig; ein Verhalten, das anderen schadet</td><td class="col-bg">долен; злобен; подъл</td><td class="col-bsp"><span class="bsp-de">Es war wirklich gemein, ihn vor allen zu beschämen.</span><span class="bsp-bg">Беше наистина долно да го засрамят пред всички.</span></td></tr>
+          <tr><td class="col-de">gleichgültig</td><td class="col-expl">ohne Interesse oder Mitgefühl; apathisch; es ist jemandem egal</td><td class="col-bg">безразличен; равнодушен; апатичен</td><td class="col-bsp"><span class="bsp-de">Ihm scheint das Wohlbefinden seiner Mitarbeiter völlig gleichgültig zu sein.</span><span class="bsp-bg">Изглежда, че благополучието на служителите му е напълно безразлично.</span></td></tr>
+          <tr><td class="col-de">kontern</td><td class="col-expl">auf einen Angriff oder Vorwurf schlagfertig und wirkungsvoll reagieren</td><td class="col-bg">контрирам; отговарям остроумно; давам отпор</td><td class="col-bsp"><span class="bsp-de">Sie wusste, wie man Kritik geschickt kontern kann.</span><span class="bsp-bg">Тя знаеше как умело да контрира критиката.</span></td></tr>
+          <tr><td class="col-de">die Provokation<span class="col-gram">-en</span></td><td class="col-expl">eine absichtliche Herausforderung; eine Handlung/Aussage, die jemanden reizen soll</td><td class="col-bg">провокация; предизвикателство</td><td class="col-bsp"><span class="bsp-de">Seine Frage war eine bewusste Provokation, keine ehrliche Frage.</span><span class="bsp-bg">Въпросът му беше умишлена провокация, не искрен въпрос.</span></td></tr>
+          <tr><td class="col-de">der Spott<span class="col-gram">(Sg.)</span></td><td class="col-expl">Hohn; abwertende oder lustig gemeinte Worte über jemanden</td><td class="col-bg">подигравка; присмех; ирония</td><td class="col-bsp"><span class="bsp-de">Er musste den Spott seiner Mitschüler täglich ertragen.</span><span class="bsp-bg">Той трябваше ежедневно да понася присмеха на съучениците си.</span></td></tr>
+          <tr><td class="col-de">die Überlegenheit<span class="col-gram">(Sg.)</span></td><td class="col-expl">der Zustand, besser oder stärker als andere zu sein; Dominanz</td><td class="col-bg">превъзходство; надмощие</td><td class="col-bsp"><span class="bsp-de">Ihre Überlegenheit in der Debatte war für alle deutlich sichtbar.</span><span class="bsp-bg">Превъзходството й в дебата беше ясно видимо за всички.</span></td></tr>
+          <tr><td class="col-de">unterschätzen</td><td class="col-expl">jemanden oder etwas für weniger gut oder wichtig halten als er/es tatsächlich ist</td><td class="col-bg">подценявам; недооценявам</td><td class="col-bsp"><span class="bsp-de">Man sollte die Kraft von Worten niemals unterschätzen.</span><span class="bsp-bg">Никога не бива да се подценява силата на думите.</span></td></tr>
+          <tr><td class="col-de">unverschämt</td><td class="col-expl">frech und respektlos; ohne jede Hemmung; keine Rücksicht zeigend</td><td class="col-bg">безсрамен; нахален; дързък</td><td class="col-bsp"><span class="bsp-de">Seine Forderung war schlicht unverschämt und wurde abgelehnt.</span><span class="bsp-bg">Искането му беше направо нахално и беше отхвърлено.</span></td></tr>
+          <tr><td class="col-de">verwirren</td><td class="col-expl">jemanden durcheinanderbringen; Verwirrung oder Unsicherheit verursachen</td><td class="col-bg">обърквам; смущавам; предизвиквам замешателство</td><td class="col-bsp"><span class="bsp-de">Seine widersprüchlichen Aussagen haben alle verwirrt.</span><span class="bsp-bg">Противоречивите му изказвания объркаха всички.</span></td></tr>
+          <tr><td class="col-de">sich wehren gegen<span class="col-gram">wehrt, wehrte, hat gewehrt | gegen + Akk.</span></td><td class="col-expl">sich aktiv gegen etwas oder jemanden zur Wehr setzen; Widerstand leisten</td><td class="col-bg">защитавам се от; съпротивлявам се срещу</td><td class="col-bsp"><span class="bsp-de">Man muss lernen, sich gegen Ungerechtigkeit zu wehren.</span><span class="bsp-bg">Трябва да се научим да се защитаваме срещу несправедливостта.</span></td></tr>
+          <tr><td class="col-de">zustimmen<span class="col-gram">stimmt zu | Dat.</span></td><td class="col-expl">einer Meinung, einem Vorschlag oder einer Entscheidung einverstanden sein</td><td class="col-bg">съгласявам се; одобрявам; потвърждавам</td><td class="col-bsp"><span class="bsp-de">Ich kann dieser Aussage nur teilweise zustimmen.</span><span class="bsp-bg">Мога да се съглася с това твърдение само частично.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODUL 3 -->
+  <div class="modul-block" id="block-m3">
+    <div class="modul-header" onclick="toggleModul('m3')">
+      <span class="modul-title"><span class="modul-badge">Modul 3</span>Sprachen lernen</span>
+      <span class="modul-arrow open" id="arr-m3">▾</span>
+    </div>
+    <div class="modul-body show" id="body-m3">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">die Abweichung<span class="col-gram">-en</span></td><td class="col-expl">eine Abweichung von der Norm oder der Erwartung; ein Unterschied zu einem Standard</td><td class="col-bg">отклонение; отстъпление от нормата</td><td class="col-bsp"><span class="bsp-de">Leichte Abweichungen vom Standard sind im Dialekt völlig normal.</span><span class="bsp-bg">Леките отклонения от стандарта са напълно нормални в диалекта.</span></td></tr>
+          <tr><td class="col-de">die Aneignung<span class="col-gram">(Sg.)</span></td><td class="col-expl">der Prozess, sich Wissen, Fähigkeiten oder Eigenschaften zu erwerben</td><td class="col-bg">усвояване; придобиване (на знания)</td><td class="col-bsp"><span class="bsp-de">Die Aneignung einer Fremdsprache dauert Jahre.</span><span class="bsp-bg">Усвояването на чужд език отнема години.</span></td></tr>
+          <tr><td class="col-de">bemerkenswert</td><td class="col-expl">so besonders, dass es Aufmerksamkeit verdient; außergewöhnlich; beeindruckend</td><td class="col-bg">забележителен; впечатляващ; достоен за внимание</td><td class="col-bsp"><span class="bsp-de">Ihre sprachlichen Fortschritte in so kurzer Zeit sind wirklich bemerkenswert.</span><span class="bsp-bg">Езиковите й постижения за толкова кратко време са наистина забележителни.</span></td></tr>
+          <tr><td class="col-de">die Didaktik<span class="col-gram">-en</span></td><td class="col-expl">die Wissenschaft vom Lehren und Lernen; Theorie und Methodik des Unterrichts</td><td class="col-bg">дидактика; методика на преподаването</td><td class="col-bsp"><span class="bsp-de">Moderne Didaktik setzt auf kommunikative Methoden statt auf reine Grammatikvermittlung.</span><span class="bsp-bg">Съвременната дидактика залага на комуникативни методи вместо на чисто граматично обучение.</span></td></tr>
+          <tr><td class="col-de">die Disziplin<span class="col-gram">-en</span></td><td class="col-expl">ein Fachgebiet; auch: Selbstkontrolle und Konsequenz im Verhalten</td><td class="col-bg">дисциплина; самодисциплина</td><td class="col-bsp"><span class="bsp-de">Ohne Disziplin und regelmäßiges Üben kann man keine Fremdsprache meistern.</span><span class="bsp-bg">Без дисциплина и редовна практика не може да се овладее чужд език.</span></td></tr>
+          <tr><td class="col-de">der Erwerb<span class="col-gram">(Sg.)</span></td><td class="col-expl">das Erlangen oder Erwerben von etwas – z. B. Spracherwerb, Wissenserwerb</td><td class="col-bg">придобиване; усвояване (напр. на език)</td><td class="col-bsp"><span class="bsp-de">Der frühe Spracherwerb ist für die kindliche Entwicklung entscheidend.</span><span class="bsp-bg">Ранното езиково усвояване е решаващо за детското развитие.</span></td></tr>
+          <tr><td class="col-de">der Forschungsgegenstand<span class="col-gram">-¨e</span></td><td class="col-expl">das Thema oder Objekt einer wissenschaftlichen Untersuchung</td><td class="col-bg">предмет на изследване; обект на научен анализ</td><td class="col-bsp"><span class="bsp-de">Mehrsprachigkeit ist ein faszinierender Forschungsgegenstand der Linguistik.</span><span class="bsp-bg">Многоезичието е завладяващ предмет на изследване в лингвистиката.</span></td></tr>
+          <tr><td class="col-de">der Garant<span class="col-gram">-en</span></td><td class="col-expl">jemand oder etwas, das etwas sicherstellt oder gewährleistet</td><td class="col-bg">гарант; поръчител; залог (за нещо)</td><td class="col-bsp"><span class="bsp-de">Fleiß allein ist kein Garant für Erfolg beim Sprachenlernen.</span><span class="bsp-bg">Усърдието само по себе си не е гарант за успех при ученето на езици.</span></td></tr>
+          <tr><td class="col-de">das Repertoire<span class="col-gram">-s</span></td><td class="col-expl">die Gesamtheit der Kenntnisse, Fähigkeiten oder Werke, über die jemand verfügt</td><td class="col-bg">репертоар; набор от умения</td><td class="col-bsp"><span class="bsp-de">Ihr sprachliches Repertoire umfasst fünf Sprachen auf unterschiedlichem Niveau.</span><span class="bsp-bg">Езиковият й репертоар обхваща пет езика на различни нива.</span></td></tr>
+          <tr><td class="col-de">das Sprachvermögen<span class="col-gram">(Sg.)</span></td><td class="col-expl">die Fähigkeit, Sprache zu verwenden, zu verstehen und zu produzieren</td><td class="col-bg">езикови способности; владеене на езика</td><td class="col-bsp"><span class="bsp-de">Das Sprachvermögen eines Menschen entwickelt sich ein Leben lang weiter.</span><span class="bsp-bg">Езиковите способности на човека се развиват непрекъснато цял живот.</span></td></tr>
+          <tr><td class="col-de">die Steuerung<span class="col-gram">-en</span></td><td class="col-expl">die Kontrolle und Regulierung eines Prozesses oder Systems</td><td class="col-bg">управление; контрол; регулиране</td><td class="col-bsp"><span class="bsp-de">Die bewusste Steuerung des Lernprozesses macht ihn deutlich effizienter.</span><span class="bsp-bg">Съзнателното управление на учебния процес го прави значително по-ефективен.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODUL 4 -->
+  <div class="modul-block" id="block-m4">
+    <div class="modul-header" onclick="toggleModul('m4')">
+      <span class="modul-title"><span class="modul-badge">Modul 4</span>Sag mal was!</span>
+      <span class="modul-arrow open" id="arr-m4">▾</span>
+    </div>
+    <div class="modul-body show" id="body-m4">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">abschneiden bei<span class="col-gram">schneidet ab, schnitt ab | bei + Dat.</span></td><td class="col-expl">ein bestimmtes Ergebnis in einer Prüfung oder einem Vergleich erzielen</td><td class="col-bg">справям се при; постигам резултат в</td><td class="col-bsp"><span class="bsp-de">Die deutschen Schüler schnitten bei der PISA-Studie besser ab als erwartet.</span><span class="bsp-bg">Германските ученици се справиха по-добре от очакваното на изследването PISA.</span></td></tr>
+          <tr><td class="col-de">aufsteigen<span class="col-gram">steigt auf, stieg auf, ist aufgestiegen</span></td><td class="col-expl">auf eine höhere Position kommen; beruflich vorankommen</td><td class="col-bg">издигам се; напредвам; правя кариера</td><td class="col-bsp"><span class="bsp-de">Nach zehn Jahren harter Arbeit ist er endlich zum Abteilungsleiter aufgestiegen.</span><span class="bsp-bg">След десет години упорит труд той най-накрая се е издигнал до ръководител на отдел.</span></td></tr>
+          <tr><td class="col-de">auflösen</td><td class="col-expl">etwas beenden oder aufheben; auch: ein Rätsel beantworten; zerstreuen</td><td class="col-bg">разрешавам; прекратявам; обяснявам (загадка)</td><td class="col-bsp"><span class="bsp-de">Das Rätsel wurde am Ende der Sendung aufgelöst.</span><span class="bsp-bg">Загадката беше разрешена в края на предаването.</span></td></tr>
+          <tr><td class="col-de">ausschließlich</td><td class="col-expl">nur und einzig allein; ohne Ausnahme; nichts anderes eingeschlossen</td><td class="col-bg">изключително; само; единствено</td><td class="col-bsp"><span class="bsp-de">Diese Veranstaltung ist ausschließlich für eingeladene Gäste zugänglich.</span><span class="bsp-bg">Това събитие е достъпно изключително за поканени гости.</span></td></tr>
+          <tr><td class="col-de">betonen</td><td class="col-expl">etwas besonders hervorheben und wichtig machen; unterstreichen</td><td class="col-bg">подчертавам; акцентирам; наблягам</td><td class="col-bsp"><span class="bsp-de">Die Lehrerin betonte immer wieder, wie wichtig regelmäßiges Üben sei.</span><span class="bsp-bg">Учителката постоянно наблягаше колко важна е редовната практика.</span></td></tr>
+          <tr><td class="col-de">fragil</td><td class="col-expl">zerbrechlich; leicht zu beschädigen; auch: schwach und instabil</td><td class="col-bg">крехък; нестабилен; деликатен</td><td class="col-bsp"><span class="bsp-de">Das Vertrauen zwischen beiden Seiten ist noch fragil und muss gepflegt werden.</span><span class="bsp-bg">Доверието между двете страни е все още крехко и трябва да се поддържа.</span></td></tr>
+          <tr><td class="col-de">das Gehör<span class="col-gram">(Sg.)</span></td><td class="col-expl">die Fähigkeit zu hören; übertragen: Aufmerksamkeit schenken</td><td class="col-bg">слух; (преносно) внимание; изслушване</td><td class="col-bsp"><span class="bsp-de">Man sollte den Bedenken der Schüler mehr Gehör schenken.</span><span class="bsp-bg">Трябва да се обръща повече внимание на опасенията на учениците.</span></td></tr>
+          <tr><td class="col-de">gleichsetzen mit<span class="col-gram">setzt gleich | mit + Dat.</span></td><td class="col-expl">als gleich oder gleichwertig betrachten; zwei Dinge als identisch behandeln</td><td class="col-bg">приравнявам с; отъждествявам с</td><td class="col-bsp"><span class="bsp-de">Lautstärke mit Überzeugungskraft gleichzusetzen ist ein verbreiteter Fehler.</span><span class="bsp-bg">Да се приравнява шумността с убедителността е широко разпространена грешка.</span></td></tr>
+          <tr><td class="col-de">herunterladen<span class="col-gram">lädt herunter, lud herunter</span></td><td class="col-expl">eine Datei aus dem Internet auf das eigene Gerät speichern; downloaden</td><td class="col-bg">изтеглям (от интернет); сваля</td><td class="col-bsp"><span class="bsp-de">Das Material kann kostenlos von der Webseite heruntergeladen werden.</span><span class="bsp-bg">Материалът може да бъде изтеглен безплатно от уебсайта.</span></td></tr>
+          <tr><td class="col-de">imponieren<span class="col-gram">imponierte | Dat.</span></td><td class="col-expl">Bewunderung oder Respekt hervorrufen; beeindrucken</td><td class="col-bg">правя впечатление; импонирам; предизвиквам уважение</td><td class="col-bsp"><span class="bsp-de">Sein Wissen über Sprachgeschichte imponiert mir sehr.</span><span class="bsp-bg">Знанията му по история на езика ми импонират много.</span></td></tr>
+          <tr><td class="col-de">profitieren von<span class="col-gram">profitierte | von + Dat.</span></td><td class="col-expl">Vorteile aus etwas ziehen; Nutzen haben</td><td class="col-bg">извличам полза от; облагодетелствам се</td><td class="col-bsp"><span class="bsp-de">Alle Schüler können von einem mehrsprachigen Unterricht profitieren.</span><span class="bsp-bg">Всички ученици могат да се възползват от многоезичното обучение.</span></td></tr>
+          <tr><td class="col-de">das Stigma<span class="col-gram">Stigmen / Stigmata</span></td><td class="col-expl">ein negatives gesellschaftliches Merkmal, das mit Ablehnung verbunden ist</td><td class="col-bg">стигма; обществена отметка с негативен знак</td><td class="col-bsp"><span class="bsp-de">Das Stigma um psychische Erkrankungen baut sich in der Gesellschaft langsam ab.</span><span class="bsp-bg">Стигмата около психичните заболявания бавно намалява в обществото.</span></td></tr>
+          <tr><td class="col-de">unüberschaubar</td><td class="col-expl">so groß, dass man keine Übersicht hat; kaum zu überblicken</td><td class="col-bg">необозрим; непрегледен; огромен</td><td class="col-bsp"><span class="bsp-de">Die Fülle an verfügbaren Online-Sprachkursen ist inzwischen unüberschaubar.</span><span class="bsp-bg">Изобилието от налични онлайн езикови курсове е станало непрегледно.</span></td></tr>
+          <tr><td class="col-de">ursprünglich</td><td class="col-expl">von Anfang an; so, wie es zuerst war; anfänglich geplant</td><td class="col-bg">първоначален; изначален; по начало</td><td class="col-bsp"><span class="bsp-de">Ursprünglich war geplant, den Kurs online abzuhalten.</span><span class="bsp-bg">Първоначално беше планирано курсът да се проведе онлайн.</span></td></tr>
+          <tr><td class="col-de">verblüffen</td><td class="col-expl">jemanden sehr überraschen und in Erstaunen versetzen</td><td class="col-bg">изумявам; стъписвам; учудвам</td><td class="col-bsp"><span class="bsp-de">Seine kreative Antwort hat alle im Raum verblüfft.</span><span class="bsp-bg">Творческият му отговор смая всички в стаята.</span></td></tr>
+          <tr><td class="col-de">die Verrohung<span class="col-gram">(Sg.)</span></td><td class="col-expl">die zunehmende Roheit und Brutalität in der Sprache oder Gesellschaft</td><td class="col-bg">огрубяване; одивеляване на нравите</td><td class="col-bsp"><span class="bsp-de">Die Verrohung der Sprache in sozialen Medien besorgt viele Pädagogen.</span><span class="bsp-bg">Огрубяването на езика в социалните медии тревожи много педагози.</span></td></tr>
+          <tr><td class="col-de">der Wahlkreis<span class="col-gram">-e</span></td><td class="col-expl">ein geografisch abgegrenztes Gebiet, das bei Wahlen durch einen Abgeordneten vertreten wird</td><td class="col-bg">избирателен район; изборен район</td><td class="col-bsp"><span class="bsp-de">Sie kandidiert erneut in ihrem alten Wahlkreis.</span><span class="bsp-bg">Тя се кандидатира отново в стария си избирателен район.</span></td></tr>
+          <tr><td class="col-de">sich zurechtfinden<span class="col-gram">findet zurecht, fand zurecht</span></td><td class="col-expl">sich in einer Umgebung oder Situation orientieren und damit klarkommen</td><td class="col-bg">оправям се; ориентирам се; намирам се</td><td class="col-bsp"><span class="bsp-de">In der neuen Stadt hat er sich überraschend schnell zurechtgefunden.</span><span class="bsp-bg">В новия град той се е ориентирал изненадващо бързо.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- WORTVERBINDUNGEN -->
+  <div class="modul-block wv" id="block-wv">
+    <div class="modul-header" onclick="toggleModul('wv')">
+      <span class="modul-title"><span class="modul-badge">M 1–4</span>Wichtige Wortverbindungen</span>
+      <span class="modul-arrow open" id="arr-wv">▾</span>
+    </div>
+    <div class="modul-body show" id="body-wv">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">etw. anklingen lassen<span class="col-gram">lässt, ließ, hat lassen</span></td><td class="col-expl">etwas nur kurz und andeutungsweise erwähnen, ohne es vollständig auszuführen</td><td class="col-bg">загатвам за нещо; намеквам</td><td class="col-bsp"><span class="bsp-de">In seiner Rede ließ er die Möglichkeit eines Rücktritts anklingen.</span><span class="bsp-bg">В речта си той загатна за възможността за оставка.</span></td></tr>
+          <tr><td class="col-de">einen Beruf ausüben</td><td class="col-expl">einen Beruf praktisch und aktiv betreiben; beruflich tätig sein</td><td class="col-bg">упражнявам професия</td><td class="col-bsp"><span class="bsp-de">Sie übt seit zwanzig Jahren den Beruf der Ärztin aus.</span><span class="bsp-bg">Тя упражнява лекарската професия от двадесет години.</span></td></tr>
+          <tr><td class="col-de">im Grunde genommen</td><td class="col-expl">wenn man genau und ehrlich darüber nachdenkt; eigentlich; auf das Wesentliche reduziert</td><td class="col-bg">по същество; всъщност; на практика</td><td class="col-bsp"><span class="bsp-de">Im Grunde genommen hat er recht, auch wenn ich es nicht zugeben will.</span><span class="bsp-bg">По същество той е прав, дори ако не искам да го призная.</span></td></tr>
+          <tr><td class="col-de">etw. auf sich halten<span class="col-gram">hält, hielt, hat gehalten</span></td><td class="col-expl">Wert auf die eigene Würde und das Ansehen legen; sich nicht herabwürdigen lassen</td><td class="col-bg">държа на достойнството си; ценя себе си</td><td class="col-bsp"><span class="bsp-de">Sie hält sehr viel auf sich und erwartet respektvolle Behandlung.</span><span class="bsp-bg">Тя много държи на себе си и очаква уважително отношение.</span></td></tr>
+          <tr><td class="col-de">Hohn und Spott</td><td class="col-expl">starke Verachtung und spöttisches Verhalten zugleich; intensive Belustigung über jemanden</td><td class="col-bg">подигравка и присмех; насмешка</td><td class="col-bsp"><span class="bsp-de">Sein unerwarteter Vorschlag erntete nur Hohn und Spott.</span><span class="bsp-bg">Неочакваното му предложение спечели само подигравки и присмех.</span></td></tr>
+          <tr><td class="col-de">jmdm. Paroli bieten<span class="col-gram">bietet, bot, hat geboten | Dat.</span></td><td class="col-expl">jemanden wirkungsvoll entgegenstehen; sich kräftig behaupten; nicht nachgeben</td><td class="col-bg">давам отпор на някого; не отстъпвам</td><td class="col-bsp"><span class="bsp-de">Sie bot dem aggressiven Kollegen erfolgreich Paroli.</span><span class="bsp-bg">Тя успешно даде отпор на агресивния колега.</span></td></tr>
+          <tr><td class="col-de">in der Pflicht stehen<span class="col-gram">steht, stand, hat gestanden</span></td><td class="col-expl">verpflichtet sein, etwas zu tun; eine Verantwortung haben, der man nachkommen muss</td><td class="col-bg">задължен съм; имам отговорност</td><td class="col-bsp"><span class="bsp-de">Als Eltern stehen wir in der Pflicht, unsere Kinder zu schützen.</span><span class="bsp-bg">Като родители сме задължени да защитаваме децата си.</span></td></tr>
+          <tr><td class="col-de">Platz schaffen für<span class="col-gram">schafft, schuf, hat geschaffen</span></td><td class="col-expl">Raum oder Möglichkeit für etwas Neues schaffen; etw. freimachen</td><td class="col-bg">правя място за; освобождавам място</td><td class="col-bsp"><span class="bsp-de">Um Neues zu lernen, muss man manchmal Platz für Veränderungen schaffen.</span><span class="bsp-bg">За да се учат нови неща, понякога трябва да се направи място за промени.</span></td></tr>
+          <tr><td class="col-de">jmdn. schlecht dastehen lassen<span class="col-gram">lässt, ließ, hat lassen</span></td><td class="col-expl">jemanden in einem schlechten Licht erscheinen lassen; für einen schlechten Eindruck sorgen</td><td class="col-bg">карам някого да изглежда зле; злепоставям</td><td class="col-bsp"><span class="bsp-de">Mit dieser Aussage hat er seinen Chef vor allen schlecht dastehen lassen.</span><span class="bsp-bg">С тази изказване той е злепоставил шефа си пред всички.</span></td></tr>
+          <tr><td class="col-de">den Überblick verlieren über<span class="col-gram">verliert, verlor | über + Akk.</span></td><td class="col-expl">die Kontrolle oder das Verständnis über eine Situation verlieren</td><td class="col-bg">губя нишката; губя представата за</td><td class="col-bsp"><span class="bsp-de">Bei so vielen Projekten verliert man schnell den Überblick.</span><span class="bsp-bg">При толкова много проекти бързо се губи нишката.</span></td></tr>
+          <tr><td class="col-de">voll und ganz</td><td class="col-expl">vollständig, ohne Einschränkung; absolut; zu 100%</td><td class="col-bg">напълно; изцяло; съвсем</td><td class="col-bsp"><span class="bsp-de">Ich unterstütze diese Initiative voll und ganz.</span><span class="bsp-bg">Изцяло подкрепям тази инициатива.</span></td></tr>
+          <tr><td class="col-de">ein Thema aufgreifen<span class="col-gram">greift auf, griff auf, hat aufgegriffen</span></td><td class="col-expl">ein vorher erwähntes Thema wieder aufnehmen und vertiefen oder weiterentwickeln</td><td class="col-bg">поемам тема; задълбочавам се в тема</td><td class="col-bsp"><span class="bsp-de">Die Journalistin griff das Thema Datenschutz erneut auf.</span><span class="bsp-bg">Журналистката отново разви темата за защитата на данните.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-divider">Zusätzliche Wortschatzübungen – Arbeitsbuch</div>
+
+  <!-- WORTFELD "WORT" -->
+  <div class="modul-block wf" id="block-wf">
+    <div class="modul-header" onclick="toggleModul('wf')">
+      <span class="modul-title"><span class="modul-badge">AB S. 20</span>Wortfeld „Wort" – Übung 1</span>
+      <span class="modul-arrow open" id="arr-wf">▾</span>
+    </div>
+    <div class="modul-body show" id="body-wf">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">Wörter<span class="col-gram">Nomen – Plural (grammatikalisch)</span></td><td class="col-expl">Der grammatikalisch-technische Plural von Wort. Einzelne zählbare sprachliche Einheiten.</td><td class="col-bg">думи (граматически-технически; за броими единици)</td><td class="col-bsp"><span class="bsp-de">Der Aufsatz enthält genau 500 Wörter.</span><span class="bsp-bg">Есето съдържа точно 500 думи.</span></td></tr>
+          <tr><td class="col-de">Worte<span class="col-gram">Nomen – Plural (bedeutungsbetont)</span></td><td class="col-expl">Der bedeutungsbetonte Plural von Wort. Wichtige, weise oder emotionale Aussagen.</td><td class="col-bg">думи (значими изказвания); слова</td><td class="col-bsp"><span class="bsp-de">Mit wenigen Worten hat sie viel gesagt – das waren weise Worte.</span><span class="bsp-bg">С малко думи тя е казала много – бяха мъдри слова.</span></td></tr>
+          <tr><td class="col-de">wortwörtlich<span class="col-gram">Adjektiv / Adverb</span></td><td class="col-expl">Exakt so, wie etwas gesagt oder geschrieben wurde – ohne jede Veränderung oder Interpretation.</td><td class="col-bg">дума по дума; дословно; буквално</td><td class="col-bsp"><span class="bsp-de">Er hat wortwörtlich das wiederholt, was ich gesagt hatte.</span><span class="bsp-bg">Той дословно е повторил това, което аз бях казал.</span></td></tr>
+          <tr><td class="col-de">wortlos<span class="col-gram">Adjektiv / Adverb</span></td><td class="col-expl">Ohne ein einziges Wort zu sagen; schweigend – oft aus Erschütterung oder Enttäuschung.</td><td class="col-bg">мълчаливо; без дума; безмълвно</td><td class="col-bsp"><span class="bsp-de">Nach dem Streit hat sie wortlos das Zimmer verlassen.</span><span class="bsp-bg">След кавгата тя е напуснала стаята безмълвно.</span></td></tr>
+          <tr><td class="col-de">wortgewandt<span class="col-gram">Adjektiv</span></td><td class="col-expl">Beschreibt eine Person, die sehr gut, flüssig und überzeugend sprechen kann.</td><td class="col-bg">красноречив; словесно умел; реторически надарен</td><td class="col-bsp"><span class="bsp-de">Als wortgewandter Redner weiß er, wie man ein Publikum begeistert.</span><span class="bsp-bg">Като красноречив оратор той знае как да вдъхновява публика.</span></td></tr>
+          <tr><td class="col-de">wortkarg<span class="col-gram">Adjektiv</span></td><td class="col-expl">Beschreibt eine Person, die sehr wenig spricht und knappe Antworten gibt.</td><td class="col-bg">пестелив на думи; мълчалив; краткословен</td><td class="col-bsp"><span class="bsp-de">Er ist sehr wortkarg – auf Fragen antwortet er meist einsilbig.</span><span class="bsp-bg">Той е много пестелив на думи – на въпроси обикновено отговаря едносрично.</span></td></tr>
+          <tr><td class="col-de">zu Wort kommen<span class="col-gram">Redewendung</span></td><td class="col-expl">die Möglichkeit bekommen, in einem Gespräch oder einer Diskussion zu sprechen.</td><td class="col-bg">получавам думата; имам възможност да говоря</td><td class="col-bsp"><span class="bsp-de">In der lebhaften Diskussion kam ich kaum zu Wort.</span><span class="bsp-bg">В оживената дискусия почти не получих думата.</span></td></tr>
+          <tr><td class="col-de">sich zu Wort melden<span class="col-gram">Redewendung</span></td><td class="col-expl">aktiv signalisieren, dass man sprechen möchte – z. B. in einer Diskussion die Hand heben.</td><td class="col-bg">искам думата; заявявам желание да говоря</td><td class="col-bsp"><span class="bsp-de">Erst am Ende der langen Sitzung meldete sie sich zu Wort.</span><span class="bsp-bg">Едва в края на дългото заседание тя поиска думата.</span></td></tr>
+          <tr><td class="col-de">jmdn. beim Wort nehmen<span class="col-gram">Redewendung</span></td><td class="col-expl">jemanden an das festhalten, was er gesagt oder versprochen hat; sein Angebot ernst nehmen.</td><td class="col-bg">хващам някого на думата; приемам на думата</td><td class="col-bsp"><span class="bsp-de">Er hat angeboten zu helfen – ich werde ihn beim Wort nehmen.</span><span class="bsp-bg">Той е предложил да помогне – ще го хвана на думата.</span></td></tr>
+          <tr><td class="col-de">kein Wort über etw. verlieren<span class="col-gram">Redewendung</span></td><td class="col-expl">etwas überhaupt nicht erwähnen, obwohl man die Möglichkeit hatte; bewusst schweigen.</td><td class="col-bg">не обелвам дума за нещо; мълча по темата</td><td class="col-bsp"><span class="bsp-de">Über den Streit hat sie kein einziges Wort verloren.</span><span class="bsp-bg">За кавгата тя не е обелила нито дума.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- VERBEN SPRECHEN -->
+  <div class="modul-block vb" id="block-vb">
+    <div class="modul-header" onclick="toggleModul('vb')">
+      <span class="modul-title"><span class="modul-badge">AB S. 21</span>Verben zum Thema „Sprechen" – Übung 4a</span>
+      <span class="modul-arrow open" id="arr-vb">▾</span>
+    </div>
+    <div class="modul-body show" id="body-vb">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Verb (Präteritum · Partizip II)</th><th class="col-expl">Erklärung &amp; Kontext</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">ausführen<span class="col-gram">führte aus · hat ausgeführt</span></td><td class="col-expl">Etwas detailliert und ausführlich erklären oder darstellen; eine Idee genauer beschreiben.</td><td class="col-bg">излагам подробно; представям (идея/план)</td><td class="col-bsp"><span class="bsp-de">Er hat seinen Plan vor der Gruppe ausführlich ausgeführt.</span><span class="bsp-bg">Той е изложил подробно плана си пред групата.</span></td></tr>
+          <tr><td class="col-de">begründen<span class="col-gram">begründete · hat begründet</span></td><td class="col-expl">Die Gründe oder Argumente für eine Aussage oder Entscheidung klar darlegen.</td><td class="col-bg">аргументирам; обосновавам; мотивирам</td><td class="col-bsp"><span class="bsp-de">Sie hat ihre Entscheidung klar und überzeugend begründet.</span><span class="bsp-bg">Тя е обосновала решението си ясно и убедително.</span></td></tr>
+          <tr><td class="col-de">beraten<span class="col-gram">beriet · hat beraten</span></td><td class="col-expl">Jemanden mit Ratschlägen unterstützen; gemeinsam über eine Lösung nachdenken.</td><td class="col-bg">съветвам; консултирам; обсъждам</td><td class="col-bsp"><span class="bsp-de">Das Team hat sich stundenlang über das weitere Vorgehen beraten.</span><span class="bsp-bg">Екипът се е съвещавал с часове за по-нататъшното действие.</span></td></tr>
+          <tr><td class="col-de">besprechen<span class="col-gram">besprach · hat besprochen</span></td><td class="col-expl">Über etwas gemeinsam reden, es analysieren oder planen – meist sachlich.</td><td class="col-bg">обсъждам; разисквам; договарям</td><td class="col-bsp"><span class="bsp-de">Dieses Problem müssen wir dringend in der nächsten Sitzung besprechen.</span><span class="bsp-bg">Трябва спешно да обсъдим този проблем на следващото заседание.</span></td></tr>
+          <tr><td class="col-de">definieren<span class="col-gram">definierte · hat definiert</span></td><td class="col-expl">Die genaue Bedeutung eines Begriffs präzise beschreiben und festlegen.</td><td class="col-bg">дефинирам; определям (понятие)</td><td class="col-bsp"><span class="bsp-de">Zuerst müssen wir den Begriff „Kommunikation" genau definieren.</span><span class="bsp-bg">Първо трябва точно да дефинираме понятието „комуникация".</span></td></tr>
+          <tr><td class="col-de">einwerfen<span class="col-gram">warf ein · hat eingeworfen</span></td><td class="col-expl">Spontan eine Bemerkung in ein Gespräch einbringen – um etwas zu ergänzen oder zu korrigieren.</td><td class="col-bg">вметвам (забележка); намесвам се в разговор</td><td class="col-bsp"><span class="bsp-de">„Moment mal", warf er ein, „das stimmt so nicht."</span><span class="bsp-bg">„Чакай малко", вметна той, „това не е така."</span></td></tr>
+          <tr><td class="col-de">erläutern<span class="col-gram">erläuterte · hat erläutert</span></td><td class="col-expl">Etwas Schwieriges verständlich erklären; einen Sachverhalt durch Beispiele verdeutlichen.</td><td class="col-bg">разяснявам; обяснявам подробно (с примери)</td><td class="col-bsp"><span class="bsp-de">Die Dozentin erläuterte die grammatische Regel an konkreten Beispielen.</span><span class="bsp-bg">Лекторката разясни граматическото правило с конкретни примери.</span></td></tr>
+          <tr><td class="col-de">erörtern<span class="col-gram">erörterte · hat erörtert</span></td><td class="col-expl">Ein Thema systematisch, sachlich und von verschiedenen Seiten diskutieren – typisch akademisch.</td><td class="col-bg">разисквам задълбочено; дискутирам аргументирано</td><td class="col-bsp"><span class="bsp-de">In der Stunde wurde das Thema Mehrsprachigkeit ausführlich erörtert.</span><span class="bsp-bg">В часа темата за многоезичието беше задълбочено разисквана.</span></td></tr>
+          <tr><td class="col-de">labern<span class="col-gram">laberte · hat gelabert</span></td><td class="col-expl">Sehr viel und meist ohne Sinn reden; langweilig sprechen ohne etwas Wichtiges zu sagen. (abwertend)</td><td class="col-bg">бъбря; говоря глупости; дрънкам без край</td><td class="col-bsp"><span class="bsp-de">„Hör auf zu labern und komm endlich zum Punkt!" sagte er ungeduldig.</span><span class="bsp-bg">„Спри да дрънкаш и стигни най-накрая до точката!" каза той нетърпеливо.</span></td></tr>
+          <tr><td class="col-de">lästern<span class="col-gram">lästerte · hat gelästert</span></td><td class="col-expl">Abfällig und böse über jemanden reden, der nicht anwesend ist. Stärker negativ als tratschen.</td><td class="col-bg">злословя; говоря лошо зад гърба на някого</td><td class="col-bsp"><span class="bsp-de">Im Büro wird ständig über Kollegen gelästert – das vergiftet das Klima.</span><span class="bsp-bg">В офиса постоянно се злослови за колеги – това отравя атмосферата.</span></td></tr>
+          <tr><td class="col-de">plaudern<span class="col-gram">plauderte · hat geplaudert</span></td><td class="col-expl">Entspannt und freundlich über alltägliche Dinge reden; angenehme Konversation führen. (positiv)</td><td class="col-bg">приказвам непринудено; разговарям приятно</td><td class="col-bsp"><span class="bsp-de">Wir haben beim Kaffee angenehm über alte Zeiten geplaudert.</span><span class="bsp-bg">Разговаряхме приятно за старите времена при кафето.</span></td></tr>
+          <tr><td class="col-de">quatschen<span class="col-gram">quatschte · hat gequatscht</span></td><td class="col-expl">Umgangssprachlich: locker, viel und ungezwungen reden – oft ohne tieferen Sinn.</td><td class="col-bg">бъбря; дрънкам; приказвам (неформ.)</td><td class="col-bsp"><span class="bsp-de">Die Freundinnen haben den ganzen Abend auf der Terrasse gequatscht.</span><span class="bsp-bg">Приятелките са бъбрили цялата вечер на терасата.</span></td></tr>
+          <tr><td class="col-de">spotten<span class="col-gram">spottete · hat gespottet</span></td><td class="col-expl">Sich über jemanden oder etwas lustig machen – oft auf abwertende oder höhnische Weise.</td><td class="col-bg">подигравам се; присмивам се; надсмивам се</td><td class="col-bsp"><span class="bsp-de">Er hat offen über die Fehler seiner Kollegen gespottet, was alle störte.</span><span class="bsp-bg">Той открито се е присмивал на грешките на колегите си, което е дразнило всички.</span></td></tr>
+          <tr><td class="col-de">tratschen<span class="col-gram">tratschte · hat getratscht</span></td><td class="col-expl">Klatsch und Gerüchte über andere Menschen verbreiten; neugierig über Abwesende reden.</td><td class="col-bg">клюкарствам; сплетничам; разнасям клюки</td><td class="col-bsp"><span class="bsp-de">Im kleinen Dorf wird über jeden getratscht.</span><span class="bsp-bg">В малкото село се клюкарства за всеки.</span></td></tr>
+          <tr><td class="col-de">wiedergeben<span class="col-gram">gab wieder · hat wiedergegeben</span></td><td class="col-expl">Den Inhalt von etwas mit eigenen Worten oder originalgetreu berichten.</td><td class="col-bg">преразказвам; предавам съдържание; възпроизвеждам</td><td class="col-bsp"><span class="bsp-de">Können Sie den Inhalt des Textes kurz mit eigenen Worten wiedergeben?</span><span class="bsp-bg">Можете ли накратко да преразкажете съдържанието на текста със собствени думи?</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+<script>
+function toggleModul(id) {
+  const body = document.getElementById('body-' + id);
+  const arr  = document.getElementById('arr-'  + id);
+  const open = body.classList.toggle('show');
+  arr.classList.toggle('open', open);
+}
+function filterWords(q) {
+  q = q.trim().toLowerCase();
+  document.querySelectorAll('.vocab-table tbody tr').forEach(row => {
+    const text = row.textContent.toLowerCase();
+    row.classList.toggle('hidden-row', q.length > 0 && !text.includes(q));
+  });
+  if (q.length > 0) {
+    ['m1','m2','m3','m4','wv','wf','vb'].forEach(id => {
+      document.getElementById('body-' + id).classList.add('show');
+      document.getElementById('arr-'  + id).classList.add('open');
+    });
+  }
+}
+</script>
+</body>
+</html>
