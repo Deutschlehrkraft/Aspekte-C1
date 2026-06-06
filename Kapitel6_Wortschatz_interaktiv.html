@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wortschatz – Kapitel 6 | Gesundheit, Ernährung, Wohlbefinden</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f3; color: #222; font-size: 17px; line-height: 1.6; }
+.page-header {
+  background: linear-gradient(135deg, #00695c, #00897b);
+  color: #fff; padding: 16px 28px;
+  display: flex; justify-content: space-between; align-items: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,.2); flex-wrap: wrap; gap: 8px;
+}
+.page-header h1 { font-size: 1.5em; font-weight: 700; }
+.page-header p  { font-size: .88em; opacity: .85; margin-top: 3px; }
+.badge { background: rgba(255,255,255,.22); border-radius: 16px; padding: 4px 14px; font-size: .85em; font-weight: bold; }
+.container { max-width: 1100px; margin: 0 auto; padding: 22px 16px 50px; }
+.modul-block { margin-bottom: 22px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+.modul-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 20px; cursor: pointer; user-select: none;
+  background: #2e7d6e; color: #fff; gap: 10px; transition: background .15s;
+}
+.modul-header:hover { background: #245f53; }
+.modul-title { font-weight: 700; font-size: 1.02em; display: flex; align-items: center; gap: 10px; }
+.modul-badge { background: rgba(255,255,255,.25); border-radius: 12px; padding: 2px 11px; font-size: .82em; font-weight: 700; }
+.modul-arrow { font-size: 1.1em; transition: transform .25s; }
+.modul-arrow.open { transform: rotate(180deg); }
+.modul-body { display: none; background: #fff; }
+.modul-body.show { display: block; }
+.modul-block.wv .modul-header { background: #455a64; }
+.modul-block.wv .modul-header:hover { background: #37474f; }
+.vocab-table { width: 100%; border-collapse: collapse; font-size: .91em; }
+.vocab-table thead tr { background: #e8f4f1; }
+.vocab-table th { padding: 9px 12px; text-align: left; font-weight: 700; color: #1a5247; border-bottom: 2px solid #b2dfdb; font-size: .88em; }
+.vocab-table td { padding: 8px 12px; vertical-align: top; border-bottom: 1px solid #e0f0ed; }
+.vocab-table tr:nth-child(odd)  td { background: #fafefe; }
+.vocab-table tr:nth-child(even) td { background: #f0fafa; }
+.vocab-table tr:last-child td { border-bottom: none; }
+.col-de   { width: 20%; font-weight: 700; color: #004d40; }
+.col-gram { font-size: .80em; font-weight: 400; color: #777; display: block; margin-top: 2px; }
+.col-expl { width: 25%; color: #444; }
+.col-bg   { width: 20%; color: #1a237e; }
+.col-bsp  { width: 35%; }
+.bsp-de   { display: block; font-style: italic; color: #1b3c2a; font-size: .87em; line-height: 1.5; }
+.bsp-bg   { display: block; color: #6d3a00; font-size: .82em; margin-top: 3px; }
+.modul-block.wv .vocab-table .col-de { color: #1a237e; font-style: italic; font-weight: 600; }
+.search-bar {
+  display: flex; align-items: center; gap: 10px;
+  background: #fff; border-radius: 30px; border: 2px solid #b2dfdb;
+  padding: 7px 16px; margin-bottom: 20px; box-shadow: 0 1px 6px rgba(0,0,0,.07);
+}
+.search-bar input { border: none; outline: none; font-size: 16px; font-family: inherit; flex: 1; background: transparent; }
+.search-bar span { color: #2e7d6e; font-size: 1.2em; }
+.hidden-row { display: none !important; }
+.legend {
+  background: #fff; border-radius: 10px; padding: 12px 18px; margin-bottom: 18px;
+  font-size: .88em; color: #555; box-shadow: 0 1px 6px rgba(0,0,0,.07);
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+}
+.legend strong { color: #2e7d6e; }
+@media (max-width: 680px) {
+  .col-expl { display: none; }
+  .vocab-table th:nth-child(2) { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="page-header">
+  <div><h1>Wortschatz – Kapitel 6</h1>
+  <p>Gesundheit · Ernährung · Wohlbefinden &nbsp;|&nbsp; Aspekte neu C1 &nbsp;|&nbsp; AB S. 88–89</p></div>
+  <span class="badge">Modul 1–4 + Wortverbindungen</span>
+</div>
+<div class="container">
+  <div class="search-bar"><span>🔍</span><input type="text" id="searchInput" placeholder="Wort suchen …" oninput="filterWords(this.value)"></div>
+  <div class="legend"><strong>Legende:</strong><span><b>Deutsch</b> · <b>Erklärung</b> · <b>Български</b> · <b>Beispielsatz</b> (kursiv) mit Übersetzung</span><span>Modulkopf klicken zum Auf-/Zuklappen &nbsp;|&nbsp; Suchfeld filtert alle Einträge</span></div>
+
+  <!-- MODUL 1 -->
+  <div class="modul-block" id="block-m1">
+    <div class="modul-header" onclick="toggleModul('m1')"><span class="modul-title"><span class="modul-badge">Modul 1</span>Zu Risiken und Nebenwirkungen …</span><span class="modul-arrow open" id="arr-m1">▾</span></div>
+    <div class="modul-body show" id="body-m1">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">das Bedürfnis<span class="col-gram">-se</span></td><td class="col-expl">ein inneres Verlangen oder eine Notwendigkeit; etwas, das man braucht</td><td class="col-bg">нужда; потребност; желание</td><td class="col-bsp"><span class="bsp-de">Das Bedürfnis nach emotionaler Unterstützung ist bei jedem Menschen vorhanden.</span><span class="bsp-bg">Нуждата от емоционална подкрепа е присъща на всеки човек.</span></td></tr>
+          <tr><td class="col-de">die Befürchtung<span class="col-gram">-en</span></td><td class="col-expl">eine negative Erwartung oder Sorge, dass etwas Schlimmes eintreten könnte</td><td class="col-bg">опасение; страх; тревожно очакване</td><td class="col-bsp"><span class="bsp-de">Ihre Befürchtung, das Medikament könnte Nebenwirkungen haben, war leider berechtigt.</span><span class="bsp-bg">Опасението й, че лекарството може да има странични ефекти, за съжаление беше основателно.</span></td></tr>
+          <tr><td class="col-de">das Hausmittel<span class="col-gram">- (Pl. gleich)</span></td><td class="col-expl">ein traditionelles, einfaches Mittel aus dem Haushalt gegen Beschwerden</td><td class="col-bg">домашно лекарство; народен лек</td><td class="col-bsp"><span class="bsp-de">Warme Milch mit Honig ist ein bewährtes Hausmittel gegen leichte Erkältungen.</span><span class="bsp-bg">Топлото мляко с мед е изпитан домашен лек срещу леки настинки.</span></td></tr>
+          <tr><td class="col-de">nachweisen<span class="col-gram">weist nach, wies nach, hat nachgewiesen</span></td><td class="col-expl">etwas durch Beweise oder Tests belegen und beweisen</td><td class="col-bg">доказвам; установявам; удостоверявам</td><td class="col-bsp"><span class="bsp-de">Die Wirksamkeit des neuen Medikaments wurde in mehreren Studien eindeutig nachgewiesen.</span><span class="bsp-bg">Ефикасността на новото лекарство беше недвусмислено доказана в няколко изследвания.</span></td></tr>
+          <tr><td class="col-de">die Nebenwirkung<span class="col-gram">-en</span></td><td class="col-expl">eine unbeabsichtigte, oft unerwünschte Wirkung eines Medikaments</td><td class="col-bg">страничен ефект; нежелана последица</td><td class="col-bsp"><span class="bsp-de">Die Packungsbeilage listet alle möglichen Nebenwirkungen des Präparats auf.</span><span class="bsp-bg">Листовката изброява всички възможни странични ефекти на препарата.</span></td></tr>
+          <tr><td class="col-de">pharmazeutisch</td><td class="col-expl">zur Pharmazie oder zur Herstellung von Medikamenten gehörend</td><td class="col-bg">фармацевтичен; свързан с лекарства</td><td class="col-bsp"><span class="bsp-de">Das Unternehmen ist auf pharmazeutische Produkte für die Krebstherapie spezialisiert.</span><span class="bsp-bg">Предприятието е специализирано в фармацевтични продукти за терапия на рак.</span></td></tr>
+          <tr><td class="col-de">das Placebo<span class="col-gram">-s</span></td><td class="col-expl">ein Scheinmedikament ohne Wirkstoff, das durch psychologische Wirkung helfen kann</td><td class="col-bg">плацебо; безвредно лекарство без активно вещество</td><td class="col-bsp"><span class="bsp-de">In der Studie bekamen 30% der Teilnehmer unwissentlich ein Placebo.</span><span class="bsp-bg">В изследването 30% от участниците са получили несъзнателно плацебо.</span></td></tr>
+          <tr><td class="col-de">das Präparat<span class="col-gram">-e</span></td><td class="col-expl">ein hergestelltes Medikament oder chemisch-pharmazeutisches Mittel</td><td class="col-bg">препарат; лекарствено средство; медикамент</td><td class="col-bsp"><span class="bsp-de">Dieses Präparat darf nur auf ärztliche Verschreibung abgegeben werden.</span><span class="bsp-bg">Този препарат може да бъде отпуснат само с лекарско предписание.</span></td></tr>
+          <tr><td class="col-de">spüren</td><td class="col-expl">etwas körperlich oder emotional wahrnehmen; eine Empfindung haben</td><td class="col-bg">усещам; чувствам; долавям</td><td class="col-bsp"><span class="bsp-de">Sie konnte deutlich spüren, wie die Wirkung des Medikaments langsam nachließ.</span><span class="bsp-bg">Тя можеше ясно да усети как действието на лекарството бавно отслабва.</span></td></tr>
+          <tr><td class="col-de">die Therapie<span class="col-gram">-n</span></td><td class="col-expl">eine medizinische oder psychologische Behandlung zur Heilung oder Verbesserung</td><td class="col-bg">терапия; лечение; лечебен метод</td><td class="col-bsp"><span class="bsp-de">Eine regelmäßige Therapie kann bei Angststörungen sehr hilfreich sein.</span><span class="bsp-bg">Редовната терапия може да бъде много полезна при тревожни разстройства.</span></td></tr>
+          <tr><td class="col-de">trösten</td><td class="col-expl">jemanden in einer schwierigen Situation aufheitern und emotional stärken</td><td class="col-bg">утешавам; успокоявам; давам утеха</td><td class="col-bsp"><span class="bsp-de">Nach der schlechten Diagnose versuchte er, sie so gut er konnte zu trösten.</span><span class="bsp-bg">След лошата диагноза той се опита да я утеши по най-добрия си начин.</span></td></tr>
+          <tr><td class="col-de">verunsichern</td><td class="col-expl">jemanden in seiner Sicherheit oder seinem Vertrauen erschüttern</td><td class="col-bg">разколебавам; обезверявам; внасям несигурност</td><td class="col-bsp"><span class="bsp-de">Widersprüchliche Studienergebnisse verunsichern die Patienten sehr.</span><span class="bsp-bg">Противоречивите резултати от изследванията много разколебават пациентите.</span></td></tr>
+          <tr><td class="col-de">verwöhnen</td><td class="col-expl">jemanden mit besonderer Fürsorge oder Luxus behandeln; zu gut behandeln</td><td class="col-bg">разглезвам; глезя; поглезвам</td><td class="col-bsp"><span class="bsp-de">Das Wellnesshotel verwöhnt seine Gäste mit aufwendigen Behandlungen und feinem Essen.</span><span class="bsp-bg">Уелнес хотелът глези гостите си с луксозни процедури и изискана кухня.</span></td></tr>
+          <tr><td class="col-de">die Wechselwirkung<span class="col-gram">-en</span></td><td class="col-expl">die gegenseitige Beeinflussung zweier oder mehrerer Stoffe oder Systeme</td><td class="col-bg">взаимодействие; интеракция; взаимно влияние</td><td class="col-bsp"><span class="bsp-de">Die Wechselwirkung zwischen diesen beiden Medikamenten kann gefährlich sein.</span><span class="bsp-bg">Взаимодействието между тези две лекарства може да бъде опасно.</span></td></tr>
+          <tr><td class="col-de">die Wirksamkeit<span class="col-gram">(Sg.)</span></td><td class="col-expl">die Eigenschaft, den gewünschten Effekt zu erzielen; Effektivität eines Mittels</td><td class="col-bg">ефикасност; ефективност; действеност</td><td class="col-bsp"><span class="bsp-de">Die Wirksamkeit des Impfstoffs wurde in großen internationalen Studien bestätigt.</span><span class="bsp-bg">Ефикасността на ваксината беше потвърдена в мащабни международни изследвания.</span></td></tr>
+          <tr><td class="col-de">der Wirkstoff<span class="col-gram">-e</span></td><td class="col-expl">der aktive chemische Bestandteil eines Medikaments, der die Wirkung erzielt</td><td class="col-bg">активно вещество; действащ компонент</td><td class="col-bsp"><span class="bsp-de">Der Wirkstoff wird vom Körper langsam abgebaut und über die Nieren ausgeschieden.</span><span class="bsp-bg">Активното вещество се разгражда бавно от организма и се отделя чрез бъбреците.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODUL 2 -->
+  <div class="modul-block" id="block-m2">
+    <div class="modul-header" onclick="toggleModul('m2')"><span class="modul-title"><span class="modul-badge">Modul 2</span>Gesünder leben</span><span class="modul-arrow open" id="arr-m2">▾</span></div>
+    <div class="modul-body show" id="body-m2">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">die Auslese<span class="col-gram">(Sg.)</span></td><td class="col-expl">die Auswahl der Besten aus einer Gruppe; natürliche oder künstliche Selektion</td><td class="col-bg">подбор; селекция; избор на най-добрите</td><td class="col-bsp"><span class="bsp-de">In der Evolutionstheorie spielt die natürliche Auslese eine zentrale Rolle.</span><span class="bsp-bg">В теорията на еволюцията естественият отбор играе централна роля.</span></td></tr>
+          <tr><td class="col-de">sich auszahlen</td><td class="col-expl">sich lohnen; Nutzen oder Gewinn bringen; den Aufwand wert sein</td><td class="col-bg">изплаща се; струва си; носи дивидент</td><td class="col-bsp"><span class="bsp-de">Eine konsequent gesunde Lebensweise zahlt sich langfristig immer aus.</span><span class="bsp-bg">Последователният здравословен начин на живот в дългосрочен план винаги се изплаща.</span></td></tr>
+          <tr><td class="col-de">benachteiligen</td><td class="col-expl">jemanden gegenüber anderen in eine schlechtere Position bringen; ungerecht behandeln</td><td class="col-bg">поставям в неравностойно положение; ощетявам</td><td class="col-bsp"><span class="bsp-de">Menschen aus ärmeren Verhältnissen werden im Gesundheitssystem oft benachteiligt.</span><span class="bsp-bg">Хората от по-бедни среди са често поставени в неравностойно положение в здравната система.</span></td></tr>
+          <tr><td class="col-de">einweisen<span class="col-gram">weist ein, wies ein | in + Akk.</span></td><td class="col-expl">jemanden in eine Institution (Krankenhaus) aufnehmen lassen; zuweisen</td><td class="col-bg">насочвам (в болница); хоспитализирам</td><td class="col-bsp"><span class="bsp-de">Nach dem Sturz musste er sofort ins Krankenhaus eingewiesen werden.</span><span class="bsp-bg">След падането той трябваше веднага да бъде хоспитализиран.</span></td></tr>
+          <tr><td class="col-de">das Essverhalten<span class="col-gram">(Sg.)</span></td><td class="col-expl">die Gewohnheiten und Muster beim Essen; wie und was jemand isst</td><td class="col-bg">хранителни навици; поведение при хранене</td><td class="col-bsp"><span class="bsp-de">Stress hat einen nachweislichen Einfluss auf das Essverhalten vieler Menschen.</span><span class="bsp-bg">Стресът има доказуемо влияние върху хранителните навици на много хора.</span></td></tr>
+          <tr><td class="col-de">das Gen<span class="col-gram">-e</span></td><td class="col-expl">die biologische Erbanlage; die grundlegende Einheit der Vererbung</td><td class="col-bg">ген; наследствена единица</td><td class="col-bsp"><span class="bsp-de">Bestimmte Krankheiten werden durch defekte Gene von Generation zu Generation vererbt.</span><span class="bsp-bg">Определени заболявания се предават от поколение на поколение чрез дефектни гени.</span></td></tr>
+          <tr><td class="col-de">das Geschlecht<span class="col-gram">-er</span></td><td class="col-expl">die biologische oder soziale Zugehörigkeit zu männlich, weiblich oder divers</td><td class="col-bg">пол; биологичен/социален пол</td><td class="col-bsp"><span class="bsp-de">Das Geschlecht ist ein wichtiger Faktor bei der Diagnose mancher Herzerkrankungen.</span><span class="bsp-bg">Полът е важен фактор при диагностицирането на някои сърдечни заболявания.</span></td></tr>
+          <tr><td class="col-de">das Gesundheitssystem<span class="col-gram">-e</span></td><td class="col-expl">die Gesamtheit aller Einrichtungen und Dienste im Bereich der Gesundheitsversorgung</td><td class="col-bg">здравна система; здравеопазване</td><td class="col-bsp"><span class="bsp-de">Das deutsche Gesundheitssystem gilt weltweit als eines der besten und fairsten.</span><span class="bsp-bg">Германската здравна система се счита в световен мащаб за една от най-добрите и справедливи.</span></td></tr>
+          <tr><td class="col-de">die Hausarztpraxis<span class="col-gram">-praxen</span></td><td class="col-expl">eine niedergelassene Arztpraxis für allgemeine medizinische Grundversorgung</td><td class="col-bg">кабинет на личен лекар; практика на GP</td><td class="col-bsp"><span class="bsp-de">Bei leichten Beschwerden sollte man zuerst die Hausarztpraxis aufsuchen.</span><span class="bsp-bg">При леки оплаквания трябва първо да се посети кабинетът на личния лекар.</span></td></tr>
+          <tr><td class="col-de">die Notaufnahme<span class="col-gram">-n</span></td><td class="col-expl">die Abteilung im Krankenhaus, die Patienten mit akuten Beschwerden aufnimmt</td><td class="col-bg">спешно приемно отделение; спешна помощ</td><td class="col-bsp"><span class="bsp-de">Mitten in der Nacht musste sie mit starken Schmerzen in die Notaufnahme.</span><span class="bsp-bg">Насред нощта тя е трябвало да отиде с силни болки в спешното отделение.</span></td></tr>
+          <tr><td class="col-de">die Prävention<span class="col-gram">-en</span></td><td class="col-expl">vorbeugende Maßnahmen zur Verhinderung von Krankheiten oder negativen Ereignissen</td><td class="col-bg">профилактика; превенция; превантивни мерки</td><td class="col-bsp"><span class="bsp-de">Prävention ist langfristig gesehen immer wirksamer und günstiger als Behandlung.</span><span class="bsp-bg">Профилактиката от дългосрочна гледна точка винаги е по-ефективна и по-евтина от лечението.</span></td></tr>
+          <tr><td class="col-de">die Pubertät<span class="col-gram">(Sg.)</span></td><td class="col-expl">die Phase der körperlichen und psychischen Reifung vom Kind zum Erwachsenen</td><td class="col-bg">пубертет; юношество; период на съзряване</td><td class="col-bsp"><span class="bsp-de">Die Pubertät ist eine Zeit großer körperlicher, emotionaler und sozialer Veränderungen.</span><span class="bsp-bg">Пубертетът е период на големи телесни, емоционални и социални промени.</span></td></tr>
+          <tr><td class="col-de">prädestiniert für<span class="col-gram">für + Akk.</span></td><td class="col-expl">durch besondere Eigenschaften oder Umstände besonders geeignet oder vorherbestimmt</td><td class="col-bg">предопределен за; особено подходящ за</td><td class="col-bsp"><span class="bsp-de">Als erfahrene Ärztin ist sie geradezu prädestiniert für diese Leitungsaufgabe.</span><span class="bsp-bg">Като опитен лекар тя е просто предопределена за тази ръководна задача.</span></td></tr>
+          <tr><td class="col-de">die Todesursache<span class="col-gram">-n</span></td><td class="col-expl">der medizinische Grund, der direkt zum Tod einer Person geführt hat</td><td class="col-bg">причина за смъртта; смъртоносна причина</td><td class="col-bsp"><span class="bsp-de">Herz-Kreislauf-Erkrankungen sind nach wie vor die häufigste Todesursache in Deutschland.</span><span class="bsp-bg">Сърдечно-съдовите заболявания са все още най-честата причина за смърт в Германия.</span></td></tr>
+          <tr><td class="col-de">unterlassen<span class="col-gram">unterlässt, unterließ, hat unterlassen</span></td><td class="col-expl">etwas Erwartetes oder Notwendiges bewusst nicht tun; auf eine Handlung verzichten</td><td class="col-bg">пропускам да направя; въздържам се от</td><td class="col-bsp"><span class="bsp-de">Er hat es unterlassen, seinen Arzt rechtzeitig über die Nebenwirkungen zu informieren.</span><span class="bsp-bg">Той е пропуснал навреме да информира лекаря си за страничните ефекти.</span></td></tr>
+          <tr><td class="col-de">vernachlässigen</td><td class="col-expl">etwas oder jemanden nicht genug beachten oder pflegen; außer Acht lassen</td><td class="col-bg">пренебрегвам; занемарявам; не обръщам внимание</td><td class="col-bsp"><span class="bsp-de">Viele Menschen vernachlässigen ihre Gesundheit jahrelang zugunsten der Arbeit.</span><span class="bsp-bg">Много хора занемаряват здравето си с години в полза на работата.</span></td></tr>
+          <tr><td class="col-de">der Vorsprung<span class="col-gram">-̈e</span></td><td class="col-expl">ein Vorteil oder Abstand gegenüber anderen; ein Mehr an Können oder Zeit</td><td class="col-bg">преднина; предимство; аванс пред другите</td><td class="col-bsp"><span class="bsp-de">Durch regelmäßige Vorsorgeuntersuchungen hat sie einen gesundheitlichen Vorsprung.</span><span class="bsp-bg">Чрез редовни профилактични прегледи тя има здравно предимство.</span></td></tr>
+          <tr><td class="col-de">wählerisch</td><td class="col-expl">sehr anspruchsvoll bei der Auswahl; nicht bereit, Kompromisse einzugehen</td><td class="col-bg">претенциозен; много избирателен; на вкус</td><td class="col-bsp"><span class="bsp-de">Bei Lebensmitteln ist er sehr wählerisch und kauft fast ausschließlich Bio-Produkte.</span><span class="bsp-bg">При храните той е много избирателен и купува почти изключително биологични продукти.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODUL 3 -->
+  <div class="modul-block" id="block-m3">
+    <div class="modul-header" onclick="toggleModul('m3')"><span class="modul-title"><span class="modul-badge">Modul 3</span>Schmeckt's noch?</span><span class="modul-arrow open" id="arr-m3">▾</span></div>
+    <div class="modul-body show" id="body-m3">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">die Belastung<span class="col-gram">-en</span></td><td class="col-expl">eine Last oder Beanspruchung; auch: Schadstoffbelastung von Lebensmitteln oder Umwelt</td><td class="col-bg">натоварване; замърсяване; тежест</td><td class="col-bsp"><span class="bsp-de">Die Belastung der Böden mit Pestiziden ist in manchen Regionen besorgniserregend hoch.</span><span class="bsp-bg">Замърсяването на почвите с пестициди е тревожно високо в някои региони.</span></td></tr>
+          <tr><td class="col-de">das Bioprodukt<span class="col-gram">-e</span></td><td class="col-expl">ein Produkt, das nach biologischen Standards ohne synthetische Chemikalien hergestellt wurde</td><td class="col-bg">биологичен продукт; биопродукт; органичен</td><td class="col-bsp"><span class="bsp-de">Bioprodukte erfreuen sich wachsender Beliebtheit, sind aber oft teurer als konventionelle Produkte.</span><span class="bsp-bg">Биологичните продукти се радват на нарастваща популярност, но са често по-скъпи от конвенционалните.</span></td></tr>
+          <tr><td class="col-de">düngen</td><td class="col-expl">den Boden mit Nährstoffen anreichern, um das Pflanzenwachstum zu fördern</td><td class="col-bg">торя; наторявам; обогатявам почвата</td><td class="col-bsp"><span class="bsp-de">Viele Bauern düngen ihre Felder zu intensiv, was das Grundwasser belastet.</span><span class="bsp-bg">Много фермери наторяват нивята си прекалено интензивно, което натоварва подпочвените води.</span></td></tr>
+          <tr><td class="col-de">flächendeckend</td><td class="col-expl">das gesamte Gebiet oder alle Bereiche umfassend; überall und lückenlos vorhanden</td><td class="col-bg">повсеместно; в цялата страна; всеобхватно</td><td class="col-bsp"><span class="bsp-de">Bio-Produkte sind noch nicht flächendeckend in allen Supermärkten verfügbar.</span><span class="bsp-bg">Биологичните продукти все още не са повсеместно достъпни във всички супермаркети.</span></td></tr>
+          <tr><td class="col-de">die Gentechnik<span class="col-gram">(Sg.)</span></td><td class="col-expl">Wissenschaft und Technik zur gezielten Veränderung des Erbguts von Lebewesen</td><td class="col-bg">генно инженерство; генни технологии</td><td class="col-bsp"><span class="bsp-de">Die Gentechnik in der Landwirtschaft ist in Europa nach wie vor ein umstrittenes Thema.</span><span class="bsp-bg">Генното инженерство в селското стопанство е в Европа все още спорна тема.</span></td></tr>
+          <tr><td class="col-de">die Kontrolle<span class="col-gram">-n</span></td><td class="col-expl">die systematische Überprüfung oder Überwachung zur Einhaltung von Normen</td><td class="col-bg">контрол; проверка; надзор; наблюдение</td><td class="col-bsp"><span class="bsp-de">Die regelmäßige Kontrolle von Lebensmitteln auf Rückstände ist gesetzlich vorgeschrieben.</span><span class="bsp-bg">Редовният контрол на хранителните продукти за остатъци е законово предписан.</span></td></tr>
+          <tr><td class="col-de">die Nahrungsmittelqualität<span class="col-gram">(Sg.)</span></td><td class="col-expl">die Güte, Sicherheit und der Nährwert von Lebensmitteln</td><td class="col-bg">качество на храните; хранително качество</td><td class="col-bsp"><span class="bsp-de">Die Nahrungsmittelqualität in Deutschland unterliegt strengen gesetzlichen Vorschriften.</span><span class="bsp-bg">Качеството на хранителните продукти в Германия подлежи на строги законови разпоредби.</span></td></tr>
+          <tr><td class="col-de">das Pestizid<span class="col-gram">-e</span></td><td class="col-expl">ein chemisches Mittel zur Bekämpfung von Schädlingen, Unkraut oder Pilzen</td><td class="col-bg">пестицид; препарат за растителна защита</td><td class="col-bsp"><span class="bsp-de">Pestizide bleiben oft als Rückstände auf Obst und Gemüse zurück.</span><span class="bsp-bg">Пестицидите остават често като остатъци върху плодове и зеленчуци.</span></td></tr>
+          <tr><td class="col-de">der Schadstoff<span class="col-gram">-e</span></td><td class="col-expl">ein schädlicher Stoff in der Umwelt oder in Lebensmitteln, der Gesundheit gefährdet</td><td class="col-bg">вредно вещество; замърсител; токсин</td><td class="col-bsp"><span class="bsp-de">Erhöhte Schadstoffwerte wurden in mehreren importierten Produkten festgestellt.</span><span class="bsp-bg">Завишени нива на вредни вещества са установени в няколко вносни продукта.</span></td></tr>
+          <tr><td class="col-de">der Schimmel<span class="col-gram">(Sg.)</span></td><td class="col-expl">ein Pilz, der auf Lebensmitteln oder in feuchten Räumen wächst</td><td class="col-bg">мухъл; плесен (по храна/стени)</td><td class="col-bsp"><span class="bsp-de">Schimmel auf Lebensmitteln ist ein eindeutiges Zeichen dafür, dass sie verdorben sind.</span><span class="bsp-bg">Мухълът по храните е недвусмислен знак, че са развалени.</span></td></tr>
+          <tr><td class="col-de">spritzen</td><td class="col-expl">Flüssigkeit unter Druck auftragen (z. B. Pestizide auf Pflanzen); auch: injizieren</td><td class="col-bg">пръскам (с препарат); напръсквам; инжектирам</td><td class="col-bsp"><span class="bsp-de">Die Felder werden in dieser Region zweimal im Jahr mit Pestiziden gespritzt.</span><span class="bsp-bg">Нивята в този регион се пръскат с пестициди два пъти годишно.</span></td></tr>
+          <tr><td class="col-de">unbedenklich</td><td class="col-expl">ohne Gefahr oder gesundheitliches Risiko; sicher in der Verwendung oder im Konsum</td><td class="col-bg">безвреден; безопасен; без опасения</td><td class="col-bsp"><span class="bsp-de">Laut Behörden ist das Produkt in normalen Mengen vollkommen unbedenklich.</span><span class="bsp-bg">Според властите продуктът е напълно безвреден в нормални количества.</span></td></tr>
+          <tr><td class="col-de">der Verbraucher<span class="col-gram">- (Pl. gleich)</span></td><td class="col-expl">jemand, der Waren oder Dienstleistungen kauft und nutzt; Konsument</td><td class="col-bg">потребител; консуматор; краен ползвател</td><td class="col-bsp"><span class="bsp-de">Der Verbraucher hat das Recht, über alle Inhaltsstoffe transparent informiert zu werden.</span><span class="bsp-bg">Потребителят има правото прозрачно да бъде информиран за всички съставки.</span></td></tr>
+          <tr><td class="col-de">vertrauen<span class="col-gram">vertraute | Dat.</span></td><td class="col-expl">einer Person oder Sache glauben und sich verlässlich auf sie stützen</td><td class="col-bg">доверявам се (на); вярвам (на); разчитам на</td><td class="col-bsp"><span class="bsp-de">Viele Verbraucher vertrauen Bio-Siegeln, ohne sie wirklich zu hinterfragen.</span><span class="bsp-bg">Много потребители се доверяват на биологичните сертификати, без наистина да ги поставят под въпрос.</span></td></tr>
+          <tr><td class="col-de">der Verzehr<span class="col-gram">(Sg.)</span></td><td class="col-expl">das Essen und Trinken von Lebensmitteln; die Aufnahme von Nahrungsmitteln</td><td class="col-bg">консумация (на храна); изяждане; прием</td><td class="col-bsp"><span class="bsp-de">Der Verzehr von rohem Fleisch kann bei unzureichender Kühlung gesundheitsschädlich sein.</span><span class="bsp-bg">Консумацията на сурово месо при недостатъчно охлаждане може да бъде вредна за здравето.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODUL 4 -->
+  <div class="modul-block" id="block-m4">
+    <div class="modul-header" onclick="toggleModul('m4')"><span class="modul-title"><span class="modul-badge">Modul 4</span>Rundum gesund</span><span class="modul-arrow open" id="arr-m4">▾</span></div>
+    <div class="modul-body show" id="body-m4">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">ausschöpfen</td><td class="col-expl">alle vorhandenen Möglichkeiten vollständig ausnutzen; das Maximum herausholen</td><td class="col-bg">изчерпвам до край; използвам изцяло</td><td class="col-bsp"><span class="bsp-de">Sie schöpfte alle therapeutischen Möglichkeiten vollständig aus, bevor sie aufgab.</span><span class="bsp-bg">Тя е изчерпала изцяло всички терапевтични възможности, преди да се откаже.</span></td></tr>
+          <tr><td class="col-de">das Image<span class="col-gram">-s</span></td><td class="col-expl">das Bild oder die Vorstellung, die andere von jemandem oder etwas haben; Ruf</td><td class="col-bg">имидж; образ; репутация; публичен облик</td><td class="col-bsp"><span class="bsp-de">Das Image des Kurorts hat sich durch die neuen Wellnessangebote deutlich verbessert.</span><span class="bsp-bg">Имиджът на курорта се е подобрил значително благодарение на новите уелнес предложения.</span></td></tr>
+          <tr><td class="col-de">kitzeln</td><td class="col-expl">durch leichte Berührungen zum Lachen bringen; übertragen: neugierig machen</td><td class="col-bg">гъделичкам; (преносно) предизвиквам интерес</td><td class="col-bsp"><span class="bsp-de">Das ungewöhnliche Angebot kitzelt die Neugier der Kunden und lockt sie an.</span><span class="bsp-bg">Необичайното предложение предизвиква любопитството на клиентите и ги привлича.</span></td></tr>
+          <tr><td class="col-de">knabbern</td><td class="col-expl">kleine Bissen abbeißen; leise und langsam kauen, z. B. an Snacks</td><td class="col-bg">гриза; хапя по малко; хрускам</td><td class="col-bsp"><span class="bsp-de">Zum Film knabbern wir am liebsten Nüsse und Popcorn.</span><span class="bsp-bg">Към филма обичаме най-много да хрускаме ядки и пуканки.</span></td></tr>
+          <tr><td class="col-de">die Kosmetikbehandlung<span class="col-gram">-en</span></td><td class="col-expl">eine professionelle Pflege- oder Schönheitsbehandlung</td><td class="col-bg">козметична процедура; уход за кожата</td><td class="col-bsp"><span class="bsp-de">Nach der intensiven Kosmetikbehandlung wirkte ihre Haut deutlich frischer und straffer.</span><span class="bsp-bg">След интензивната козметична процедура кожата й изглеждаше значително по-свежа и стегната.</span></td></tr>
+          <tr><td class="col-de">pürieren</td><td class="col-expl">Lebensmittel mit einem Mixer zu einer glatten, breiartigen Masse zerkleinern</td><td class="col-bg">пасирам; смилам до пюре; правя на пюре</td><td class="col-bsp"><span class="bsp-de">Für die Babynahrung werden alle Zutaten gründlich püriert.</span><span class="bsp-bg">За бебешката храна всички съставки се пасират основно.</span></td></tr>
+          <tr><td class="col-de">saugen</td><td class="col-expl">Flüssigkeit, Luft oder Staub durch Unterdruck einziehen; einsaugen</td><td class="col-bg">смуча; засмуквам; поглъщам чрез засмукване</td><td class="col-bsp"><span class="bsp-de">Das medizinische Gerät saugt Wundflüssigkeit schonend ab.</span><span class="bsp-bg">Медицинското устройство нежно засмуква раневата течност.</span></td></tr>
+          <tr><td class="col-de">der Schlamm<span class="col-gram">(Sg.)</span></td><td class="col-expl">weiche, nasse Erde; feuchte Masse aus Moorquellen mit heilenden Eigenschaften</td><td class="col-bg">кал; тиня; лековита кал (за СПА)</td><td class="col-bsp"><span class="bsp-de">Heilschlamm aus dem Toten Meer gilt als besonders wohltuend für die Haut.</span><span class="bsp-bg">Лечебната кал от Мъртво море се счита за особено благотворна за кожата.</span></td></tr>
+          <tr><td class="col-de">sich suhlen in<span class="col-gram">in + Dat.</span></td><td class="col-expl">sich wohlig in etwas wälzen; übertragen: sich lustvoll in einem Zustand ergötzen</td><td class="col-bg">търкалям се с удоволствие в; потапям се в</td><td class="col-bsp"><span class="bsp-de">Im Sommer suhlen sich Wildschweine gerne im kühlen Schlamm des Waldes.</span><span class="bsp-bg">През лятото дивите свине обичат да се търкалят в хладната горска кал.</span></td></tr>
+          <tr><td class="col-de">sich tummeln</td><td class="col-expl">sich lebhaft, fröhlich und aktiv an einem Ort bewegen; herumtollen</td><td class="col-bg">тичам насам-натам; движа се оживено; вихря се</td><td class="col-bsp"><span class="bsp-de">Die Kinder tummeln sich ausgelassen und voller Energie auf dem Spielplatz.</span><span class="bsp-bg">Децата се вихрят весело и с пълна енергия на игрището.</span></td></tr>
+          <tr><td class="col-de">vehement</td><td class="col-expl">mit großer Kraft, Intensität und Nachdruck; leidenschaftlich und energisch</td><td class="col-bg">яростен; пламенен; настойчив; с голяма сила</td><td class="col-bsp"><span class="bsp-de">Sie wehrte sich vehement gegen die unberechtigten Vorwürfe des Arztes.</span><span class="bsp-bg">Тя се защити яростно срещу неоснователните обвинения на лекаря.</span></td></tr>
+          <tr><td class="col-de">die Wundheilung<span class="col-gram">(Sg.)</span></td><td class="col-expl">der natürliche biologische Prozess, durch den Verletzungen der Haut heilen</td><td class="col-bg">зарастване на рани; оздравителен процес</td><td class="col-bsp"><span class="bsp-de">Honig fördert nachweislich die natürliche Wundheilung und hat antibakterielle Wirkung.</span><span class="bsp-bg">Медът доказано стимулира естественото зарастване на рани и има антибактериално действие.</span></td></tr>
+          <tr><td class="col-de">zart</td><td class="col-expl">sehr weich, fein und empfindlich; leicht und delikat; auch: sanft und liebevoll</td><td class="col-bg">нежен; мек; деликатен; крехък; финен</td><td class="col-bsp"><span class="bsp-de">Das Fleisch war nach stundenlangem Schmoren wunderbar zart und saftig.</span><span class="bsp-bg">Месото след часовете задушаване беше прекрасно нежно и сочно.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- WORTVERBINDUNGEN -->
+  <div class="modul-block wv" id="block-wv">
+    <div class="modul-header" onclick="toggleModul('wv')"><span class="modul-title"><span class="modul-badge">M 1–4</span>Wichtige Wortverbindungen</span><span class="modul-arrow open" id="arr-wv">▾</span></div>
+    <div class="modul-body show" id="body-wv">
+      <table class="vocab-table">
+        <thead><tr><th class="col-de">Deutsch</th><th class="col-expl">Erklärung</th><th class="col-bg">Български</th><th class="col-bsp">Beispielsatz</th></tr></thead>
+        <tbody>
+          <tr><td class="col-de">von etw. angetan sein</td><td class="col-expl">von etwas sehr begeistert, fasziniert oder beeindruckt sein</td><td class="col-bg">очарован съм от нещо; много ми харесва</td><td class="col-bsp"><span class="bsp-de">Er war sofort von der neuen Behandlungsmethode angetan und empfahl sie weiter.</span><span class="bsp-bg">Той веднага беше очарован от новия метод на лечение и го препоръча.</span></td></tr>
+          <tr><td class="col-de">etw. wärmt die Erinnerung an etw. auf</td><td class="col-expl">etwas ruft eine warme, angenehme oder nostalgische Erinnerung wach</td><td class="col-bg">нещо събужда топъл спомен; напомня приятно за</td><td class="col-bsp"><span class="bsp-de">Das alte Lied aus der Kindheit wärmt die Erinnerung an die Großmutter wunderbar auf.</span><span class="bsp-bg">Старата песен от детството прекрасно събужда топлия спомен за баба.</span></td></tr>
+          <tr><td class="col-de">eine Frage aufwerfen</td><td class="col-expl">eine wichtige oder schwierige Frage zur Diskussion stellen; ein Problem thematisieren</td><td class="col-bg">повдигам въпрос; поставям проблем за обсъждане</td><td class="col-bsp"><span class="bsp-de">Die neue Studie wirft wichtige ethische Fragen zur Gentechnik in der Medizin auf.</span><span class="bsp-bg">Новото изследване повдига важни етични въпроси за генното инженерство в медицината.</span></td></tr>
+          <tr><td class="col-de">sein Herz ausschütten</td><td class="col-expl">jemandem alle eigenen Gefühle und Sorgen anvertrauen; sich vollständig öffnen</td><td class="col-bg">излям сърцето си; споделям всичко; изповядвам се</td><td class="col-bsp"><span class="bsp-de">Bei ihrer besten Freundin konnte sie endlich ihr ganzes Herz ausschütten.</span><span class="bsp-bg">При най-добрата си приятелка тя най-накрая можа да излее цялото си сърце.</span></td></tr>
+          <tr><td class="col-de">etw. in sich hineinschaufeln</td><td class="col-expl">sehr schnell und hastig essen; Essen gierig und mechanisch verschlingen (umg., abwertend)</td><td class="col-bg">лопатя храна; гълтам набързо; ям механично</td><td class="col-bsp"><span class="bsp-de">Er schaufelt das Mittagessen in wenigen Minuten in sich hinein und geht wieder an die Arbeit.</span><span class="bsp-bg">Той поглъща обяда за няколко минути и се връща на работа.</span></td></tr>
+          <tr><td class="col-de">über etw. hinwegsehen<span class="col-gram">sieht, sah | über + Akk.</span></td><td class="col-expl">etwas absichtlich ignorieren oder nicht beachten; über Fehler hinwegschauen</td><td class="col-bg">затварям очи за нещо; прощавам; игнорирам</td><td class="col-bsp"><span class="bsp-de">Über kleine Ernährungssünden kann man gelegentlich hinwegsehen – die Gesamtbilanz zählt.</span><span class="bsp-bg">Понякога може да се затворят очи за малки хранителни грешки – важна е общата картина.</span></td></tr>
+          <tr><td class="col-de">auf etw. schwören<span class="col-gram">schwört, schwor | auf + Akk.</span></td><td class="col-expl">von etwas absolut überzeugt sein und es enthusiastisch empfehlen; blind vertrauen</td><td class="col-bg">кълна се в нещо; абсолютно вярвам в</td><td class="col-bsp"><span class="bsp-de">Sie schwört auf Hausmittel und lehnt chemische Medikamente grundsätzlich ab.</span><span class="bsp-bg">Тя се кълне в домашните лекове и по принцип отказва химически медикаменти.</span></td></tr>
+          <tr><td class="col-de">Sicherheit bringen / geben<span class="col-gram">bringt/gibt, brachte/gab</span></td><td class="col-expl">das Gefühl der Sicherheit oder Gewissheit vermitteln; verlässlich und stabil sein</td><td class="col-bg">внасям/давам сигурност; осигурявам стабилност</td><td class="col-bsp"><span class="bsp-de">Ein ausführliches Gespräch mit dem Arzt bringt viel Sicherheit und Klarheit.</span><span class="bsp-bg">Един обстоен разговор с лекаря внася много сигурност и яснота.</span></td></tr>
+          <tr><td class="col-de">etw. leichtfertig aufs Spiel setzen</td><td class="col-expl">etwas Wertvolles ohne ausreichendes Nachdenken riskieren; sorglos gefährden</td><td class="col-bg">залагам нещо безразсъдно; рискувам безгрижно</td><td class="col-bsp"><span class="bsp-de">Die eigene Gesundheit sollte man niemals leichtfertig aufs Spiel setzen.</span><span class="bsp-bg">Никога не бива безразсъдно да се залага собственото здраве на карта.</span></td></tr>
+          <tr><td class="col-de">sich etw. von der Seele reden</td><td class="col-expl">durch Reden innere Erleichterung bekommen; ein belastendes Geheimnis aussprechen</td><td class="col-bg">говоря за нещо, за да се облекча; сваля ми от душата</td><td class="col-bsp"><span class="bsp-de">Er redete sich den jahrelangen Stress in einer langen Therapiesitzung von der Seele.</span><span class="bsp-bg">Той си сне годишния стрес от душата в дълга терапевтична сесия.</span></td></tr>
+          <tr><td class="col-de">einen Unterschied ausmachen</td><td class="col-expl">für den entscheidenden Unterschied verantwortlich sein; wesentlich beeinflussen</td><td class="col-bg">правя разликата; имам решаващо значение</td><td class="col-bsp"><span class="bsp-de">Die richtige Ernährung macht einen enormen Unterschied für die langfristige Gesundheit aus.</span><span class="bsp-bg">Правилното хранене прави огромна разлика за дългосрочното здраве.</span></td></tr>
+          <tr><td class="col-de">etw. vergeht jmdm.<span class="col-gram">vergeht, verging | Dat.</span></td><td class="col-expl">jemand verliert die Lust oder das Verlangen nach etwas; der Appetit schwindet</td><td class="col-bg">минава ми; отминава ми желанието; губя апетит</td><td class="col-bsp"><span class="bsp-de">Beim Anblick der verbrannten Speisen verging ihr sofort der Appetit.</span><span class="bsp-bg">При вида на изгорялата храна апетитът й й мина незабавно.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+<script>
+function toggleModul(id) {
+  const body = document.getElementById('body-' + id);
+  const arr  = document.getElementById('arr-'  + id);
+  const open = body.classList.toggle('show');
+  arr.classList.toggle('open', open);
+}
+function filterWords(q) {
+  q = q.trim().toLowerCase();
+  document.querySelectorAll('.vocab-table tbody tr').forEach(row => {
+    row.classList.toggle('hidden-row', q.length > 0 && !row.textContent.toLowerCase().includes(q));
+  });
+  if (q.length > 0) {
+    ['m1','m2','m3','m4','wv'].forEach(id => {
+      document.getElementById('body-' + id).classList.add('show');
+      document.getElementById('arr-'  + id).classList.add('open');
+    });
+  }
+}
+</script>
+</body>
+</html>
